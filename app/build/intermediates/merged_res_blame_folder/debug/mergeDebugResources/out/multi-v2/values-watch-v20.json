@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.elias.manadiario.app-mergeDebugResources-52:/values-watch-v20/values-watch-v20.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Elias\\.gradle\\caches\\8.11.1\\transforms\\065ae74526d4ed3f747d6253b3937f38\\transformed\\appcompat-1.6.1\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "from": {
+                        "startLines": "2,5,8",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,214,385",
+                        "endLines": "4,7,10",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "209,380,553"
+                    }
+                }
+            ]
+        }
+    ]
+}

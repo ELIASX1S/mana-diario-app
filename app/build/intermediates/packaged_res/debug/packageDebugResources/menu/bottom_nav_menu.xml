@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Pão Diário" />
+
+    <item
+        android:id="@+id/nav_biblia"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Bíblia" />
+
+    <item
+        android:id="@+id/nav_jornada"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="Jornada" />
+
+    <item
+        android:id="@+id/navigation_louvor"
+        android:icon="@drawable/ic_music"
+        android:title="Louvor" />
+
+    <item
+        android:id="@+id/nav_mais"
+        android:icon="@drawable/ic_more"
+        android:title="Mais" />
+
+</menu>

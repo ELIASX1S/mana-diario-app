@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/cor_card"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp">
+
+        <TextView
+            android:id="@+id/favoriteReferenceTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="João 3:16"
+            android:textColor="@color/cor_primaria"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/favoriteVerseTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="4dp"
+            android:text="Porque Deus amou o mundo de tal maneira..."
+            android:textColor="@color/cor_texto_principal"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/copyFavoriteVerseButton"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Copiar"
+                android:padding="10dp"
+                android:src="@android:drawable/ic_menu_edit"
+                app:tint="@color/cor_primaria" />
+
+            <ImageButton
+                android:id="@+id/shareFavoriteVerseButton"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Compartilhar"
+                android:padding="10dp"
+                android:src="@drawable/ic_share"
+                app:tint="@color/cor_primaria" />
+
+            <ImageButton
+                android:id="@+id/removeFavoriteVerseButton"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Remover favorito"
+                android:padding="10dp"
+                android:src="@android:drawable/ic_menu_delete"
+                app:tint="@color/cor_primaria" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

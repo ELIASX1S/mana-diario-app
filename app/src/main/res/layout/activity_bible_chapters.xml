@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cor_fundo_app"
+    android:orientation="vertical"
+    tools:context=".BibleChaptersActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/bibleChaptersToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@drawable/bg_toolbar_home"
+        android:elevation="0dp"
+        android:paddingTop="6dp"
+        app:titleTextColor="@color/white" />
+
+    <TextView
+        android:id="@+id/bookSubtitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="12dp"
+        android:text="Escolha um capítulo para continuar"
+        android:textColor="@color/cor_texto_secundario"
+        android:textSize="14sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bibleChaptersRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingStart="12dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="12dp"
+        tools:listitem="@layout/item_bible_chapter" />
+
+</LinearLayout>

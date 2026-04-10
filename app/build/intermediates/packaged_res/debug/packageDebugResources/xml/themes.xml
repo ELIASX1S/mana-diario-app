@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="temas">
+        <item>@array/tema_fe</item>
+        <item>@array/tema_esperanca</item>
+        <item>@array/tema_amor</item>
+        <item>@array/tema_perdao</item>
+        <item>@array/tema_forca</item>
+    </array>
+
+    <string-array name="tema_fe">
+        <item>Fé</item>
+        <item>Ora, a fé é a certeza daquilo que esperamos e a prova das coisas que não vemos. (Hebreus 11:1)</item>
+        <item>Porque vivemos por fé, e não pelo que vemos. (2 Coríntios 5:7)</item>
+        <item>De fato, sem fé é impossível agradar a Deus. (Hebreus 11:6)</item>
+    </string-array>
+
+    <string-array name="tema_esperanca">
+        <item>Esperança</item>
+        <item>Mas os que esperam no Senhor renovarão as suas forças. (Isaías 40:31)</item>
+        <item>Que o Deus da esperança os encha de toda alegria e paz, por sua confiança nele. (Romanos 15:13)</item>
+        <item>Alegrem-se na esperança, sejam pacientes na tribulação, perseverem na oração. (Romanos 12:12)</item>
+    </string-array>
+
+    <string-array name="tema_amor">
+        <item>Amor</item>
+        <item>O amor é paciente, o amor é bondoso. (1 Coríntios 13:4)</item>
+        <item>Acima de tudo, porém, revistam-se do amor, que é o elo perfeito. (Colossenses 3:14)</item>
+        <item>Nisto todos conhecerão que sois meus discípulos, se vos amardes uns aos outros. (João 13:35)</item>
+    </string-array>
+
+    <string-array name="tema_perdao">
+        <item>Perdão</item>
+        <item>Sejam bondosos e compassivos uns para com os outros, perdoando-se mutuamente, assim como Deus os perdoou em Cristo. (Efésios 4:32)</item>
+        <item>Pois, se perdoarem as ofensas uns dos outros, o Pai celestial também lhes perdoará. (Mateus 6:14)</item>
+        <item>O amor perdoa muitíssimos pecados. (1 Pedro 4:8)</item>
+    </string-array>
+
+    <string-array name="tema_forca">
+        <item>Força</item>
+        <item>Tudo posso naquele que me fortalece. (Filipenses 4:13)</item>
+        <item>O Senhor é a minha força e o meu escudo; nele o meu coração confia. (Salmos 28:7)</item>
+        <item>Sejam fortes e corajosos. Não tenham medo, pois o Senhor, o seu Deus, vai com vocês. (Deuteronômio 31:6)</item>
+    </string-array>
+</resources>

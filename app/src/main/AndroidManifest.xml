@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <application
+        android:name=".ManaDiarioApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ManaDiario"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".PlayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VersesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ThemesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavoritesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".NotificationReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.elias.manadiario.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1398532019315738~1964825889" />
+
+        <activity
+            android:name=".DevotionalDayActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ChoosePlanActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".JourneyActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".BibleBooksActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".BibleChaptersActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".BibleVersesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".BibleSearchActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".BibleFavoritesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".BibleFavoritesActivity"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

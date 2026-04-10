@@ -1,0 +1,502 @@
+[
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_bg_menu_item.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\bg_menu_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_bg_bottom_nav_premium.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\bg_bottom_nav_premium.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_bible_chapters.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_bible_chapters.xml"
+    },
+    {
+        "merged": "com.elias.manadiario.app-debug-54:/drawable_ic_favoritos.xml.flat",
+        "source": "com.elias.manadiario.app-main-56:/drawable/ic_favoritos.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_bg_plan_badge.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\bg_plan_badge.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_devotional_day.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_devotional_day.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xhdpi_ic_logo_round.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xhdpi\\ic_logo_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_bg_item_verso.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\bg_item_verso.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\menu_main_menu.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\menu\\main_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_outline_play_disabled_24.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\outline_play_disabled_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_card5.png.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\card5.png"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-hdpi_ic_logo.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-hdpi\\ic_logo.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_fragment_caixinha.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\fragment_caixinha.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_home.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_fragment_louvor.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\fragment_louvor.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_verso.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_verso.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_icon_menu.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\icon_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_star_border.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_star_border.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-mdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xhdpi_ic_logo_foreground.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xhdpi\\ic_logo_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_card6.png.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\card6.png"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_caixa.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_caixa.xml"
+    },
+    {
+        "merged": "com.elias.manadiario.app-debug-54:/drawable_ic_promessas.xml.flat",
+        "source": "com.elias.manadiario.app-main-56:/drawable/ic_promessas.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_bible_favorites.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_bible_favorites.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxxhdpi_ic_logo_round.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxxhdpi\\ic_logo_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_player2.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_player2.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_bible_search.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_bible_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_bible_verses.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_bible_verses.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_presente.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_presente.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxxhdpi_ic_logo.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxxhdpi\\ic_logo.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxxhdpi_ic_logo_foreground.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxxhdpi\\ic_logo_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_imagem.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_imagem.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_gradient_scrim.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\gradient_scrim.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_more.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_more.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_bottom_sheet_mais_opcoes.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\bottom_sheet_mais_opcoes.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_card8.png.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\card8.png"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_video_placeholder.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_video_placeholder.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_logo_background.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_logo_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_bible_favorite.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_bible_favorite.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-hdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.elias.manadiario.app-debug-54:/drawable_ic_temas.xml.flat",
+        "source": "com.elias.manadiario.app-main-56:/drawable/ic_temas.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\raw_mensagens.txt.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\raw\\mensagens.txt"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\xml_themes.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\xml\\themes.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_card10.png.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\card10.png"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_theme.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_theme.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_favorites.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_favorites.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\menu_bottom_nav_menu.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\menu\\bottom_nav_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_bg_item_favorite.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\bg_item_favorite.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-anydpi-v26_ic_logo.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-anydpi-v26\\ic_logo.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_rounded_corners_bottom_sheet.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\rounded_corners_bottom_sheet.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_bible_book.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_bible_book.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\xml_provider_paths.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\xml\\provider_paths.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxhdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_journey.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_journey.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_music.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_music.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_card9.png.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\card9.png"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-mdpi_ic_logo_round.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-mdpi\\ic_logo_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxxhdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_card2.png.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\card2.png"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_video.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_video.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_bg_botoes_home.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\bg_botoes_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_settings.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxhdpi_ic_logo_foreground.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxhdpi\\ic_logo_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_fragment_mensagem.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\fragment_mensagem.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\xml_preferences.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\xml\\preferences.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_library.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_library.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_card3.png.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\card3.png"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_bg_bottom_nav.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\bg_bottom_nav.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_plan.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_plan.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_verses.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_verses.xml"
+    },
+    {
+        "merged": "com.elias.manadiario.app-debug-54:/drawable_ic_buscar.xml.flat",
+        "source": "com.elias.manadiario.app-main-56:/drawable/ic_buscar.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_share_layout.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\share_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_themes.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_themes.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_fragment_library.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\fragment_library.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_star_filled.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_star_filled.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_bible_books.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_bible_books.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxhdpi_ic_logo.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxhdpi\\ic_logo.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_bible_chapter.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_bible_chapter.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\color_bottom_nav_item_colors.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\color\\bottom_nav_item_colors.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-mdpi_ic_logo.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-mdpi\\ic_logo.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_favorites_list.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_favorites_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-mdpi_ic_logo_foreground.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-mdpi\\ic_logo_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_card7.png.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\card7.png"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-hdpi_ic_logo_foreground.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-hdpi\\ic_logo_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_galeria.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_galeria.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_circle_background.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\circle_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xxhdpi_ic_logo_round.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xxhdpi\\ic_logo_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_bg_item_theme.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\bg_item_theme.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_bible_search.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_bible_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_mais_opcao.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_mais_opcao.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_outline_play_circle_24.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\outline_play_circle_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_settings.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xhdpi\\ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_bg_toolbar_home.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\bg_toolbar_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_choose_plan.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_choose_plan.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_fragment_favorites.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\fragment_favorites.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_card4.png.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\card4.png"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-xhdpi_ic_logo.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-xhdpi\\ic_logo.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_mensagem.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_mensagem.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_favorite.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_favorite.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_share.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_share.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_ic_play_circle.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\ic_play_circle.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_item_bible_verse.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\item_bible_verse.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-hdpi_ic_logo_round.webp.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-hdpi\\ic_logo_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\layout_activity_player.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\layout\\activity_player.xml"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\drawable_card1.png.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\drawable\\card1.png"
+    },
+    {
+        "merged": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-debug-54:\\mipmap-anydpi-v26_ic_logo_round.xml.flat",
+        "source": "C:\\Users\\Elias\\.gradle\\daemon\\8.11.1\\com.elias.manadiario.app-main-56:\\mipmap-anydpi-v26\\ic_logo_round.xml"
+    }
+]

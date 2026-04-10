@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="font_size_entries">
+        <item>Pequeno</item>
+        <item>Médio</item>
+        <item>Grande</item>
+    </string-array>
+    <string-array name="font_size_values">
+        <item>pequeno</item>
+        <item>medio</item>
+        <item>grande</item>
+    </string-array>
+
+    <string-array name="tema_fe">
+        <item>Fé</item>
+        <item>Ora, a fé é a certeza daquilo que esperamos. (Hebreus 11:1)</item>
+        <item>Porque vivemos por fé, e não pelo que vemos. (2 Coríntios 5:7)</item>
+    </string-array>
+
+    <string-array name="tema_esperanca">
+        <item>Esperança</item>
+        <item>Mas os que esperam no Senhor renovarão as forças. (Isaías 40:31)</item>
+    </string-array>
+
+    <string-array name="tema_amor">
+        <item>Amor</item>
+        <item>O amor é paciente, o amor é bondoso. (1 Coríntios 13:4)</item>
+    </string-array>
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="28dp">
+
+    <ImageView
+        android:id="@+id/imgLogoShare"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="16dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:text="Maná Diário"
+        android:textColor="@color/cor_primaria"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="48dp"
+        android:layout_height="3dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/cor_destaque" />
+
+    <TextView
+        android:id="@+id/tvShareVerse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:gravity="center"
+        android:lineSpacingExtra="6dp"
+        android:text="Versículo vai aparecer aqui..."
+        android:textColor="@color/cor_texto_principal"
+        android:textSize="20sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Baixe grátis na Play Store"
+        android:textColor="@color/cor_texto_secundario"
+        android:textSize="12sp" />
+
+</LinearLayout>

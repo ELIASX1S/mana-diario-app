@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="cor_botao">#81D4FA</color>
+    <color name="cor_card">#2C2C2C</color>
+    <color name="cor_fundo_app">#121212</color>
+    <color name="cor_texto_botao">#000000</color>
+    <color name="cor_texto_principal">#E0E0E0</color>
+    <color name="white">#FFFFFFFF</color>
+    <style name="Theme.ManaDiario" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/cor_primaria</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/cor_secundaria</item>
+    </style>
+</resources>

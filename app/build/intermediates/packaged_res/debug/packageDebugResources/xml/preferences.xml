@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Aparência">
+
+        <SwitchPreferenceCompat
+            app:key="tema_escuro"
+            app:title="Ativar Tema Escuro"
+            app:summary="Muda a aparência do app para cores escuras." />
+
+        <ListPreference
+            app:key="tamanho_fonte"
+            app:title="Tamanho da Fonte"
+            app:summary="Escolha o tamanho do texto das frases"
+            app:entries="@array/font_size_entries"
+            app:entryValues="@array/font_size_values"
+            app:defaultValue="medio" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Notificações">
+
+        <SwitchPreferenceCompat
+            app:key="notificacoes"
+            app:title="Receber notificação diária"
+            app:summary="Mostra a frase do dia às 8h da manhã"
+            app:defaultValue="true" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
