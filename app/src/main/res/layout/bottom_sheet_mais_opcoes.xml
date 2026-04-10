@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#F8F8F8"
+    android:background="@color/cor_fundo_app"
     android:paddingStart="20dp"
     android:paddingTop="12dp"
     android:paddingEnd="20dp"
@@ -14,14 +14,14 @@
         android:layout_height="5dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
-        android:background="#D7DDE7" />
+        android:background="@color/cor_divider" />
 
     <TextView
         android:id="@+id/textTituloMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Acesso rápido"
-        android:textColor="#1E2430"
+        android:text="@string/quick_access_title"
+        android:textColor="@color/cor_texto_principal"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -31,8 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="18dp"
-        android:text="Escolha uma opção do menu"
-        android:textColor="#7B8494"
+        android:text="@string/quick_access_subtitle"
+        android:textColor="@color/cor_texto_secundario"
         android:textSize="13sp" />
 
     <androidx.recyclerview.widget.RecyclerView
