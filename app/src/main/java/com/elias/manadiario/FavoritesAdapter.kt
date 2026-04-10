@@ -16,6 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 
 class FavoritesAdapter(private val favoritesList: MutableList<String>) :
     RecyclerView.Adapter<FavoritesAdapter.FavoriteViewHolder>() {
+    private companion object {
+        const val MENU_COPY_ID = 1
+        const val MENU_SHARE_ID = 2
+        const val MENU_REMOVE_ID = 3
+    }
 
     class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val favoriteTextView: TextView = itemView.findViewById(R.id.favoriteTextView)
@@ -49,21 +54,21 @@ class FavoritesAdapter(private val favoritesList: MutableList<String>) :
     private fun mostrarMenu(context: Context, anchorView: View, position: Int) {
         val popupMenu = PopupMenu(context, anchorView)
 
-        popupMenu.menu.add("Copiar")
-        popupMenu.menu.add("Compartilhar")
-        popupMenu.menu.add("Excluir dos Favoritos")
+        popupMenu.menu.add(0, MENU_COPY_ID, 0, context.getString(R.string.menu_copy))
+        popupMenu.menu.add(0, MENU_SHARE_ID, 1, context.getString(R.string.menu_share))
+        popupMenu.menu.add(0, MENU_REMOVE_ID, 2, context.getString(R.string.menu_remove_from_favorites))
 
         popupMenu.setOnMenuItemClickListener { item ->
-            when (item.title.toString()) {
-                "Copiar" -> {
+            when (item.itemId) {
+                MENU_COPY_ID -> {
                     copiarTexto(context, favoritesList[position])
                     true
                 }
-                "Compartilhar" -> {
+                MENU_SHARE_ID -> {
                     compartilharTexto(context, favoritesList[position])
                     true
                 }
-                "Excluir dos Favoritos" -> {
+                MENU_REMOVE_ID -> {
                     excluirFavorito(context, position)
                     true
                 }
@@ -76,25 +81,25 @@ class FavoritesAdapter(private val favoritesList: MutableList<String>) :
 
     private fun copiarTexto(context: Context, texto: String) {
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("versiculo", texto)
+        val clip = ClipData.newPlainText(context.getString(R.string.clip_label_verse), texto)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(context, "Versículo copiado!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.toast_verse_copied), Toast.LENGTH_SHORT).show()
     }
 
     private fun compartilharTexto(context: Context, texto: String) {
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, "Olha esse versículo:\n\n$texto")
+            putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_verse_message, texto))
         }
 
         try {
             context.startActivity(
-                Intent.createChooser(shareIntent, "Compartilhar versículo via")
+                Intent.createChooser(shareIntent, context.getString(R.string.share_verse_chooser_title))
             )
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(
                 context,
-                "Nenhum aplicativo encontrado para compartilhar.",
+                context.getString(R.string.error_no_app_to_share),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -116,6 +121,6 @@ class FavoritesAdapter(private val favoritesList: MutableList<String>) :
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, favoritesList.size)
 
-        Toast.makeText(context, "Removido dos favoritos!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.toast_removed_from_favorites), Toast.LENGTH_SHORT).show()
     }
 }

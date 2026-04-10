@@ -2,14 +2,22 @@ package com.elias.manadiario
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.chip.ChipGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class BibleBooksActivity : AppCompatActivity() {
 
     private lateinit var booksRecyclerView: RecyclerView
+    private lateinit var searchView: SearchView
+    private lateinit var filterChipGroup: ChipGroup
     private lateinit var adapter: BibleBookAdapter
+    private lateinit var allBooks: List<BibleBook>
+    private var currentFilter: TestamentFilter = TestamentFilter.ALL
+
+    private enum class TestamentFilter { ALL, OLD_TESTAMENT, NEW_TESTAMENT }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,20 +25,59 @@ class BibleBooksActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.bibleBooksToolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Bíblia"
+        supportActionBar?.title = getString(R.string.nav_bible_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        searchView = findViewById(R.id.bibleSearchView)
+        filterChipGroup = findViewById(R.id.bibleFilterChipGroup)
         booksRecyclerView = findViewById(R.id.bibleBooksRecyclerView)
         booksRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        val books = getBibleBooks()
-        adapter = BibleBookAdapter(books)
+        allBooks = getBibleBooks()
+        adapter = BibleBookAdapter(allBooks)
         booksRecyclerView.adapter = adapter
+        setupFilters()
 
         // Pré-carrega a Bíblia em segundo plano
         Thread {
             BibleRepository.preload(applicationContext)
         }.start()
+    }
+
+    private fun setupFilters() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextChange(newText: String?): Boolean {
+                applyFilters(newText.orEmpty())
+                return true
+            }
+        })
+
+        filterChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
+            currentFilter = when (checkedIds.firstOrNull()) {
+                R.id.chipOldTestament -> TestamentFilter.OLD_TESTAMENT
+                R.id.chipNewTestament -> TestamentFilter.NEW_TESTAMENT
+                else -> TestamentFilter.ALL
+            }
+            applyFilters(searchView.query?.toString().orEmpty())
+        }
+    }
+
+    private fun applyFilters(query: String) {
+        val normalizedQuery = query.trim()
+        val filteredByTestament = when (currentFilter) {
+            TestamentFilter.ALL -> allBooks
+            TestamentFilter.OLD_TESTAMENT -> allBooks.take(39)
+            TestamentFilter.NEW_TESTAMENT -> allBooks.drop(39)
+        }
+
+        val finalList = if (normalizedQuery.isBlank()) {
+            filteredByTestament
+        } else {
+            filteredByTestament.filter { it.nome.contains(normalizedQuery, ignoreCase = true) }
+        }
+
+        adapter.updateData(finalList)
     }
 
     private fun getBibleBooks(): List<BibleBook> {
