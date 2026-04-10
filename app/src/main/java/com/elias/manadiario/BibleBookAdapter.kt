@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class BibleBookAdapter(
-    private val books: List<BibleBook>
+    private var books: List<BibleBook>
 ) : RecyclerView.Adapter<BibleBookAdapter.BibleBookViewHolder>() {
 
     class BibleBookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,12 +24,12 @@ class BibleBookAdapter(
 
     override fun onBindViewHolder(holder: BibleBookViewHolder, position: Int) {
         val book = books[position]
+        val context = holder.itemView.context
 
         holder.nomeTextView.text = book.nome
-        holder.capitulosTextView.text = "${book.capitulos} capítulos"
+        holder.capitulosTextView.text = context.getString(R.string.book_chapters_count, book.capitulos)
 
         holder.itemView.setOnClickListener {
-            val context = holder.itemView.context
             val intent = Intent(context, BibleChaptersActivity::class.java).apply {
                 putExtra("BOOK_NAME", book.nome)
                 putExtra("BOOK_KEY", book.chave)
@@ -40,4 +40,9 @@ class BibleBookAdapter(
     }
 
     override fun getItemCount(): Int = books.size
+
+    fun updateData(newBooks: List<BibleBook>) {
+        books = newBooks
+        notifyDataSetChanged()
+    }
 }

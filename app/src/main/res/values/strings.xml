@@ -71,6 +71,13 @@
     <string name="message_placeholder">A esperança que Deus coloca no seu coração é a certeza de que dias melhores estão por vir.</string>
     <string name="button_new_message">Nova Mensagem</string>
     <string name="button_share_blessing">Compartilhar Bênção</string>
+    <string name="bible_books_title">Livros da Bíblia</string>
+    <string name="bible_books_subtitle">Escolha um livro para ver os capítulos.</string>
+    <string name="bible_books_search_hint">Buscar livro</string>
+    <string name="bible_filter_all">Todos</string>
+    <string name="bible_filter_old_testament">Antigo Testamento</string>
+    <string name="bible_filter_new_testament">Novo Testamento</string>
+    <string name="book_chapters_count">%1$d capítulos</string>
 
     <string-array name="versiculos_principais">
         <item>O Senhor é o meu pastor; de nada terei falta. (Salmos 23:1)</item>
