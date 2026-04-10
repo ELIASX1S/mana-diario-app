@@ -32,13 +32,13 @@ class MainActivity : AppCompatActivity() {
 
     private val opcoesMais by lazy {
         listOf(
-            MaisOpcao("premium", getString(R.string.option_premium), R.drawable.ic_star_filled),
-            MaisOpcao("temas", getString(R.string.option_themes), R.drawable.ic_temas),
-            MaisOpcao("buscar_biblia", getString(R.string.option_search_bible), R.drawable.ic_buscar),
-            MaisOpcao("versiculos_favoritos", getString(R.string.option_favorite_verses), R.drawable.ic_favoritos),
-            MaisOpcao("caixinha", getString(R.string.option_promise_box), R.drawable.ic_promessas),
-            MaisOpcao("favoritos", getString(R.string.option_favorites), R.drawable.ic_favoritos),
-            MaisOpcao("mensagem_fe", getString(R.string.option_faith_message), R.drawable.ic_mensagem)
+            MaisOpcao(MaisOpcao.ID_PREMIUM, getString(R.string.option_premium), R.drawable.ic_star_filled),
+            MaisOpcao(MaisOpcao.ID_THEMES, getString(R.string.option_themes), R.drawable.ic_temas),
+            MaisOpcao(MaisOpcao.ID_SEARCH_BIBLE, getString(R.string.option_search_bible), R.drawable.ic_buscar),
+            MaisOpcao(MaisOpcao.ID_FAVORITE_VERSES, getString(R.string.option_favorite_verses), R.drawable.ic_favoritos),
+            MaisOpcao(MaisOpcao.ID_PROMISE_BOX, getString(R.string.option_promise_box), R.drawable.ic_promessas),
+            MaisOpcao(MaisOpcao.ID_FAVORITES, getString(R.string.option_favorites), R.drawable.ic_favoritos),
+            MaisOpcao(MaisOpcao.ID_FAITH_MESSAGE, getString(R.string.option_faith_message), R.drawable.ic_mensagem)
         )
     }
 
@@ -111,29 +111,33 @@ class MainActivity : AppCompatActivity() {
     private fun abrirMenuMais() {
         val bottomSheet = MaisOpcoesBottomSheet(opcoesMais) { opcaoSelecionada ->
             when (opcaoSelecionada.id) {
-                "premium" -> {
+                MaisOpcao.ID_PREMIUM -> {
                     startActivity(Intent(this, PremiumActivity::class.java))
                 }
 
-                "temas" -> replaceFragment(LibraryFragment())
+                MaisOpcao.ID_THEMES -> replaceFragment(LibraryFragment())
 
-                "buscar_biblia" -> {
+                MaisOpcao.ID_SEARCH_BIBLE -> {
                     startActivity(Intent(this, BibleSearchActivity::class.java))
                 }
 
-                "versiculos_favoritos" -> {
+                MaisOpcao.ID_FAVORITE_VERSES -> {
                     startActivity(Intent(this, BibleFavoritesActivity::class.java))
                 }
 
-                "caixinha" -> replaceFragment(CaixinhaFragment())
+                MaisOpcao.ID_PROMISE_BOX -> replaceFragment(CaixinhaFragment())
 
-                "favoritos" -> {
+                MaisOpcao.ID_FAVORITES -> {
                     startActivity(Intent(this, FavoritesActivity::class.java))
                 }
 
-                "mensagem_fe" -> mostrarAnuncioEAbrirMensagem()
+                MaisOpcao.ID_FAITH_MESSAGE -> mostrarAnuncioEAbrirMensagem()
 
-                else -> Toast.makeText(this, "Opção ${opcaoSelecionada.titulo}", Toast.LENGTH_SHORT).show()
+                else -> Toast.makeText(
+                    this,
+                    getString(R.string.toast_unknown_option, opcaoSelecionada.titulo),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 

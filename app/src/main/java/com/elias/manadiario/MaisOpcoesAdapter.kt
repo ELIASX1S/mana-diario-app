@@ -29,7 +29,7 @@ class MaisOpcoesAdapter(
         holder.textoOpcao.text = opcao.titulo
         holder.imgIcon.setImageResource(opcao.iconRes)
 
-        if (opcao.id == "premium") {
+        if (opcao.id == MaisOpcao.ID_PREMIUM) {
             holder.itemView.setBackgroundResource(R.drawable.bg_menu_item_premium)
             holder.textoOpcao.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.cor_primaria))
             holder.imgIcon.setColorFilter(ContextCompat.getColor(holder.itemView.context, R.color.cor_destaque))

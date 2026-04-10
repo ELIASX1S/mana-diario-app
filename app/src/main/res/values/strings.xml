@@ -51,6 +51,12 @@
     <string name="option_faith_message">Mensagem de Fé</string>
     <string name="quick_access_title">Acesso rápido</string>
     <string name="quick_access_subtitle">Escolha uma opção do menu</string>
+    <string name="nav_home_title">Pão Diário</string>
+    <string name="nav_bible_title">Bíblia</string>
+    <string name="nav_journey_title">Jornada</string>
+    <string name="nav_worship_title">Louvor</string>
+    <string name="nav_more_title">Mais</string>
+    <string name="toast_unknown_option">Opção %1$s</string>
 
     <string-array name="versiculos_principais">
         <item>O Senhor é o meu pastor; de nada terei falta. (Salmos 23:1)</item>
