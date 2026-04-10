@@ -112,7 +112,11 @@ class MainActivity : AppCompatActivity() {
         val bottomSheet = MaisOpcoesBottomSheet(opcoesMais) { opcaoSelecionada ->
             when (opcaoSelecionada.id) {
                 MaisOpcao.ID_PREMIUM -> {
-                    startActivity(Intent(this, PremiumActivity::class.java))
+                    Toast.makeText(
+                        this,
+                        getString(R.string.premium_coming_soon_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 MaisOpcao.ID_THEMES -> replaceFragment(LibraryFragment())
