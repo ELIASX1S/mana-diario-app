@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import java.io.IOException
 
 class MensagemFragment : Fragment() {
 
@@ -39,7 +38,7 @@ class MensagemFragment : Fragment() {
         if (mensagens.isNotEmpty()) {
             mostrarMensagemAleatoria()
         } else {
-            mensagemTextView.text = "Erro ao carregar mensagens."
+            mensagemTextView.text = getString(R.string.message_load_error)
         }
 
         // 3. Ações dos Botões
@@ -66,17 +65,17 @@ class MensagemFragment : Fragment() {
         val mensagem = mensagemTextView.text.toString()
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, "Mensagem de Fé do Maná Diário:\n\n$mensagem")
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message_of_faith, mensagem))
         }
-        startActivity(Intent.createChooser(intent, "Compartilhar via"))
+        startActivity(Intent.createChooser(intent, getString(R.string.share_via)))
     }
 
     private fun copiarMensagem() {
         val mensagem = mensagemTextView.text.toString()
         val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("mensagem", mensagem)
+        val clip = ClipData.newPlainText(getString(R.string.clip_label_message), mensagem)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(requireContext(), "Mensagem copiada!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(R.string.message_copied), Toast.LENGTH_SHORT).show()
     }
 
     private fun carregarMensagensDoArquivo(): List<String> {
@@ -84,12 +83,7 @@ class MensagemFragment : Fragment() {
             val inputStream = resources.openRawResource(R.raw.mensagens)
             inputStream.bufferedReader().useLines { it.toList() }.filter { it.isNotBlank() }
         } catch (e: Exception) {
-            // Caso dê erro ou arquivo não exista, usa uma lista de emergência
-            listOf(
-                "Tudo posso naquele que me fortalece. (Filipenses 4:13)",
-                "O Senhor é o meu pastor e nada me faltará. (Salmos 23:1)",
-                "A alegria do Senhor é a vossa força. (Neemias 8:10)"
-            )
+            resources.getStringArray(R.array.mensagens_fallback).toList()
         }
     }
 }

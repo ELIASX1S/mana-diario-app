@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Maná Diário"
+        app:title="@string/app_name"
         app:titleTextColor="@color/white" />
 
     <androidx.cardview.widget.CardView
@@ -55,8 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="0.12"
-                android:text="PALAVRA DO DIA"
-                android:textColor="#B8BFCB"
+                android:text="@string/home_badge_daily_word"
+                android:textColor="@color/cor_texto_secundario"
                 android:textSize="10sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="@id/cardHeader"
@@ -91,7 +91,7 @@
                 android:layout_marginEnd="28dp"
                 android:gravity="center"
                 android:lineSpacingExtra="4dp"
-                android:textColor="#6B7280"
+                android:textColor="@color/cor_texto_secundario"
                 android:textSize="15sp"
                 android:textStyle="normal"
                 app:layout_constraintTop_toBottomOf="@id/versiculoPrincipalTextView"
@@ -147,7 +147,7 @@
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Favoritar"
+                    android:contentDescription="@string/cd_favorite"
                     android:padding="12dp"
                     app:srcCompat="@drawable/ic_star_border"
                     app:tint="@color/cor_primaria" />
@@ -159,7 +159,7 @@
                     android:layout_marginStart="28dp"
                     android:layout_marginEnd="28dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Ouvir"
+                    android:contentDescription="@string/cd_listen"
                     android:padding="12dp"
                     app:srcCompat="@drawable/ic_play_circle"
                     app:tint="@color/cor_primaria" />
@@ -169,7 +169,7 @@
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Compartilhar"
+                    android:contentDescription="@string/cd_share"
                     android:padding="12dp"
                     app:srcCompat="@drawable/ic_share"
                     app:tint="@color/cor_primaria" />
