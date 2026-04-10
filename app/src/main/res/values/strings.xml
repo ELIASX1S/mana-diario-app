@@ -78,6 +78,9 @@
     <string name="bible_filter_old_testament">Antigo Testamento</string>
     <string name="bible_filter_new_testament">Novo Testamento</string>
     <string name="book_chapters_count">%1$d capítulos</string>
+    <string name="bible_continue_reading_title">Continue lendo</string>
+    <string name="bible_continue_reading_subtitle">Você parou em %1$s</string>
+    <string name="bible_continue_reading_button">Retomar</string>
 
     <string-array name="versiculos_principais">
         <item>O Senhor é o meu pastor; de nada terei falta. (Salmos 23:1)</item>

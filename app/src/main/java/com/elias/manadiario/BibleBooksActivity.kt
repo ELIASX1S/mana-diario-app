@@ -1,18 +1,32 @@
 package com.elias.manadiario
 
 import android.os.Bundle
+import android.content.Intent
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class BibleBooksActivity : AppCompatActivity() {
+    companion object {
+        private const val PREFS_BIBLE = "bible_prefs"
+        private const val KEY_LAST_BOOK_NAME = "last_book_name"
+        private const val KEY_LAST_BOOK_KEY = "last_book_key"
+        private const val KEY_LAST_BOOK_CHAPTERS = "last_book_chapters"
+    }
 
     private lateinit var booksRecyclerView: RecyclerView
     private lateinit var searchView: SearchView
     private lateinit var filterChipGroup: ChipGroup
+    private lateinit var continueCard: View
+    private lateinit var continueTitle: TextView
+    private lateinit var continueSubtitle: TextView
+    private lateinit var continueButton: MaterialButton
     private lateinit var adapter: BibleBookAdapter
     private lateinit var allBooks: List<BibleBook>
     private var currentFilter: TestamentFilter = TestamentFilter.ALL
@@ -30,18 +44,58 @@ class BibleBooksActivity : AppCompatActivity() {
 
         searchView = findViewById(R.id.bibleSearchView)
         filterChipGroup = findViewById(R.id.bibleFilterChipGroup)
+        continueCard = findViewById(R.id.continueReadingCard)
+        continueTitle = findViewById(R.id.continueReadingTitle)
+        continueSubtitle = findViewById(R.id.continueReadingSubtitle)
+        continueButton = findViewById(R.id.continueReadingButton)
         booksRecyclerView = findViewById(R.id.bibleBooksRecyclerView)
         booksRecyclerView.layoutManager = LinearLayoutManager(this)
 
         allBooks = getBibleBooks()
-        adapter = BibleBookAdapter(allBooks)
+        adapter = BibleBookAdapter { book -> saveLastBook(book) }
         booksRecyclerView.adapter = adapter
+        adapter.submitList(allBooks)
         setupFilters()
+        setupContinueReading()
 
         // Pré-carrega a Bíblia em segundo plano
         Thread {
             BibleRepository.preload(applicationContext)
         }.start()
+    }
+
+    private fun setupContinueReading() {
+        val prefs = getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
+        val bookName = prefs.getString(KEY_LAST_BOOK_NAME, null)
+        val bookKey = prefs.getString(KEY_LAST_BOOK_KEY, null)
+        val chapters = prefs.getInt(KEY_LAST_BOOK_CHAPTERS, -1)
+
+        if (bookName.isNullOrBlank() || bookKey.isNullOrBlank() || chapters <= 0) {
+            continueCard.visibility = View.GONE
+            return
+        }
+
+        continueCard.visibility = View.VISIBLE
+        continueTitle.text = getString(R.string.bible_continue_reading_title)
+        continueSubtitle.text = getString(R.string.bible_continue_reading_subtitle, bookName)
+        continueButton.setOnClickListener {
+            val intent = Intent(this, BibleChaptersActivity::class.java).apply {
+                putExtra("BOOK_NAME", bookName)
+                putExtra("BOOK_KEY", bookKey)
+                putExtra("BOOK_CHAPTERS", chapters)
+            }
+            startActivity(intent)
+        }
+    }
+
+    private fun saveLastBook(book: BibleBook) {
+        getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
+            .edit()
+            .putString(KEY_LAST_BOOK_NAME, book.nome)
+            .putString(KEY_LAST_BOOK_KEY, book.chave)
+            .putInt(KEY_LAST_BOOK_CHAPTERS, book.capitulos)
+            .apply()
+        setupContinueReading()
     }
 
     private fun setupFilters() {
@@ -77,7 +131,7 @@ class BibleBooksActivity : AppCompatActivity() {
             filteredByTestament.filter { it.nome.contains(normalizedQuery, ignoreCase = true) }
         }
 
-        adapter.updateData(finalList)
+        adapter.submitList(finalList)
     }
 
     private fun getBibleBooks(): List<BibleBook> {

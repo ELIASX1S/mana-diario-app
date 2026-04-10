@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
@@ -67,6 +68,17 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
 
         adView = findViewById(R.id.adViewMain)
+        adView.visibility = android.view.View.GONE
+        adView.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                adView.visibility = android.view.View.VISIBLE
+            }
+
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                adView.visibility = android.view.View.GONE
+            }
+        }
+
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
 
