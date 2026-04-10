@@ -7,3 +7,5 @@ captures/
 .externalNativeBuild/
 .cxx/
 .DS_Store
+*.jks
+*.pem
