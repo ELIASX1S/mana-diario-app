@@ -129,12 +129,24 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bibleBooksRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingStart="12dp"
         android:paddingTop="6dp"
         android:paddingEnd="12dp"
         android:paddingBottom="12dp"
         tools:listitem="@layout/item_bible_book" />
+
+    <TextView
+        android:id="@+id/bibleEmptyStateText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/bible_books_empty_state"
+        android:textColor="@color/cor_texto_secundario"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
 </LinearLayout>

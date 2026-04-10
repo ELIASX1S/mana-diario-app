@@ -21,6 +21,7 @@ class BibleBooksActivity : AppCompatActivity() {
     }
 
     private lateinit var booksRecyclerView: RecyclerView
+    private lateinit var emptyStateText: TextView
     private lateinit var searchView: SearchView
     private lateinit var filterChipGroup: ChipGroup
     private lateinit var continueCard: View
@@ -49,12 +50,14 @@ class BibleBooksActivity : AppCompatActivity() {
         continueSubtitle = findViewById(R.id.continueReadingSubtitle)
         continueButton = findViewById(R.id.continueReadingButton)
         booksRecyclerView = findViewById(R.id.bibleBooksRecyclerView)
+        emptyStateText = findViewById(R.id.bibleEmptyStateText)
         booksRecyclerView.layoutManager = LinearLayoutManager(this)
 
         allBooks = getBibleBooks()
         adapter = BibleBookAdapter { book -> saveLastBook(book) }
         booksRecyclerView.adapter = adapter
         adapter.submitList(allBooks)
+        updateEmptyState(allBooks)
         setupFilters()
         setupContinueReading()
 
@@ -132,6 +135,15 @@ class BibleBooksActivity : AppCompatActivity() {
         }
 
         adapter.submitList(finalList)
+        updateEmptyState(finalList)
+    }
+
+    private fun updateEmptyState(books: List<BibleBook>) {
+        if (books.isEmpty()) {
+            emptyStateText.visibility = View.VISIBLE
+        } else {
+            emptyStateText.visibility = View.GONE
+        }
     }
 
     private fun getBibleBooks(): List<BibleBook> {
