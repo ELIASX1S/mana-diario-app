@@ -57,6 +57,17 @@
     <string name="nav_worship_title">Louvor</string>
     <string name="nav_more_title">Mais</string>
     <string name="toast_unknown_option">Opção %1$s</string>
+    <string name="home_badge_daily_word">PALAVRA DO DIA</string>
+    <string name="cd_favorite">Favoritar</string>
+    <string name="cd_listen">Ouvir</string>
+    <string name="cd_share">Compartilhar</string>
+    <string name="favorite_item_hint">Segure para copiar ou compartilhar</string>
+    <string name="favorites_title">Frases Favoritas</string>
+    <string name="favorites_empty_title">Nenhum favorito ainda</string>
+    <string name="favorites_empty_subtitle">Toque na estrela dos versículos e suas mensagens favoritas aparecerão aqui.</string>
+    <string name="message_placeholder">A esperança que Deus coloca no seu coração é a certeza de que dias melhores estão por vir.</string>
+    <string name="button_new_message">Nova Mensagem</string>
+    <string name="button_share_blessing">Compartilhar Bênção</string>
 
     <string-array name="versiculos_principais">
         <item>O Senhor é o meu pastor; de nada terei falta. (Salmos 23:1)</item>
