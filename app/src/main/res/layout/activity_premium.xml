@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cor_fundo_app"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textPremiumHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/premium_header"
+            android:textColor="@color/cor_texto_principal"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textPremiumSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/premium_subtitle"
+            android:textColor="@color/cor_texto_secundario"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textPremiumBenefits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="4dp"
+            android:text="@string/premium_benefits"
+            android:textColor="@color/cor_texto_principal"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/buttonMonthlyPlan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/cor_primaria"
+            android:text="@string/premium_plan_monthly_cta"
+            android:textAllCaps="false"
+            android:textColor="@color/cor_texto_claro" />
+
+        <Button
+            android:id="@+id/buttonYearlyPlan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/cor_destaque"
+            android:text="@string/premium_plan_yearly_cta"
+            android:textAllCaps="false"
+            android:textColor="@color/cor_texto_claro" />
+
+        <Button
+            android:id="@+id/buttonContactPremium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/premium_contact_cta"
+            android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/textPremiumLegal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/cor_texto_secundario"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</ScrollView>

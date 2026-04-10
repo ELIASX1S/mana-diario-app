@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class MaisOpcoesAdapter(
-    private val opcoes: List<String>,
-    private val onClick: (String) -> Unit
+    private val opcoes: List<MaisOpcao>,
+    private val onClick: (MaisOpcao) -> Unit
 ) : RecyclerView.Adapter<MaisOpcoesAdapter.MaisOpcaoViewHolder>() {
 
     inner class MaisOpcaoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,17 +25,8 @@ class MaisOpcoesAdapter(
 
     override fun onBindViewHolder(holder: MaisOpcaoViewHolder, position: Int) {
         val opcao = opcoes[position]
-        holder.textoOpcao.text = opcao
-
-        // 🔥 ÍCONES
-        when (position) {
-            0 -> holder.imgIcon.setImageResource(R.drawable.ic_temas)
-            1 -> holder.imgIcon.setImageResource(R.drawable.ic_buscar)
-            2 -> holder.imgIcon.setImageResource(R.drawable.ic_favoritos)
-            3 -> holder.imgIcon.setImageResource(R.drawable.ic_promessas)
-            4 -> holder.imgIcon.setImageResource(R.drawable.ic_favoritos)
-            5 -> holder.imgIcon.setImageResource(R.drawable.ic_mensagem)
-        }
+        holder.textoOpcao.text = opcao.titulo
+        holder.imgIcon.setImageResource(opcao.iconRes)
 
         holder.itemView.setOnClickListener {
             onClick(opcao)
