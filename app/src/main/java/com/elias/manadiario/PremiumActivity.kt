@@ -1,7 +1,5 @@
 package com.elias.manadiario
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -23,18 +21,25 @@ class PremiumActivity : AppCompatActivity() {
         val legalTextView = findViewById<TextView>(R.id.textPremiumLegal)
 
         monthlyButton.setOnClickListener {
-            mostrarFluxoDeAssinatura(getString(R.string.premium_plan_monthly_name))
+            mostrarEmBreve()
         }
 
         yearlyButton.setOnClickListener {
-            mostrarFluxoDeAssinatura(getString(R.string.premium_plan_yearly_name))
+            mostrarEmBreve()
         }
 
         contactButton.setOnClickListener {
-            abrirContatoComercial()
+            mostrarEmBreve()
         }
 
-        legalTextView.text = getString(R.string.premium_legal_text)
+        monthlyButton.isEnabled = false
+        yearlyButton.isEnabled = false
+        contactButton.isEnabled = false
+        monthlyButton.alpha = 0.7f
+        yearlyButton.alpha = 0.7f
+        contactButton.alpha = 0.7f
+
+        legalTextView.text = getString(R.string.premium_coming_soon_description)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -42,27 +47,11 @@ class PremiumActivity : AppCompatActivity() {
         return true
     }
 
-    private fun mostrarFluxoDeAssinatura(planName: String) {
+    private fun mostrarEmBreve() {
         Toast.makeText(
             this,
-            getString(R.string.premium_checkout_placeholder, planName),
+            getString(R.string.premium_coming_soon_toast),
             Toast.LENGTH_LONG
         ).show()
-    }
-
-    private fun abrirContatoComercial() {
-        val intent = Intent(
-            Intent.ACTION_SENDTO,
-            Uri.parse("mailto:" + getString(R.string.premium_contact_email))
-        ).apply {
-            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.premium_contact_subject))
-            putExtra(Intent.EXTRA_TEXT, getString(R.string.premium_contact_body))
-        }
-
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
-        } else {
-            Toast.makeText(this, getString(R.string.error_no_app_to_share), Toast.LENGTH_SHORT).show()
-        }
     }
 }

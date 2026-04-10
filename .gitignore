@@ -7,7 +7,6 @@ captures/
 .externalNativeBuild/
 .cxx/
 .DS_Store
-
 # Signing/certificates (não versionar)
 *.jks
 *.keystore
