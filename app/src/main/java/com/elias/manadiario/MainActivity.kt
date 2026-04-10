@@ -30,14 +30,17 @@ class MainActivity : AppCompatActivity() {
         private const val DAILY_NOTIFICATION_REQUEST_CODE = 1001
     }
 
-    private val opcoesMais = listOf(
-        "Temas",
-        "Buscar na Bíblia",
-        "Versículos Favoritos",
-        "Caixinha de Promessas",
-        "Favoritos",
-        "Mensagem de Fé"
-    )
+    private val opcoesMais by lazy {
+        listOf(
+            MaisOpcao("premium", getString(R.string.option_premium), R.drawable.ic_star_filled),
+            MaisOpcao("temas", getString(R.string.option_themes), R.drawable.ic_temas),
+            MaisOpcao("buscar_biblia", getString(R.string.option_search_bible), R.drawable.ic_buscar),
+            MaisOpcao("versiculos_favoritos", getString(R.string.option_favorite_verses), R.drawable.ic_favoritos),
+            MaisOpcao("caixinha", getString(R.string.option_promise_box), R.drawable.ic_promessas),
+            MaisOpcao("favoritos", getString(R.string.option_favorites), R.drawable.ic_favoritos),
+            MaisOpcao("mensagem_fe", getString(R.string.option_faith_message), R.drawable.ic_mensagem)
+        )
+    }
 
     private var mInterstitialAd: InterstitialAd? = null
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -107,26 +110,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun abrirMenuMais() {
         val bottomSheet = MaisOpcoesBottomSheet(opcoesMais) { opcaoSelecionada ->
-            when (opcaoSelecionada) {
-                "Temas" -> replaceFragment(LibraryFragment())
+            when (opcaoSelecionada.id) {
+                "premium" -> {
+                    startActivity(Intent(this, PremiumActivity::class.java))
+                }
 
-                "Buscar na Bíblia" -> {
+                "temas" -> replaceFragment(LibraryFragment())
+
+                "buscar_biblia" -> {
                     startActivity(Intent(this, BibleSearchActivity::class.java))
                 }
 
-                "Versículos Favoritos" -> {
+                "versiculos_favoritos" -> {
                     startActivity(Intent(this, BibleFavoritesActivity::class.java))
                 }
 
-                "Caixinha de Promessas" -> replaceFragment(CaixinhaFragment())
+                "caixinha" -> replaceFragment(CaixinhaFragment())
 
-                "Favoritos" -> {
+                "favoritos" -> {
                     startActivity(Intent(this, FavoritesActivity::class.java))
                 }
 
-                "Mensagem de Fé" -> mostrarAnuncioEAbrirMensagem()
+                "mensagem_fe" -> mostrarAnuncioEAbrirMensagem()
 
-                else -> Toast.makeText(this, "Opção $opcaoSelecionada", Toast.LENGTH_SHORT).show()
+                else -> Toast.makeText(this, "Opção ${opcaoSelecionada.titulo}", Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -9,8 +9,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import androidx.recyclerview.widget.RecyclerView
 
 class MaisOpcoesBottomSheet(
-    private val opcoes: List<String>,
-    private val onItemClick: (String) -> Unit
+    private val opcoes: List<MaisOpcao>,
+    private val onItemClick: (MaisOpcao) -> Unit
 ) : BottomSheetDialogFragment() {
 
     override fun onCreateView(
