@@ -27,6 +27,11 @@
     <string name="premium_title">Maná Premium</string>
     <string name="premium_header">Desbloqueie o Maná Premium</string>
     <string name="premium_subtitle">Monetize com assinatura e entregue uma experiência sem anúncios com conteúdo exclusivo.</string>
+    <string name="premium_badge">✨ Versão Premium</string>
+    <string name="premium_benefits_title">O que você desbloqueia</string>
+    <string name="premium_benefits">• Devocionais exclusivos semanais\n• Áudios e louvores premium\n• Sem anúncios durante navegação\n• Acesso antecipado a novos planos\n• Apoio direto ao desenvolvimento do app</string>
+    <string name="premium_future_title">Em breve no Premium</string>
+    <string name="premium_future_ai_chat">🤖 Assistente bíblico com IA (chat) para perguntas, oração guiada e estudos personalizados.</string>
     <string name="premium_benefits">• Devocionais exclusivos semanais\n• Áudios e louvores premium\n• Sem anúncios durante navegação\n• Acesso antecipado a novos planos\n• Apoio direto ao desenvolvimento do app</string>
     <string name="premium_plan_monthly_name">Plano Mensal</string>
     <string name="premium_plan_yearly_name">Plano Anual</string>
@@ -45,6 +50,25 @@
     <string name="option_promise_box">Caixinha de Promessas</string>
     <string name="option_favorites">Favoritos</string>
     <string name="option_faith_message">Mensagem de Fé</string>
+    <string name="quick_access_title">Acesso rápido</string>
+    <string name="quick_access_subtitle">Escolha uma opção do menu</string>
+    <string name="nav_home_title">Pão Diário</string>
+    <string name="nav_bible_title">Bíblia</string>
+    <string name="nav_journey_title">Jornada</string>
+    <string name="nav_worship_title">Louvor</string>
+    <string name="nav_more_title">Mais</string>
+    <string name="toast_unknown_option">Opção %1$s</string>
+    <string name="home_badge_daily_word">PALAVRA DO DIA</string>
+    <string name="cd_favorite">Favoritar</string>
+    <string name="cd_listen">Ouvir</string>
+    <string name="cd_share">Compartilhar</string>
+    <string name="favorite_item_hint">Segure para copiar ou compartilhar</string>
+    <string name="favorites_title">Frases Favoritas</string>
+    <string name="favorites_empty_title">Nenhum favorito ainda</string>
+    <string name="favorites_empty_subtitle">Toque na estrela dos versículos e suas mensagens favoritas aparecerão aqui.</string>
+    <string name="message_placeholder">A esperança que Deus coloca no seu coração é a certeza de que dias melhores estão por vir.</string>
+    <string name="button_new_message">Nova Mensagem</string>
+    <string name="button_share_blessing">Compartilhar Bênção</string>
 
     <string-array name="versiculos_principais">
         <item>O Senhor é o meu pastor; de nada terei falta. (Salmos 23:1)</item>

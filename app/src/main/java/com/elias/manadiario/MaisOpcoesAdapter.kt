@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class MaisOpcoesAdapter(
@@ -27,6 +28,16 @@ class MaisOpcoesAdapter(
         val opcao = opcoes[position]
         holder.textoOpcao.text = opcao.titulo
         holder.imgIcon.setImageResource(opcao.iconRes)
+
+        if (opcao.id == MaisOpcao.ID_PREMIUM) {
+            holder.itemView.setBackgroundResource(R.drawable.bg_menu_item_premium)
+            holder.textoOpcao.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.cor_primaria))
+            holder.imgIcon.setColorFilter(ContextCompat.getColor(holder.itemView.context, R.color.cor_destaque))
+        } else {
+            holder.itemView.setBackgroundResource(R.drawable.bg_menu_item)
+            holder.textoOpcao.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.cor_texto_principal))
+            holder.imgIcon.setColorFilter(ContextCompat.getColor(holder.itemView.context, R.color.cor_primaria))
+        }
 
         holder.itemView.setOnClickListener {
             onClick(opcao)
