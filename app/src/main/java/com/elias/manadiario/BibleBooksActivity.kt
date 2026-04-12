@@ -22,12 +22,14 @@ class BibleBooksActivity : AppCompatActivity() {
 
     private lateinit var booksRecyclerView: RecyclerView
     private lateinit var emptyStateText: TextView
+    private lateinit var resultsCountText: TextView
     private lateinit var searchView: SearchView
     private lateinit var filterChipGroup: ChipGroup
     private lateinit var continueCard: View
     private lateinit var continueTitle: TextView
     private lateinit var continueSubtitle: TextView
     private lateinit var continueButton: MaterialButton
+    private lateinit var clearFiltersButton: MaterialButton
     private lateinit var adapter: BibleBookAdapter
     private lateinit var allBooks: List<BibleBook>
     private var currentFilter: TestamentFilter = TestamentFilter.ALL
@@ -51,6 +53,8 @@ class BibleBooksActivity : AppCompatActivity() {
         continueButton = findViewById(R.id.continueReadingButton)
         booksRecyclerView = findViewById(R.id.bibleBooksRecyclerView)
         emptyStateText = findViewById(R.id.bibleEmptyStateText)
+        resultsCountText = findViewById(R.id.bibleResultsCountText)
+        clearFiltersButton = findViewById(R.id.clearBibleFiltersButton)
         booksRecyclerView.layoutManager = LinearLayoutManager(this)
 
         allBooks = getBibleBooks()
@@ -58,8 +62,10 @@ class BibleBooksActivity : AppCompatActivity() {
         booksRecyclerView.adapter = adapter
         adapter.submitList(allBooks)
         updateEmptyState(allBooks)
+        updateResultsCount(allBooks.size)
         setupFilters()
         setupContinueReading()
+        setupActions()
 
         // Pré-carrega a Bíblia em segundo plano
         Thread {
@@ -120,6 +126,14 @@ class BibleBooksActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupActions() {
+        clearFiltersButton.setOnClickListener {
+            filterChipGroup.check(R.id.chipAllBooks)
+            searchView.setQuery("", false)
+            applyFilters("")
+        }
+    }
+
     private fun applyFilters(query: String) {
         val normalizedQuery = query.trim()
         val filteredByTestament = when (currentFilter) {
@@ -136,6 +150,7 @@ class BibleBooksActivity : AppCompatActivity() {
 
         adapter.submitList(finalList)
         updateEmptyState(finalList)
+        updateResultsCount(finalList.size)
     }
 
     private fun updateEmptyState(books: List<BibleBook>) {
@@ -144,6 +159,10 @@ class BibleBooksActivity : AppCompatActivity() {
         } else {
             emptyStateText.visibility = View.GONE
         }
+    }
+
+    private fun updateResultsCount(count: Int) {
+        resultsCountText.text = getString(R.string.bible_results_count, count)
     }
 
     private fun getBibleBooks(): List<BibleBook> {

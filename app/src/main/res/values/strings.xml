@@ -82,6 +82,8 @@
     <string name="bible_continue_reading_subtitle">Você parou em %1$s</string>
     <string name="bible_continue_reading_button">Retomar</string>
     <string name="bible_books_empty_state">Nenhum livro encontrado com esse filtro.</string>
+    <string name="bible_results_count">%1$d resultados</string>
+    <string name="bible_clear_filters">Limpar filtros</string>
 
     <string-array name="versiculos_principais">
         <item>O Senhor é o meu pastor; de nada terei falta. (Salmos 23:1)</item>
