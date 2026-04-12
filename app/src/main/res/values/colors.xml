@@ -23,4 +23,6 @@
 
     <color name="cor_botao">#3E6FB6</color>
     <color name="cor_texto_botao">#FFFFFF</color>
+    <color name="verse_highlight_background">#FFF3CD</color>
+    <color name="verse_default_background">#FFFFFF</color>
 </resources>
