@@ -17,7 +17,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@android:drawable/ic_menu_info_details"
-        android:tint="#4A6CF7" />
+        android:tint="@color/cor_primaria" />
 
     <TextView
         android:id="@+id/textViewOpcao"
@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginStart="16dp"
-        android:text="Opção"
-        android:textColor="#1E1E1E"
+        android:text="@string/option_themes"
+        android:textColor="@color/cor_texto_principal"
         android:textSize="17sp"
         android:textStyle="bold" />
 
@@ -34,6 +34,6 @@
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:src="@android:drawable/ic_media_next"
-        android:tint="#B0B7C3" />
+        android:tint="@color/cor_texto_secundario" />
 
 </LinearLayout>

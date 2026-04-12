@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Maná Diário</string>
+    <string name="menu_copy">Copiar</string>
+    <string name="menu_share">Compartilhar</string>
+    <string name="menu_remove_from_favorites">Excluir dos Favoritos</string>
+    <string name="clip_label_verse">versiculo</string>
+    <string name="toast_verse_copied">Versículo copiado!</string>
+    <string name="share_verse_message">Olha esse versículo:\n\n%1$s</string>
+    <string name="share_verse_chooser_title">Compartilhar versículo via</string>
+    <string name="error_no_app_to_share">Nenhum aplicativo encontrado para compartilhar.</string>
+    <string name="toast_removed_from_favorites">Removido dos favoritos!</string>
+    <string name="toast_verse_removed_from_favorites">Versículo removido dos favoritos.</string>
+    <string name="toast_verse_favorited">Versículo favoritado.</string>
+    <string name="clip_label_bible_verse">versiculo_biblico</string>
+    <string name="verse_reference_format">%1$s %2$d:%3$d</string>
+    <string name="verse_text_full_format">%1$s %2$d:%3$d\n%4$s</string>
+    <string name="share_verse_chooser_short">Compartilhar versículo</string>
+    <string name="cd_favorite_verse">Favoritar %1$s</string>
+    <string name="cd_share_verse">Compartilhar %1$s</string>
+    <string name="cd_copy_verse">Copiar %1$s</string>
+    <string name="message_load_error">Erro ao carregar mensagens.</string>
+    <string name="share_message_of_faith">Mensagem de Fé do Maná Diário:\n\n%1$s</string>
+    <string name="share_via">Compartilhar via</string>
+    <string name="clip_label_message">mensagem</string>
+    <string name="message_copied">Mensagem copiada!</string>
+    <string name="premium_title">Maná Premium</string>
+    <string name="premium_header">Desbloqueie o Maná Premium</string>
+    <string name="premium_subtitle">Monetize com assinatura e entregue uma experiência sem anúncios com conteúdo exclusivo.</string>
+    <string name="premium_badge">✨ Versão Premium</string>
+    <string name="premium_benefits_title">O que você desbloqueia</string>
+    <string name="premium_benefits">• Devocionais exclusivos semanais\n• Áudios e louvores premium\n• Sem anúncios durante navegação\n• Acesso antecipado a novos planos\n• Apoio direto ao desenvolvimento do app</string>
+    <string name="premium_future_title">Em breve no Premium</string>
+    <string name="premium_future_ai_chat">🤖 Assistente bíblico com IA (chat) para perguntas, oração guiada e estudos personalizados.</string>
+    <string name="premium_plan_monthly_name">Plano Mensal</string>
+    <string name="premium_plan_yearly_name">Plano Anual</string>
+    <string name="premium_plan_monthly_cta">Plano mensal (em breve)</string>
+    <string name="premium_plan_yearly_cta">Plano anual (em breve)</string>
+    <string name="premium_contact_cta">Lista de espera (em breve)</string>
+    <string name="premium_checkout_placeholder">Fluxo de assinatura para %1$s pronto para integrar com Google Play Billing.</string>
+    <string name="premium_legal_text">Ao assinar, a cobrança será recorrente até cancelamento. Você poderá gerenciar a assinatura no Google Play.</string>
+    <string name="premium_contact_email">suporte@manadiario.app</string>
+    <string name="premium_contact_subject">Interesse no Maná Premium</string>
+    <string name="premium_contact_body">Olá! Quero saber mais sobre os planos premium do app Maná Diário.</string>
+    <string name="premium_coming_soon_badge">EM BREVE</string>
+    <string name="premium_coming_soon_toast">A aba Maná Premium está em breve ✨</string>
+    <string name="premium_coming_soon_description">A área Premium está em preparação. Em breve você terá acesso às funcionalidades exclusivas.</string>
+    <string name="option_premium">Maná Premium</string>
+    <string name="option_themes">Temas</string>
+    <string name="option_search_bible">Buscar na Bíblia</string>
+    <string name="option_favorite_verses">Versículos Favoritos</string>
+    <string name="option_promise_box">Caixinha de Promessas</string>
+    <string name="option_favorites">Favoritos</string>
+    <string name="option_faith_message">Mensagem de Fé</string>
+    <string name="quick_access_title">Acesso rápido</string>
+    <string name="quick_access_subtitle">Escolha uma opção do menu</string>
+    <string name="nav_home_title">Pão Diário</string>
+    <string name="nav_bible_title">Bíblia</string>
+    <string name="nav_journey_title">Jornada</string>
+    <string name="nav_worship_title">Louvor</string>
+    <string name="nav_more_title">Mais</string>
+    <string name="toast_unknown_option">Opção %1$s</string>
+    <string name="home_badge_daily_word">PALAVRA DO DIA</string>
+    <string name="cd_favorite">Favoritar</string>
+    <string name="cd_listen">Ouvir</string>
+    <string name="cd_share">Compartilhar</string>
+    <string name="favorite_item_hint">Segure para copiar ou compartilhar</string>
+    <string name="favorites_title">Frases Favoritas</string>
+    <string name="favorites_empty_title">Nenhum favorito ainda</string>
+    <string name="favorites_empty_subtitle">Toque na estrela dos versículos e suas mensagens favoritas aparecerão aqui.</string>
+    <string name="message_placeholder">A esperança que Deus coloca no seu coração é a certeza de que dias melhores estão por vir.</string>
+    <string name="button_new_message">Nova Mensagem</string>
+    <string name="button_share_blessing">Compartilhar Bênção</string>
+    <string name="bible_books_title">Livros da Bíblia</string>
+    <string name="bible_books_subtitle">Escolha um livro para ver os capítulos.</string>
+    <string name="bible_books_search_hint">Buscar livro</string>
+    <string name="bible_filter_all">Todos</string>
+    <string name="bible_filter_old_testament">Antigo Testamento</string>
+    <string name="bible_filter_new_testament">Novo Testamento</string>
+    <string name="book_chapters_count">%1$d capítulos</string>
+    <string name="bible_continue_reading_title">Continue lendo</string>
+    <string name="bible_continue_reading_subtitle">Você parou em %1$s</string>
+    <string name="bible_continue_reading_button">Retomar</string>
+    <string name="bible_books_empty_state">Nenhum livro encontrado com esse filtro.</string>
+    <string name="bible_results_count">%1$d resultados</string>
+    <string name="bible_clear_filters">Limpar filtros</string>
 
     <string-array name="versiculos_principais">
         <item>O Senhor é o meu pastor; de nada terei falta. (Salmos 23:1)</item>
@@ -746,6 +829,12 @@
         <item>O Senhor é a força da minha vida; de quem me recearei? (Salmos 27:1b)</item>
         <item>O Senhor guardará a tua entrada e a tua saída, desde agora e para sempre. (Salmos 121:8)</item>
         <item>Nenhuma arma forjada contra você prevalecerá, e você refutará toda língua que a acusar. (Isaías 54:17a)</item>
+    </string-array>
+
+    <string-array name="mensagens_fallback">
+        <item>Tudo posso naquele que me fortalece. (Filipenses 4:13)</item>
+        <item>O Senhor é o meu pastor e nada me faltará. (Salmos 23:1)</item>
+        <item>A alegria do Senhor é a vossa força. (Neemias 8:10)</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
