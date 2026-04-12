@@ -18,6 +18,9 @@ class BibleBooksActivity : AppCompatActivity() {
         private const val KEY_LAST_BOOK_NAME = "last_book_name"
         private const val KEY_LAST_BOOK_KEY = "last_book_key"
         private const val KEY_LAST_BOOK_CHAPTERS = "last_book_chapters"
+        private const val KEY_BIBLE_QUERY = "bible_query"
+        private const val KEY_BIBLE_FILTER = "bible_filter"
+        private const val KEY_BIBLE_SORT_ALPHA = "bible_sort_alpha"
     }
 
     private lateinit var booksRecyclerView: RecyclerView
@@ -35,6 +38,7 @@ class BibleBooksActivity : AppCompatActivity() {
     private lateinit var allBooks: List<BibleBook>
     private var currentFilter: TestamentFilter = TestamentFilter.ALL
     private var alphabeticalSort = false
+    private var suppressFilterCallbacks = false
 
     private enum class TestamentFilter { ALL, OLD_TESTAMENT, NEW_TESTAMENT }
 
@@ -69,6 +73,7 @@ class BibleBooksActivity : AppCompatActivity() {
         setupFilters()
         setupContinueReading()
         setupActions()
+        restoreUiState()
 
         // Pré-carrega a Bíblia em segundo plano
         Thread {
@@ -114,12 +119,14 @@ class BibleBooksActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = false
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (suppressFilterCallbacks) return true
                 applyFilters(newText.orEmpty())
                 return true
             }
         })
 
         filterChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
+            if (suppressFilterCallbacks) return@setOnCheckedStateChangeListener
             currentFilter = when (checkedIds.firstOrNull()) {
                 R.id.chipOldTestament -> TestamentFilter.OLD_TESTAMENT
                 R.id.chipNewTestament -> TestamentFilter.NEW_TESTAMENT
@@ -178,6 +185,42 @@ class BibleBooksActivity : AppCompatActivity() {
 
     private fun updateResultsCount(count: Int) {
         resultsCountText.text = getString(R.string.bible_results_count, count)
+    }
+
+    private fun restoreUiState() {
+        val prefs = getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
+        val query = prefs.getString(KEY_BIBLE_QUERY, "").orEmpty()
+        alphabeticalSort = prefs.getBoolean(KEY_BIBLE_SORT_ALPHA, false)
+        currentFilter = TestamentFilter.valueOf(
+            prefs.getString(KEY_BIBLE_FILTER, TestamentFilter.ALL.name) ?: TestamentFilter.ALL.name
+        )
+
+        toggleSortButton.text = getString(
+            if (alphabeticalSort) R.string.bible_sort_alphabetical else R.string.bible_sort_canonical
+        )
+
+        suppressFilterCallbacks = true
+        filterChipGroup.check(
+            when (currentFilter) {
+                TestamentFilter.OLD_TESTAMENT -> R.id.chipOldTestament
+                TestamentFilter.NEW_TESTAMENT -> R.id.chipNewTestament
+                TestamentFilter.ALL -> R.id.chipAllBooks
+            }
+        )
+        searchView.setQuery(query, false)
+        suppressFilterCallbacks = false
+
+        applyFilters(query)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
+            .edit()
+            .putString(KEY_BIBLE_QUERY, searchView.query?.toString().orEmpty())
+            .putString(KEY_BIBLE_FILTER, currentFilter.name)
+            .putBoolean(KEY_BIBLE_SORT_ALPHA, alphabeticalSort)
+            .apply()
     }
 
     private fun getBibleBooks(): List<BibleBook> {
