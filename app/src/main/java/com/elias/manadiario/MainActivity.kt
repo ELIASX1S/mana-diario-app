@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
@@ -30,14 +31,17 @@ class MainActivity : AppCompatActivity() {
         private const val DAILY_NOTIFICATION_REQUEST_CODE = 1001
     }
 
-    private val opcoesMais = listOf(
-        "Temas",
-        "Buscar na Bíblia",
-        "Versículos Favoritos",
-        "Caixinha de Promessas",
-        "Favoritos",
-        "Mensagem de Fé"
-    )
+    private val opcoesMais by lazy {
+        listOf(
+            MaisOpcao(MaisOpcao.ID_PREMIUM, getString(R.string.option_premium), R.drawable.ic_star_filled),
+            MaisOpcao(MaisOpcao.ID_THEMES, getString(R.string.option_themes), R.drawable.ic_temas),
+            MaisOpcao(MaisOpcao.ID_SEARCH_BIBLE, getString(R.string.option_search_bible), R.drawable.ic_buscar),
+            MaisOpcao(MaisOpcao.ID_FAVORITE_VERSES, getString(R.string.option_favorite_verses), R.drawable.ic_favoritos),
+            MaisOpcao(MaisOpcao.ID_PROMISE_BOX, getString(R.string.option_promise_box), R.drawable.ic_promessas),
+            MaisOpcao(MaisOpcao.ID_FAVORITES, getString(R.string.option_favorites), R.drawable.ic_favoritos),
+            MaisOpcao(MaisOpcao.ID_FAITH_MESSAGE, getString(R.string.option_faith_message), R.drawable.ic_mensagem)
+        )
+    }
 
     private var mInterstitialAd: InterstitialAd? = null
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -64,6 +68,17 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
 
         adView = findViewById(R.id.adViewMain)
+        adView.visibility = android.view.View.GONE
+        adView.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                adView.visibility = android.view.View.VISIBLE
+            }
+
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                adView.visibility = android.view.View.GONE
+            }
+        }
+
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
 
@@ -107,26 +122,38 @@ class MainActivity : AppCompatActivity() {
 
     private fun abrirMenuMais() {
         val bottomSheet = MaisOpcoesBottomSheet(opcoesMais) { opcaoSelecionada ->
-            when (opcaoSelecionada) {
-                "Temas" -> replaceFragment(LibraryFragment())
+            when (opcaoSelecionada.id) {
+                MaisOpcao.ID_PREMIUM -> {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.premium_coming_soon_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-                "Buscar na Bíblia" -> {
+                MaisOpcao.ID_THEMES -> replaceFragment(LibraryFragment())
+
+                MaisOpcao.ID_SEARCH_BIBLE -> {
                     startActivity(Intent(this, BibleSearchActivity::class.java))
                 }
 
-                "Versículos Favoritos" -> {
+                MaisOpcao.ID_FAVORITE_VERSES -> {
                     startActivity(Intent(this, BibleFavoritesActivity::class.java))
                 }
 
-                "Caixinha de Promessas" -> replaceFragment(CaixinhaFragment())
+                MaisOpcao.ID_PROMISE_BOX -> replaceFragment(CaixinhaFragment())
 
-                "Favoritos" -> {
+                MaisOpcao.ID_FAVORITES -> {
                     startActivity(Intent(this, FavoritesActivity::class.java))
                 }
 
-                "Mensagem de Fé" -> mostrarAnuncioEAbrirMensagem()
+                MaisOpcao.ID_FAITH_MESSAGE -> mostrarAnuncioEAbrirMensagem()
 
-                else -> Toast.makeText(this, "Opção $opcaoSelecionada", Toast.LENGTH_SHORT).show()
+                else -> Toast.makeText(
+                    this,
+                    getString(R.string.toast_unknown_option, opcaoSelecionada.titulo),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
