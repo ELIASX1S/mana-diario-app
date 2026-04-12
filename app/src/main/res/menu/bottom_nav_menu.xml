@@ -8,12 +8,12 @@
 
     <item
         android:id="@+id/nav_biblia"
-        android:icon="@android:drawable/ic_menu_agenda"
+        android:icon="@drawable/ic_bible_nav"
         android:title="@string/nav_bible_title" />
 
     <item
         android:id="@+id/nav_jornada"
-        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:icon="@drawable/ic_journey_nav"
         android:title="@string/nav_journey_title" />
 
     <item
