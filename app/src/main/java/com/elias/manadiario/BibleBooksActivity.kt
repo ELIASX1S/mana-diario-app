@@ -29,10 +29,12 @@ class BibleBooksActivity : AppCompatActivity() {
     private lateinit var continueTitle: TextView
     private lateinit var continueSubtitle: TextView
     private lateinit var continueButton: MaterialButton
+    private lateinit var toggleSortButton: MaterialButton
     private lateinit var clearFiltersButton: MaterialButton
     private lateinit var adapter: BibleBookAdapter
     private lateinit var allBooks: List<BibleBook>
     private var currentFilter: TestamentFilter = TestamentFilter.ALL
+    private var alphabeticalSort = false
 
     private enum class TestamentFilter { ALL, OLD_TESTAMENT, NEW_TESTAMENT }
 
@@ -54,6 +56,7 @@ class BibleBooksActivity : AppCompatActivity() {
         booksRecyclerView = findViewById(R.id.bibleBooksRecyclerView)
         emptyStateText = findViewById(R.id.bibleEmptyStateText)
         resultsCountText = findViewById(R.id.bibleResultsCountText)
+        toggleSortButton = findViewById(R.id.toggleSortBibleButton)
         clearFiltersButton = findViewById(R.id.clearBibleFiltersButton)
         booksRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -127,6 +130,14 @@ class BibleBooksActivity : AppCompatActivity() {
     }
 
     private fun setupActions() {
+        toggleSortButton.setOnClickListener {
+            alphabeticalSort = !alphabeticalSort
+            toggleSortButton.text = getString(
+                if (alphabeticalSort) R.string.bible_sort_alphabetical else R.string.bible_sort_canonical
+            )
+            applyFilters(searchView.query?.toString().orEmpty())
+        }
+
         clearFiltersButton.setOnClickListener {
             filterChipGroup.check(R.id.chipAllBooks)
             searchView.setQuery("", false)
@@ -142,10 +153,14 @@ class BibleBooksActivity : AppCompatActivity() {
             TestamentFilter.NEW_TESTAMENT -> allBooks.drop(39)
         }
 
-        val finalList = if (normalizedQuery.isBlank()) {
+        var finalList = if (normalizedQuery.isBlank()) {
             filteredByTestament
         } else {
             filteredByTestament.filter { it.nome.contains(normalizedQuery, ignoreCase = true) }
+        }
+
+        if (alphabeticalSort) {
+            finalList = finalList.sortedBy { it.nome }
         }
 
         adapter.submitList(finalList)

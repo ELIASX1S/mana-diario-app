@@ -84,6 +84,8 @@
     <string name="bible_books_empty_state">Nenhum livro encontrado com esse filtro.</string>
     <string name="bible_results_count">%1$d resultados</string>
     <string name="bible_clear_filters">Limpar filtros</string>
+    <string name="bible_sort_canonical">Ordem canônica</string>
+    <string name="bible_sort_alphabetical">Ordem A-Z</string>
 
     <string-array name="versiculos_principais">
         <item>O Senhor é o meu pastor; de nada terei falta. (Salmos 23:1)</item>
