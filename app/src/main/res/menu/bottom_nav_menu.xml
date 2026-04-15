@@ -4,26 +4,26 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
-        android:title="Pão Diário" />
+        android:title="@string/nav_home_title" />
 
     <item
         android:id="@+id/nav_biblia"
-        android:icon="@android:drawable/ic_menu_agenda"
-        android:title="Bíblia" />
+        android:icon="@drawable/ic_bible_nav"
+        android:title="@string/nav_bible_title" />
 
     <item
         android:id="@+id/nav_jornada"
-        android:icon="@android:drawable/ic_menu_my_calendar"
-        android:title="Jornada" />
+        android:icon="@drawable/ic_journey_nav"
+        android:title="@string/nav_journey_title" />
 
     <item
         android:id="@+id/navigation_louvor"
         android:icon="@drawable/ic_music"
-        android:title="Louvor" />
+        android:title="@string/nav_worship_title" />
 
     <item
         android:id="@+id/nav_mais"
         android:icon="@drawable/ic_more"
-        android:title="Mais" />
+        android:title="@string/nav_more_title" />
 
 </menu>

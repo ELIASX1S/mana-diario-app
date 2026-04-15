@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:title="Frases Favoritas"
+        app:title="@string/favorites_title"
         app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -57,7 +57,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nenhum favorito ainda"
+            android:text="@string/favorites_empty_title"
             android:textColor="@color/cor_texto_principal"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -68,7 +68,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:lineSpacingExtra="4dp"
-            android:text="Toque na estrela dos versículos e suas mensagens favoritas aparecerão aqui."
+            android:text="@string/favorites_empty_subtitle"
             android:textColor="@color/cor_texto_secundario"
             android:textSize="14sp" />
 
