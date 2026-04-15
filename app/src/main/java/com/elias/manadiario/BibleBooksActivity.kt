@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.chip.Chip
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -39,6 +40,8 @@ class BibleBooksActivity : AppCompatActivity() {
     private lateinit var recentChipGroup: ChipGroup
     private lateinit var toggleSortButton: MaterialButton
     private lateinit var clearFiltersButton: MaterialButton
+    private lateinit var favoritesShortcutButton: MaterialButton
+    private lateinit var notesShortcutButton: MaterialButton
     private lateinit var adapter: BibleBookAdapter
     private lateinit var allBooks: List<BibleBook>
     private var currentFilter: TestamentFilter = TestamentFilter.ALL
@@ -69,6 +72,8 @@ class BibleBooksActivity : AppCompatActivity() {
         resultsCountText = findViewById(R.id.bibleResultsCountText)
         toggleSortButton = findViewById(R.id.toggleSortBibleButton)
         clearFiltersButton = findViewById(R.id.clearBibleFiltersButton)
+        favoritesShortcutButton = findViewById(R.id.bibleFavoritesShortcutButton)
+        notesShortcutButton = findViewById(R.id.bibleNotesShortcutButton)
         booksRecyclerView.layoutManager = LinearLayoutManager(this)
 
         allBooks = getBibleBooks()
@@ -168,6 +173,14 @@ class BibleBooksActivity : AppCompatActivity() {
             filterChipGroup.check(R.id.chipAllBooks)
             searchView.setQuery("", false)
             applyFilters("")
+        }
+
+        favoritesShortcutButton.setOnClickListener {
+            startActivity(Intent(this, BibleFavoritesActivity::class.java))
+        }
+
+        notesShortcutButton.setOnClickListener {
+            Toast.makeText(this, R.string.bible_notes_coming_soon, Toast.LENGTH_SHORT).show()
         }
     }
 
