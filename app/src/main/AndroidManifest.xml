@@ -41,6 +41,9 @@
         <activity
             android:name=".FavoritesActivity"
             android:exported="false" />
+        <activity
+            android:name=".PremiumActivity"
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
@@ -101,9 +104,8 @@
         <activity
             android:name=".BibleFavoritesActivity"
             android:exported="false" />
-
         <activity
-            android:name=".BibleFavoritesActivity"
+            android:name=".BibleNotesActivity"
             android:exported="false" />
 
     </application>
