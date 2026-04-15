@@ -88,6 +88,7 @@
     <string name="bible_sort_alphabetical">Ordem A-Z</string>
     <string name="bible_shortcut_favorites">Favoritos</string>
     <string name="bible_shortcut_notes">Notas</string>
+    <string name="bible_notes_coming_soon">Notas bíblicas em breve.</string>
     <string name="bible_recent_books_title">RECENTES</string>
 
     <string-array name="versiculos_principais">
