@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.view.View
 import android.widget.TextView
+import com.google.android.material.chip.Chip
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -21,6 +22,8 @@ class BibleBooksActivity : AppCompatActivity() {
         private const val KEY_BIBLE_QUERY = "bible_query"
         private const val KEY_BIBLE_FILTER = "bible_filter"
         private const val KEY_BIBLE_SORT_ALPHA = "bible_sort_alpha"
+        private const val KEY_BIBLE_RECENT_KEYS = "bible_recent_keys"
+        private const val MAX_RECENT_BOOKS = 5
     }
 
     private lateinit var booksRecyclerView: RecyclerView
@@ -32,6 +35,8 @@ class BibleBooksActivity : AppCompatActivity() {
     private lateinit var continueTitle: TextView
     private lateinit var continueSubtitle: TextView
     private lateinit var continueButton: MaterialButton
+    private lateinit var recentTitleText: TextView
+    private lateinit var recentChipGroup: ChipGroup
     private lateinit var toggleSortButton: MaterialButton
     private lateinit var clearFiltersButton: MaterialButton
     private lateinit var adapter: BibleBookAdapter
@@ -57,6 +62,8 @@ class BibleBooksActivity : AppCompatActivity() {
         continueTitle = findViewById(R.id.continueReadingTitle)
         continueSubtitle = findViewById(R.id.continueReadingSubtitle)
         continueButton = findViewById(R.id.continueReadingButton)
+        recentTitleText = findViewById(R.id.recentBooksTitleText)
+        recentChipGroup = findViewById(R.id.recentBooksChipGroup)
         booksRecyclerView = findViewById(R.id.bibleBooksRecyclerView)
         emptyStateText = findViewById(R.id.bibleEmptyStateText)
         resultsCountText = findViewById(R.id.bibleResultsCountText)
@@ -72,6 +79,7 @@ class BibleBooksActivity : AppCompatActivity() {
         updateResultsCount(allBooks.size)
         setupFilters()
         setupContinueReading()
+        setupRecentBooks()
         setupActions()
         restoreUiState()
 
@@ -106,13 +114,24 @@ class BibleBooksActivity : AppCompatActivity() {
     }
 
     private fun saveLastBook(book: BibleBook) {
-        getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
-            .edit()
+        val prefs = getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
+        val currentRecentKeys = prefs.getString(KEY_BIBLE_RECENT_KEYS, "")
+            .orEmpty()
+            .split(",")
+            .filter { it.isNotBlank() && it != book.chave }
+            .toMutableList()
+
+        currentRecentKeys.add(0, book.chave)
+        val trimmedRecent = currentRecentKeys.take(MAX_RECENT_BOOKS)
+
+        prefs.edit()
             .putString(KEY_LAST_BOOK_NAME, book.nome)
             .putString(KEY_LAST_BOOK_KEY, book.chave)
             .putInt(KEY_LAST_BOOK_CHAPTERS, book.capitulos)
+            .putString(KEY_BIBLE_RECENT_KEYS, trimmedRecent.joinToString(","))
             .apply()
         setupContinueReading()
+        setupRecentBooks()
     }
 
     private fun setupFilters() {
@@ -185,6 +204,47 @@ class BibleBooksActivity : AppCompatActivity() {
 
     private fun updateResultsCount(count: Int) {
         resultsCountText.text = getString(R.string.bible_results_count, count)
+    }
+
+    private fun setupRecentBooks() {
+        val prefs = getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
+        val recentKeys = prefs.getString(KEY_BIBLE_RECENT_KEYS, "")
+            .orEmpty()
+            .split(",")
+            .filter { it.isNotBlank() }
+
+        if (recentKeys.isEmpty()) {
+            recentTitleText.visibility = View.GONE
+            recentChipGroup.visibility = View.GONE
+            recentChipGroup.removeAllViews()
+            return
+        }
+
+        val booksByKey = allBooks.associateBy { it.chave }
+        recentChipGroup.removeAllViews()
+
+        recentKeys.forEach { key ->
+            val book = booksByKey[key] ?: return@forEach
+            val chip = Chip(this).apply {
+                text = book.nome
+                isClickable = true
+                isCheckable = false
+                setOnClickListener { openBookChapters(book) }
+            }
+            recentChipGroup.addView(chip)
+        }
+
+        recentTitleText.visibility = View.VISIBLE
+        recentChipGroup.visibility = View.VISIBLE
+    }
+
+    private fun openBookChapters(book: BibleBook) {
+        val intent = Intent(this, BibleChaptersActivity::class.java).apply {
+            putExtra("BOOK_NAME", book.nome)
+            putExtra("BOOK_KEY", book.chave)
+            putExtra("BOOK_CHAPTERS", book.capitulos)
+        }
+        startActivity(intent)
     }
 
     private fun restoreUiState() {
