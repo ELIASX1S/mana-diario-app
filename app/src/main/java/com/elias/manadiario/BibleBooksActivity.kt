@@ -12,6 +12,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.ChipGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.json.JSONArray
 
 class BibleBooksActivity : AppCompatActivity() {
     companion object {
@@ -24,6 +25,9 @@ class BibleBooksActivity : AppCompatActivity() {
         private const val KEY_BIBLE_SORT_ALPHA = "bible_sort_alpha"
         private const val KEY_BIBLE_RECENT_KEYS = "bible_recent_keys"
         private const val MAX_RECENT_BOOKS = 5
+        private const val PREFS_BIBLE_NOTES = "bible_notes_prefs"
+        private const val KEY_BIBLE_NOTES = "notes"
+        private const val LEGACY_NOTES_DELIMITER = "\n\u001F\n"
     }
 
     private lateinit var booksRecyclerView: RecyclerView
@@ -86,6 +90,7 @@ class BibleBooksActivity : AppCompatActivity() {
         setupRecentBooks()
         setupActions()
         restoreUiState()
+        updateQuickActions()
 
         // Pré-carrega a Bíblia em segundo plano
         Thread {
@@ -293,6 +298,34 @@ class BibleBooksActivity : AppCompatActivity() {
             .putString(KEY_BIBLE_FILTER, currentFilter.name)
             .putBoolean(KEY_BIBLE_SORT_ALPHA, alphabeticalSort)
             .apply()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateQuickActions()
+    }
+
+    private fun updateQuickActions() {
+        val totalNotes = getBibleNotesCount()
+        notesShortcutButton.text = getString(R.string.bible_shortcut_notes_with_count, totalNotes)
+    }
+
+    private fun getBibleNotesCount(): Int {
+        val raw = getSharedPreferences(PREFS_BIBLE_NOTES, MODE_PRIVATE)
+            .getString(KEY_BIBLE_NOTES, "[]")
+            .orEmpty()
+
+        return if (raw.startsWith("[")) {
+            val array = JSONArray(raw)
+            var validCount = 0
+            for (i in 0 until array.length()) {
+                val text = array.optJSONObject(i)?.optString("text").orEmpty()
+                if (text.isNotBlank()) validCount++
+            }
+            validCount
+        } else {
+            raw.split(LEGACY_NOTES_DELIMITER).count { it.isNotBlank() }
+        }
     }
 
     private fun getBibleBooks(): List<BibleBook> {
