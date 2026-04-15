@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.content.Intent
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.google.android.material.chip.Chip
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -180,7 +179,7 @@ class BibleBooksActivity : AppCompatActivity() {
         }
 
         notesShortcutButton.setOnClickListener {
-            Toast.makeText(this, R.string.bible_notes_coming_soon, Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, BibleNotesActivity::class.java))
         }
     }
 

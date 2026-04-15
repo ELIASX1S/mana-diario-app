@@ -104,6 +104,9 @@
         <activity
             android:name=".BibleFavoritesActivity"
             android:exported="false" />
+        <activity
+            android:name=".BibleNotesActivity"
+            android:exported="false" />
 
     </application>
 
