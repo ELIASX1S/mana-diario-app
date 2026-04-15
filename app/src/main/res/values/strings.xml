@@ -74,6 +74,8 @@
     <string name="bible_books_title">Livros da Bíblia</string>
     <string name="bible_books_subtitle">Escolha um livro para ver os capítulos.</string>
     <string name="bible_books_search_hint">Buscar livro</string>
+    <string name="bible_show_advanced_options">Mostrar opções</string>
+    <string name="bible_hide_advanced_options">Ocultar opções</string>
     <string name="bible_filter_all">Todos</string>
     <string name="bible_filter_old_testament">Antigo Testamento</string>
     <string name="bible_filter_new_testament">Novo Testamento</string>

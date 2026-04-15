@@ -34,7 +34,9 @@ class BibleBooksActivity : AppCompatActivity() {
     private lateinit var emptyStateText: TextView
     private lateinit var resultsCountText: TextView
     private lateinit var searchView: SearchView
+    private lateinit var toggleAdvancedButton: MaterialButton
     private lateinit var filterChipGroup: ChipGroup
+    private lateinit var topControlsRow: View
     private lateinit var continueCard: View
     private lateinit var continueTitle: TextView
     private lateinit var continueSubtitle: TextView
@@ -45,11 +47,15 @@ class BibleBooksActivity : AppCompatActivity() {
     private lateinit var clearFiltersButton: MaterialButton
     private lateinit var favoritesShortcutButton: MaterialButton
     private lateinit var notesShortcutButton: MaterialButton
+    private lateinit var quickActionsRow: View
     private lateinit var adapter: BibleBookAdapter
     private lateinit var allBooks: List<BibleBook>
     private var currentFilter: TestamentFilter = TestamentFilter.ALL
     private var alphabeticalSort = false
     private var suppressFilterCallbacks = false
+    private var advancedOptionsVisible = false
+    private var hasContinueReading = false
+    private var hasRecentBooks = false
 
     private enum class TestamentFilter { ALL, OLD_TESTAMENT, NEW_TESTAMENT }
 
@@ -63,7 +69,9 @@ class BibleBooksActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         searchView = findViewById(R.id.bibleSearchView)
+        toggleAdvancedButton = findViewById(R.id.toggleBibleAdvancedButton)
         filterChipGroup = findViewById(R.id.bibleFilterChipGroup)
+        topControlsRow = findViewById(R.id.bibleTopControlsRow)
         continueCard = findViewById(R.id.continueReadingCard)
         continueTitle = findViewById(R.id.continueReadingTitle)
         continueSubtitle = findViewById(R.id.continueReadingSubtitle)
@@ -77,6 +85,7 @@ class BibleBooksActivity : AppCompatActivity() {
         clearFiltersButton = findViewById(R.id.clearBibleFiltersButton)
         favoritesShortcutButton = findViewById(R.id.bibleFavoritesShortcutButton)
         notesShortcutButton = findViewById(R.id.bibleNotesShortcutButton)
+        quickActionsRow = findViewById(R.id.bibleQuickActionsRow)
         booksRecyclerView.layoutManager = LinearLayoutManager(this)
 
         allBooks = getBibleBooks()
@@ -91,6 +100,7 @@ class BibleBooksActivity : AppCompatActivity() {
         setupActions()
         restoreUiState()
         updateQuickActions()
+        updateAdvancedSections()
 
         // Pré-carrega a Bíblia em segundo plano
         Thread {
@@ -105,11 +115,12 @@ class BibleBooksActivity : AppCompatActivity() {
         val chapters = prefs.getInt(KEY_LAST_BOOK_CHAPTERS, -1)
 
         if (bookName.isNullOrBlank() || bookKey.isNullOrBlank() || chapters <= 0) {
-            continueCard.visibility = View.GONE
+            hasContinueReading = false
+            updateAdvancedSections()
             return
         }
 
-        continueCard.visibility = View.VISIBLE
+        hasContinueReading = true
         continueTitle.text = getString(R.string.bible_continue_reading_title)
         continueSubtitle.text = getString(R.string.bible_continue_reading_subtitle, bookName)
         continueButton.setOnClickListener {
@@ -120,6 +131,7 @@ class BibleBooksActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+        updateAdvancedSections()
     }
 
     private fun saveLastBook(book: BibleBook) {
@@ -179,6 +191,11 @@ class BibleBooksActivity : AppCompatActivity() {
             applyFilters("")
         }
 
+        toggleAdvancedButton.setOnClickListener {
+            advancedOptionsVisible = !advancedOptionsVisible
+            updateAdvancedSections()
+        }
+
         favoritesShortcutButton.setOnClickListener {
             startActivity(Intent(this, BibleFavoritesActivity::class.java))
         }
@@ -209,6 +226,7 @@ class BibleBooksActivity : AppCompatActivity() {
         adapter.submitList(finalList)
         updateEmptyState(finalList)
         updateResultsCount(finalList.size)
+        updateTopControlsVisibility(normalizedQuery)
     }
 
     private fun updateEmptyState(books: List<BibleBook>) {
@@ -223,6 +241,27 @@ class BibleBooksActivity : AppCompatActivity() {
         resultsCountText.text = getString(R.string.bible_results_count, count)
     }
 
+    private fun updateTopControlsVisibility(query: String) {
+        val hasActiveFilters = query.isNotBlank() ||
+            currentFilter != TestamentFilter.ALL ||
+            alphabeticalSort
+
+        resultsCountText.visibility = if (hasActiveFilters) View.VISIBLE else View.GONE
+        clearFiltersButton.visibility = if (hasActiveFilters) View.VISIBLE else View.GONE
+    }
+
+    private fun updateAdvancedSections() {
+        filterChipGroup.visibility = if (advancedOptionsVisible) View.VISIBLE else View.GONE
+        topControlsRow.visibility = if (advancedOptionsVisible) View.VISIBLE else View.GONE
+        continueCard.visibility = if (advancedOptionsVisible && hasContinueReading) View.VISIBLE else View.GONE
+        recentChipGroup.visibility = if (advancedOptionsVisible && hasRecentBooks) View.VISIBLE else View.GONE
+        recentTitleText.visibility = if (advancedOptionsVisible && hasRecentBooks && recentChipGroup.childCount > 1) View.VISIBLE else View.GONE
+        quickActionsRow.visibility = if (advancedOptionsVisible) View.VISIBLE else View.GONE
+        toggleAdvancedButton.text = getString(
+            if (advancedOptionsVisible) R.string.bible_hide_advanced_options else R.string.bible_show_advanced_options
+        )
+    }
+
     private fun setupRecentBooks() {
         val prefs = getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
         val recentKeys = prefs.getString(KEY_BIBLE_RECENT_KEYS, "")
@@ -231,9 +270,9 @@ class BibleBooksActivity : AppCompatActivity() {
             .filter { it.isNotBlank() }
 
         if (recentKeys.isEmpty()) {
-            recentTitleText.visibility = View.GONE
-            recentChipGroup.visibility = View.GONE
+            hasRecentBooks = false
             recentChipGroup.removeAllViews()
+            updateAdvancedSections()
             return
         }
 
@@ -251,8 +290,8 @@ class BibleBooksActivity : AppCompatActivity() {
             recentChipGroup.addView(chip)
         }
 
-        recentTitleText.visibility = View.VISIBLE
-        recentChipGroup.visibility = View.VISIBLE
+        hasRecentBooks = true
+        updateAdvancedSections()
     }
 
     private fun openBookChapters(book: BibleBook) {

@@ -47,6 +47,14 @@
         android:layout_marginEnd="16dp"
         android:queryHint="@string/bible_books_search_hint" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/toggleBibleAdvancedButton"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/bible_show_advanced_options" />
+
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/bibleFilterChipGroup"
         android:layout_width="match_parent"
@@ -54,6 +62,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:visibility="gone"
         app:singleSelection="true"
         app:selectionRequired="true">
 
@@ -81,6 +90,7 @@
     </com.google.android.material.chip.ChipGroup>
 
     <LinearLayout
+        android:id="@+id/bibleTopControlsRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -88,7 +98,8 @@
         android:paddingStart="16dp"
         android:paddingTop="4dp"
         android:paddingEnd="16dp"
-        android:paddingBottom="4dp">
+        android:paddingBottom="4dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/bibleResultsCountText"
@@ -191,7 +202,8 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="4dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bibleFavoritesShortcutButton"
