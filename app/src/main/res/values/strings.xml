@@ -88,6 +88,9 @@
     <string name="bible_clear_filters">Limpar filtros</string>
     <string name="bible_sort_canonical">Ordem canônica</string>
     <string name="bible_sort_alphabetical">Ordem A-Z</string>
+    <string name="bible_sort_button_cd">Alternar ordenação dos livros</string>
+    <string name="bible_sort_mode_canonical">Ordenação atual: canônica</string>
+    <string name="bible_sort_mode_alphabetical">Ordenação atual: A-Z</string>
     <string name="bible_shortcut_favorites">Favoritos</string>
     <string name="bible_shortcut_notes">Notas</string>
     <string name="bible_shortcut_notes_with_count">Notas (%1$d)</string>

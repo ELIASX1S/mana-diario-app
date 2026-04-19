@@ -24,6 +24,7 @@ class BibleBooksActivity : AppCompatActivity() {
         private const val KEY_BIBLE_FILTER = "bible_filter"
         private const val KEY_BIBLE_SORT_ALPHA = "bible_sort_alpha"
         private const val KEY_BIBLE_RECENT_KEYS = "bible_recent_keys"
+        private const val KEY_BIBLE_ADVANCED_VISIBLE = "bible_advanced_visible"
         private const val MAX_RECENT_BOOKS = 5
         private const val PREFS_BIBLE_NOTES = "bible_notes_prefs"
         private const val KEY_BIBLE_NOTES = "notes"
@@ -179,9 +180,7 @@ class BibleBooksActivity : AppCompatActivity() {
     private fun setupActions() {
         toggleSortButton.setOnClickListener {
             alphabeticalSort = !alphabeticalSort
-            toggleSortButton.text = getString(
-                if (alphabeticalSort) R.string.bible_sort_alphabetical else R.string.bible_sort_canonical
-            )
+            updateSortButtonAccessibility()
             applyFilters(searchView.query?.toString().orEmpty())
         }
 
@@ -262,6 +261,16 @@ class BibleBooksActivity : AppCompatActivity() {
         )
     }
 
+    private fun updateSortButtonAccessibility() {
+        toggleSortButton.contentDescription = getString(
+            if (alphabeticalSort) {
+                R.string.bible_sort_mode_alphabetical
+            } else {
+                R.string.bible_sort_mode_canonical
+            }
+        )
+    }
+
     private fun setupRecentBooks() {
         val prefs = getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
         val recentKeys = prefs.getString(KEY_BIBLE_RECENT_KEYS, "")
@@ -311,9 +320,8 @@ class BibleBooksActivity : AppCompatActivity() {
             prefs.getString(KEY_BIBLE_FILTER, TestamentFilter.ALL.name) ?: TestamentFilter.ALL.name
         )
 
-        toggleSortButton.text = getString(
-            if (alphabeticalSort) R.string.bible_sort_alphabetical else R.string.bible_sort_canonical
-        )
+        advancedOptionsVisible = prefs.getBoolean(KEY_BIBLE_ADVANCED_VISIBLE, false)
+        updateSortButtonAccessibility()
 
         suppressFilterCallbacks = true
         filterChipGroup.check(
@@ -336,6 +344,7 @@ class BibleBooksActivity : AppCompatActivity() {
             .putString(KEY_BIBLE_QUERY, searchView.query?.toString().orEmpty())
             .putString(KEY_BIBLE_FILTER, currentFilter.name)
             .putBoolean(KEY_BIBLE_SORT_ALPHA, alphabeticalSort)
+            .putBoolean(KEY_BIBLE_ADVANCED_VISIBLE, advancedOptionsVisible)
             .apply()
     }
 
