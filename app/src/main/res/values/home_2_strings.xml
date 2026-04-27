@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_username_default">Elias</string>
+    <string name="home_greeting_morning">Bom dia, %1$s</string>
+    <string name="home_greeting_afternoon">Boa tarde, %1$s</string>
+    <string name="home_greeting_evening">Boa noite, que Deus fale com você hoje</string>
+
+    <string name="home_daily_sequence_title">Sua caminhada diária</string>
+    <string name="home_daily_sequence_message">Você está há %1$d dias buscando a Palavra 🔥</string>
+    <string name="home_daily_sequence_fallback">Comece hoje sua caminhada com Deus.</string>
+    <string name="home_daily_sequence_subtitle">Volte amanhã para manter sua sequência.</string>
+    <string name="home_daily_sequence_last_access">Último acesso: %1$s</string>
+    <string name="home_daily_motivation_start">Hoje é o começo de uma nova rotina espiritual.</string>
+    <string name="home_daily_motivation_short">Cada dia de busca fortalece sua fé.</string>
+    <string name="home_daily_motivation_medium">Sua constância está formando uma vida mais firme em Deus.</string>
+    <string name="home_daily_motivation_long">%1$d dias de constância. Continue alimentando sua fé.</string>
+
+    <string name="home_main_card_title">DEVOCIONAL DE HOJE</string>
+    <string name="home_read_reflection">Ler reflexão</string>
+    <string name="home_quick_actions_title">Ações rápidas</string>
+    <string name="home_shortcut_title">Continue sua caminhada</string>
+    <string name="home_shortcut_journey">Jornada</string>
+    <string name="home_shortcut_bible">Bíblia</string>
+    <string name="home_shortcut_worship">Louvor</string>
+    <string name="home_shortcut_notes">Notas</string>
+    <string name="home_shortcut_favorites">Favoritos</string>
+
+    <string name="home_favorite_added">Devocional salvo nos favoritos.</string>
+    <string name="home_favorite_removed">Devocional removido dos favoritos.</string>
+    <string name="share_devotional_chooser">Compartilhar devocional</string>
+</resources>
