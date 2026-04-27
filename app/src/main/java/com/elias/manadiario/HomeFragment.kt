@@ -17,6 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.material.button.MaterialButton
@@ -44,6 +45,8 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     private lateinit var greetingTextView: TextView
     private lateinit var sequenceTextView: TextView
     private lateinit var lastAccessTextView: TextView
+    private lateinit var streakMotivationTextView: TextView
+    private lateinit var homeScrollView: NestedScrollView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +71,8 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         greetingTextView = view.findViewById(R.id.greetingTextView)
         sequenceTextView = view.findViewById(R.id.sequenceTextView)
         lastAccessTextView = view.findViewById(R.id.lastAccessTextView)
+        streakMotivationTextView = view.findViewById(R.id.streakMotivationTextView)
+        homeScrollView = view.findViewById(R.id.homeScrollView)
 
         val favoriteAction: View = view.findViewById(R.id.favoriteAction)
         val shareAction: View = view.findViewById(R.id.shareAction)
@@ -100,8 +105,10 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         }
 
         readReflectionButton.setOnClickListener {
-            Toast.makeText(requireContext(), getString(R.string.home_open_reflection_toast), Toast.LENGTH_SHORT).show()
-            reflexaoTextView.requestFocus()
+            homeScrollView.post {
+                homeScrollView.smoothScrollTo(0, reflexaoTextView.top)
+                reflexaoTextView.requestFocus()
+            }
         }
 
         view.findViewById<View>(R.id.journeyShortcut).setOnClickListener { abrirJornadaDevocional() }
@@ -169,6 +176,13 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
             getString(R.string.home_daily_sequence_fallback)
         }
 
+        streakMotivationTextView.text = when {
+            streakDays <= 1 -> getString(R.string.home_daily_motivation_start)
+            streakDays <= 3 -> getString(R.string.home_daily_motivation_short)
+            streakDays <= 7 -> getString(R.string.home_daily_motivation_medium)
+            else -> getString(R.string.home_daily_motivation_long, streakDays)
+        }
+
         val dataUltimoAcesso = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR")).format(Date(now))
         lastAccessTextView.text = getString(R.string.home_daily_sequence_last_access, dataUltimoAcesso)
     }
@@ -217,7 +231,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, fraseAtual)
         }
-        startActivity(Intent.createChooser(intent, "Compartilhar Devocional Via"))
+        startActivity(Intent.createChooser(intent, getString(R.string.share_devotional_chooser)))
     }
 
     private fun copiarDevocional() {

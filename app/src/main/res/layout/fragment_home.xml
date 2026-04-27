@@ -24,6 +24,7 @@
         app:titleTextColor="@color/white" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/homeScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -49,14 +50,67 @@
                 android:textStyle="bold"
                 tools:text="Bom dia, Elias" />
 
-            <TextView
-                android:id="@+id/sequenceTextView"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textColor="@color/cor_texto_secundario"
-                android:textSize="14sp"
-                tools:text="Você está há 3 dias buscando a Palavra 🔥" />
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/cor_card"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp">
+
+                    <TextView
+                        android:id="@+id/sequenceTitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_daily_sequence_title"
+                        android:textColor="@color/cor_texto_principal"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/sequenceTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/cor_texto_secundario"
+                        android:textSize="14sp"
+                        tools:text="Você está há 3 dias buscando a Palavra 🔥" />
+
+                    <TextView
+                        android:id="@+id/sequenceSubtitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/home_daily_sequence_subtitle"
+                        android:textColor="@color/cor_primaria"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/lastAccessTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/cor_texto_secundario"
+                        android:textSize="12sp"
+                        tools:text="Último acesso: 27/04/2026" />
+
+                    <TextView
+                        android:id="@+id/streakMotivationTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/cor_texto_principal"
+                        android:textSize="12sp"
+                        tools:text="Cada dia de busca fortalece sua fé." />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
@@ -404,15 +458,6 @@
                         android:textSize="13sp"/>
                 </LinearLayout>
             </GridLayout>
-
-            <TextView
-                android:id="@+id/lastAccessTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/cor_texto_secundario"
-                android:textSize="12sp"
-                tools:text="Último acesso: 27/04/2026" />
 
         </LinearLayout>
 
