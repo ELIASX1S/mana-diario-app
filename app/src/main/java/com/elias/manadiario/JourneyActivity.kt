@@ -21,6 +21,9 @@ class JourneyActivity : AppCompatActivity() {
     private lateinit var startDateTextView: TextView
     private lateinit var statusTextView: TextView
     private lateinit var completionMessageTextView: TextView
+    private lateinit var completedDaysTextView: TextView
+    private lateinit var remainingDaysTextView: TextView
+    private lateinit var streakValueTextView: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var continueButton: Button
     private lateinit var changePlanButton: Button
@@ -44,6 +47,9 @@ class JourneyActivity : AppCompatActivity() {
         startDateTextView = findViewById(R.id.startDateTextView)
         statusTextView = findViewById(R.id.statusTextView)
         completionMessageTextView = findViewById(R.id.completionMessageTextView)
+        completedDaysTextView = findViewById(R.id.completedDaysTextView)
+        remainingDaysTextView = findViewById(R.id.remainingDaysTextView)
+        streakValueTextView = findViewById(R.id.streakValueTextView)
         progressBar = findViewById(R.id.journeyProgressBar)
         continueButton = findViewById(R.id.continueJourneyButton)
         changePlanButton = findViewById(R.id.changePlanButton)
@@ -85,18 +91,23 @@ class JourneyActivity : AppCompatActivity() {
         val progressPercentage = journeyManager.getProgressPercentage()
         val startDate = journeyManager.getPlanStartDate()
         val todayCompleted = journeyManager.isTodayCompleted()
-        val planFinished = completedDays >= activePlan.dias.size
+        val totalDays = activePlan.dias.size
+        val remainingDays = (totalDays - completedDays).coerceAtLeast(0)
+        val planFinished = completedDays >= totalDays
 
         planNameTextView.text = activePlan.nome
         dayTextView.text = if (planFinished) {
             "Plano concluído"
         } else {
-            "Dia $currentDay de ${activePlan.dias.size}"
+            "Dia $currentDay de $totalDays"
         }
 
-        progressTextView.text = "Progresso: $progressPercentage% ($completedDays/${activePlan.dias.size})"
+        progressTextView.text = "Progresso: $progressPercentage% ($completedDays/$totalDays)"
         streakTextView.text = "Sequência atual: $currentStreak dia(s)"
         startDateTextView.text = "Iniciado em: $startDate"
+        completedDaysTextView.text = completedDays.toString()
+        remainingDaysTextView.text = remainingDays.toString()
+        streakValueTextView.text = currentStreak.toString()
         progressBar.progress = progressPercentage
 
         if (planFinished) {
@@ -105,20 +116,28 @@ class JourneyActivity : AppCompatActivity() {
                 "Que alegria ver sua constância! Continue firme na presença de Deus e leve adiante tudo o que Ele falou ao seu coração durante esta jornada."
             completionMessageTextView.visibility = TextView.VISIBLE
             continueButton.text = "Rever último devocional"
+            continueButton.isEnabled = true
         } else {
+            val nextDay = (currentDay + 1).coerceAtMost(totalDays)
             statusTextView.text = if (todayCompleted) {
                 "Você já concluiu o devocional de hoje ✅"
             } else {
                 "Seu devocional de hoje está pronto 🙏"
             }
 
-            completionMessageTextView.visibility = TextView.GONE
+            completionMessageTextView.text = if (todayCompleted) {
+                "Descanse no que Deus já falou hoje. Amanhã você continua com o dia $nextDay."
+            } else {
+                "Faltam $remainingDays dia(s) para concluir seu plano. Continue firme!"
+            }
+            completionMessageTextView.visibility = TextView.VISIBLE
 
             continueButton.text = if (todayCompleted) {
                 "Ver devocional de hoje"
             } else {
                 "Continuar devocional"
             }
+            continueButton.isEnabled = true
         }
     }
 
