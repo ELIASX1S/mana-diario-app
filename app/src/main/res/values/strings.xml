@@ -50,6 +50,10 @@
     <string name="premium_plan_yearly_caption">Melhor custo-benefício para apoiar o app o ano todo.</string>
     <string name="premium_checkout_ready">Checkout em preparação. Seu interesse já foi registrado 💙</string>
     <string name="premium_support_error">Não foi possível abrir seu app de e-mail.</string>
+    <string name="premium_active_status">Premium ativo: %1$s (anúncios removidos)</string>
+    <string name="premium_inactive_status">Você está na versão gratuita com anúncios.</string>
+    <string name="premium_deactivate_cta">Voltar para versão gratuita</string>
+    <string name="premium_deactivated_toast">Versão gratuita reativada.</string>
     <string name="option_premium">Maná Premium</string>
     <string name="option_themes">Temas</string>
     <string name="option_search_bible">Buscar na Bíblia</string>

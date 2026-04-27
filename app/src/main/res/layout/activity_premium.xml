@@ -63,6 +63,15 @@
                 android:text="@string/premium_coming_soon_badge"
                 android:textColor="@color/cor_primaria"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textPremiumStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/cor_texto_principal"
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
@@ -180,6 +189,27 @@
             android:text="@string/premium_contact_cta"
             android:textAllCaps="false"
             android:textColor="@color/cor_texto_principal" />
+
+        <Button
+            android:id="@+id/buttonDeactivatePremium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/cor_divider"
+            android:text="@string/premium_deactivate_cta"
+            android:textAllCaps="false"
+            android:textColor="@color/cor_texto_principal" />
+
+        <TextView
+            android:id="@+id/textPremiumSelectedPlan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_plan_badge"
+            android:padding="12dp"
+            android:textColor="@color/cor_texto_principal"
+            android:textSize="13sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textPremiumSelectedPlan"
