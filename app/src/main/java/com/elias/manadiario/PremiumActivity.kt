@@ -1,5 +1,7 @@
 package com.elias.manadiario
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -19,27 +21,27 @@ class PremiumActivity : AppCompatActivity() {
         val yearlyButton = findViewById<Button>(R.id.buttonYearlyPlan)
         val contactButton = findViewById<Button>(R.id.buttonContactPremium)
         val legalTextView = findViewById<TextView>(R.id.textPremiumLegal)
+        val selectedPlanTextView = findViewById<TextView>(R.id.textPremiumSelectedPlan)
 
         monthlyButton.setOnClickListener {
-            mostrarEmBreve()
+            selecionarPlano(
+                planName = getString(R.string.premium_plan_monthly_name),
+                selectedPlanTextView = selectedPlanTextView
+            )
         }
 
         yearlyButton.setOnClickListener {
-            mostrarEmBreve()
+            selecionarPlano(
+                planName = getString(R.string.premium_plan_yearly_name),
+                selectedPlanTextView = selectedPlanTextView
+            )
         }
 
         contactButton.setOnClickListener {
-            mostrarEmBreve()
+            abrirContatoSuporte()
         }
 
-        monthlyButton.isEnabled = false
-        yearlyButton.isEnabled = false
-        contactButton.isEnabled = false
-        monthlyButton.alpha = 0.7f
-        yearlyButton.alpha = 0.7f
-        contactButton.alpha = 0.7f
-
-        legalTextView.text = getString(R.string.premium_coming_soon_description)
+        legalTextView.text = getString(R.string.premium_legal_text)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -47,11 +49,28 @@ class PremiumActivity : AppCompatActivity() {
         return true
     }
 
-    private fun mostrarEmBreve() {
+    private fun selecionarPlano(planName: String, selectedPlanTextView: TextView) {
+        selectedPlanTextView.visibility = TextView.VISIBLE
+        selectedPlanTextView.text = getString(R.string.premium_plan_selected_toast, planName)
+
         Toast.makeText(
             this,
-            getString(R.string.premium_coming_soon_toast),
-            Toast.LENGTH_LONG
+            getString(R.string.premium_checkout_ready),
+            Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun abrirContatoSuporte() {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:${getString(R.string.premium_contact_email)}")
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.premium_contact_subject))
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.premium_contact_body))
+        }
+
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, getString(R.string.premium_support_error), Toast.LENGTH_SHORT).show()
+        }
     }
 }
