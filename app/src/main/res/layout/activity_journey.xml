@@ -27,7 +27,7 @@
             android:paddingStart="20dp"
             android:paddingTop="22dp"
             android:paddingEnd="20dp"
-            android:text="Sua jornada espiritual"
+            android:text="@string/journey_header_title"
             android:textColor="@color/cor_texto_principal"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -39,7 +39,7 @@
             android:paddingStart="20dp"
             android:paddingTop="8dp"
             android:paddingEnd="20dp"
-            android:text="Seu devocional de hoje está pronto 🙏"
+            android:text="@string/journey_status_ready"
             android:textColor="@color/cor_texto_secundario"
             android:textSize="15sp" />
 
@@ -62,7 +62,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Plano atual"
+                    android:text="@string/journey_current_plan"
                     android:textColor="@color/cor_texto_secundario"
                     android:textSize="13sp" />
 
@@ -104,11 +104,102 @@
                     android:textColor="@color/cor_texto_secundario"
                     android:textSize="14sp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_journey_stat"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/completedDaysTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/cor_texto_principal"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/journey_stat_completed"
+                            android:textColor="@color/cor_texto_secundario"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_journey_stat"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/remainingDaysTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/cor_texto_principal"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/journey_stat_remaining"
+                            android:textColor="@color/cor_texto_secundario"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_journey_stat"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/streakValueTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/cor_texto_principal"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/journey_stat_streak"
+                            android:textColor="@color/cor_texto_secundario"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/streakTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
                     android:text="Sequência atual: 0 dia(s)"
                     android:textColor="@color/cor_texto_secundario"
                     android:textSize="14sp" />
@@ -150,7 +241,7 @@
             android:backgroundTint="@color/cor_primaria"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:text="Continuar devocional"
+            android:text="@string/journey_cta_continue"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
@@ -165,7 +256,7 @@
             android:backgroundTint="@color/cor_botao"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:text="Reiniciar plano"
+            android:text="@string/journey_cta_restart"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
@@ -181,7 +272,7 @@
             android:backgroundTint="@color/cor_secundaria"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
-            android:text="Trocar plano"
+            android:text="@string/journey_cta_change_plan"
             android:textAllCaps="false"
             android:textColor="@color/cor_texto_principal"
             android:textSize="16sp" />
