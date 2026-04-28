@@ -17,7 +17,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.material.button.MaterialButton
@@ -197,11 +196,10 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun obterSaudacao(): String {
-        val nome = getString(R.string.home_username_default)
         return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
-            in 5..11 -> getString(R.string.home_greeting_morning, nome)
-            in 12..17 -> getString(R.string.home_greeting_afternoon, nome)
-            else -> getString(R.string.home_greeting_evening)
+            in 5..11 -> "Bom dia"
+            in 12..17 -> "Boa tarde"
+            else -> "Que Deus fale com você hoje"
         }
     }
 
