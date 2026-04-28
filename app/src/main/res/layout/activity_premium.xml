@@ -60,7 +60,7 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="4dp"
-                android:text="@string/premium_coming_soon_badge"
+                android:text="@string/premium_available_badge"
                 android:textColor="@color/cor_primaria"
                 android:textStyle="bold" />
 
@@ -199,17 +199,6 @@
             android:text="@string/premium_deactivate_cta"
             android:textAllCaps="false"
             android:textColor="@color/cor_texto_principal" />
-
-        <TextView
-            android:id="@+id/textPremiumSelectedPlan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_plan_badge"
-            android:padding="12dp"
-            android:textColor="@color/cor_texto_principal"
-            android:textSize="13sp"
-            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textPremiumSelectedPlan"
