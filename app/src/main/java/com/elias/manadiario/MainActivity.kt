@@ -9,13 +9,15 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
@@ -29,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val NOTIFICATION_PERMISSION_REQUEST_CODE = 101
         private const val DAILY_NOTIFICATION_REQUEST_CODE = 1001
+        private const val KEY_LAST_SEEN_UPDATE_VERSION = "last_seen_update_version"
+        private const val CURRENT_UPDATE_VERSION = 14
     }
 
     private val opcoesMais by lazy {
@@ -59,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment())
+            mostrarNovidadesDaVersaoSeNecessario()
         }
     }
 
@@ -314,6 +319,31 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(MensagemFragment())
             carregarAnuncioIntersticial()
         }
+    }
+
+    private fun mostrarNovidadesDaVersaoSeNecessario() {
+        val preferencias = PreferenceManager.getDefaultSharedPreferences(this)
+        val ultimaVersaoVista = preferencias.getInt(KEY_LAST_SEEN_UPDATE_VERSION, 0)
+
+        if (ultimaVersaoVista >= CURRENT_UPDATE_VERSION || isFinishing) return
+
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.whats_new_title))
+            .setMessage(getString(R.string.whats_new_message))
+            .setPositiveButton(getString(R.string.whats_new_primary_cta)) { dialog, _ ->
+                preferencias.edit()
+                    .putInt(KEY_LAST_SEEN_UPDATE_VERSION, CURRENT_UPDATE_VERSION)
+                    .apply()
+                dialog.dismiss()
+                abrirJornadaDevocional()
+            }
+            .setNegativeButton(getString(R.string.whats_new_secondary_cta)) { dialog, _ ->
+                preferencias.edit()
+                    .putInt(KEY_LAST_SEEN_UPDATE_VERSION, CURRENT_UPDATE_VERSION)
+                    .apply()
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun replaceFragment(fragment: Fragment) {
