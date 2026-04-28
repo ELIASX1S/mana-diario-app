@@ -21,6 +21,9 @@ class JourneyActivity : AppCompatActivity() {
     private lateinit var startDateTextView: TextView
     private lateinit var statusTextView: TextView
     private lateinit var completionMessageTextView: TextView
+    private lateinit var completedDaysTextView: TextView
+    private lateinit var remainingDaysTextView: TextView
+    private lateinit var streakValueTextView: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var continueButton: Button
     private lateinit var changePlanButton: Button
@@ -34,7 +37,7 @@ class JourneyActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.journeyToolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Minha Jornada"
+        supportActionBar?.title = getString(R.string.journey_toolbar_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         planNameTextView = findViewById(R.id.planNameTextView)
@@ -44,6 +47,9 @@ class JourneyActivity : AppCompatActivity() {
         startDateTextView = findViewById(R.id.startDateTextView)
         statusTextView = findViewById(R.id.statusTextView)
         completionMessageTextView = findViewById(R.id.completionMessageTextView)
+        completedDaysTextView = findViewById(R.id.completedDaysTextView)
+        remainingDaysTextView = findViewById(R.id.remainingDaysTextView)
+        streakValueTextView = findViewById(R.id.streakValueTextView)
         progressBar = findViewById(R.id.journeyProgressBar)
         continueButton = findViewById(R.id.continueJourneyButton)
         changePlanButton = findViewById(R.id.changePlanButton)
@@ -85,40 +91,52 @@ class JourneyActivity : AppCompatActivity() {
         val progressPercentage = journeyManager.getProgressPercentage()
         val startDate = journeyManager.getPlanStartDate()
         val todayCompleted = journeyManager.isTodayCompleted()
-        val planFinished = completedDays >= activePlan.dias.size
+        val totalDays = activePlan.dias.size
+        val remainingDays = (totalDays - completedDays).coerceAtLeast(0)
+        val planFinished = completedDays >= totalDays
 
         planNameTextView.text = activePlan.nome
         dayTextView.text = if (planFinished) {
-            "Plano concluído"
+            getString(R.string.journey_plan_completed)
         } else {
-            "Dia $currentDay de ${activePlan.dias.size}"
+            getString(R.string.journey_day_progress, currentDay, totalDays)
         }
 
-        progressTextView.text = "Progresso: $progressPercentage% ($completedDays/${activePlan.dias.size})"
-        streakTextView.text = "Sequência atual: $currentStreak dia(s)"
-        startDateTextView.text = "Iniciado em: $startDate"
+        progressTextView.text = getString(R.string.journey_progress_format, progressPercentage, completedDays, totalDays)
+        streakTextView.text = getString(R.string.journey_streak_format, currentStreak)
+        startDateTextView.text = getString(R.string.journey_started_at, startDate)
+        completedDaysTextView.text = completedDays.toString()
+        remainingDaysTextView.text = remainingDays.toString()
+        streakValueTextView.text = currentStreak.toString()
         progressBar.progress = progressPercentage
 
         if (planFinished) {
-            statusTextView.text = "Parabéns! Você concluiu este plano 🎉"
-            completionMessageTextView.text =
-                "Que alegria ver sua constância! Continue firme na presença de Deus e leve adiante tudo o que Ele falou ao seu coração durante esta jornada."
+            statusTextView.text = getString(R.string.journey_status_finished)
+            completionMessageTextView.text = getString(R.string.journey_finished_message)
             completionMessageTextView.visibility = TextView.VISIBLE
-            continueButton.text = "Rever último devocional"
+            continueButton.text = getString(R.string.journey_cta_review)
+            continueButton.isEnabled = true
         } else {
+            val nextDay = (currentDay + 1).coerceAtMost(totalDays)
             statusTextView.text = if (todayCompleted) {
-                "Você já concluiu o devocional de hoje ✅"
+                getString(R.string.journey_status_today_done)
             } else {
-                "Seu devocional de hoje está pronto 🙏"
+                getString(R.string.journey_status_today_pending)
             }
 
-            completionMessageTextView.visibility = TextView.GONE
+            completionMessageTextView.text = if (todayCompleted) {
+                getString(R.string.journey_message_next_day, nextDay)
+            } else {
+                getString(R.string.journey_message_remaining, remainingDays)
+            }
+            completionMessageTextView.visibility = TextView.VISIBLE
 
             continueButton.text = if (todayCompleted) {
-                "Ver devocional de hoje"
+                getString(R.string.journey_cta_view_today)
             } else {
-                "Continuar devocional"
+                getString(R.string.journey_cta_continue)
             }
+            continueButton.isEnabled = true
         }
     }
 
@@ -126,14 +144,14 @@ class JourneyActivity : AppCompatActivity() {
         val activePlan = journeyManager.getActivePlan() ?: return
 
         AlertDialog.Builder(this)
-            .setTitle("Reiniciar plano")
-            .setMessage("Deseja recomeçar o plano \"${activePlan.nome}\" desde o dia 1?")
-            .setPositiveButton("Reiniciar") { _, _ ->
+            .setTitle(getString(R.string.journey_restart_title))
+            .setMessage(getString(R.string.journey_restart_message, activePlan.nome))
+            .setPositiveButton(getString(R.string.journey_restart_confirm)) { _, _ ->
                 journeyManager.startPlan(activePlan.id)
-                Toast.makeText(this, "Plano reiniciado com sucesso.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.journey_restart_success), Toast.LENGTH_SHORT).show()
                 atualizarTela()
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(android.R.string.cancel, null)
             .show()
     }
 
