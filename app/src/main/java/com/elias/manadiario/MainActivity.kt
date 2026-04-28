@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
 
     private val opcoesMais by lazy {
         listOf(
-            MaisOpcao(MaisOpcao.ID_PREMIUM, getString(R.string.option_premium), R.drawable.ic_star_filled),
             MaisOpcao(MaisOpcao.ID_THEMES, getString(R.string.option_themes), R.drawable.ic_temas),
             MaisOpcao(MaisOpcao.ID_SEARCH_BIBLE, getString(R.string.option_search_bible), R.drawable.ic_buscar),
             MaisOpcao(MaisOpcao.ID_FAVORITE_VERSES, getString(R.string.option_favorite_verses), R.drawable.ic_favoritos),
@@ -156,10 +155,6 @@ class MainActivity : AppCompatActivity() {
     private fun abrirMenuMais() {
         val bottomSheet = MaisOpcoesBottomSheet(opcoesMais) { opcaoSelecionada ->
             when (opcaoSelecionada.id) {
-                MaisOpcao.ID_PREMIUM -> {
-                    startActivity(Intent(this, PremiumActivity::class.java))
-                }
-
                 MaisOpcao.ID_THEMES -> replaceFragment(LibraryFragment())
 
                 MaisOpcao.ID_SEARCH_BIBLE -> {
