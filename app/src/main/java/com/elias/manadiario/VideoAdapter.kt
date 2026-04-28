@@ -2,6 +2,7 @@ package com.elias.manadiario
 
 import android.content.Intent // Importante para abrir o YouTube
 import android.net.Uri        // Importante para o link
+import java.net.URLEncoder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,9 +49,14 @@ class VideoAdapter(
 
             // --- AQUI ESTÁ A SOLUÇÃO MÁGICA ---
             itemView.setOnClickListener {
-                // Em vez de tentar abrir um player interno que dá erro,
-                // nós mandamos o Android abrir o app oficial do YouTube.
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=${video.videoId}"))
+                val youtubeUrl = if (!video.videoUrl.isNullOrBlank()) {
+                    video.videoUrl
+                } else {
+                    val query = URLEncoder.encode("${video.title} louvor atualizado", "UTF-8")
+                    "https://www.youtube.com/results?search_query=$query"
+                }
+
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
 
                 // Isto garante que abre numa nova tarefa, evitando bugs de retorno
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

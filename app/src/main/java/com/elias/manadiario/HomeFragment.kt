@@ -46,7 +46,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     private lateinit var sequenceTextView: TextView
     private lateinit var lastAccessTextView: TextView
     private lateinit var streakMotivationTextView: TextView
-    private lateinit var homeScrollView: NestedScrollView
+    private var isReflectionExpanded: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +72,6 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         sequenceTextView = view.findViewById(R.id.sequenceTextView)
         lastAccessTextView = view.findViewById(R.id.lastAccessTextView)
         streakMotivationTextView = view.findViewById(R.id.streakMotivationTextView)
-        homeScrollView = view.findViewById(R.id.homeScrollView)
 
         val favoriteAction: View = view.findViewById(R.id.favoriteAction)
         val shareAction: View = view.findViewById(R.id.shareAction)
@@ -83,6 +82,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         carregarDevocionalDoDia()
         atualizarHomeEmocional()
         atualizarIconeFavorito()
+        configurarBotaoReflexao(readReflectionButton)
 
         listenAction.isEnabled = false
         listenAction.alpha = 0.5f
@@ -102,13 +102,6 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
 
         copyAction.setOnClickListener {
             copiarDevocional()
-        }
-
-        readReflectionButton.setOnClickListener {
-            homeScrollView.post {
-                homeScrollView.smoothScrollTo(0, reflexaoTextView.top)
-                reflexaoTextView.requestFocus()
-            }
         }
 
         view.findViewById<View>(R.id.journeyShortcut).setOnClickListener { abrirJornadaDevocional() }
@@ -185,6 +178,22 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
 
         val dataUltimoAcesso = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR")).format(Date(now))
         lastAccessTextView.text = getString(R.string.home_daily_sequence_last_access, dataUltimoAcesso)
+    }
+
+    private fun configurarBotaoReflexao(button: MaterialButton) {
+        isReflectionExpanded = false
+        reflexaoTextView.maxLines = 3
+        button.text = getString(R.string.home_read_reflection)
+
+        button.setOnClickListener {
+            isReflectionExpanded = !isReflectionExpanded
+            reflexaoTextView.maxLines = if (isReflectionExpanded) Int.MAX_VALUE else 3
+            button.text = if (isReflectionExpanded) {
+                getString(R.string.home_hide_reflection)
+            } else {
+                getString(R.string.home_read_reflection)
+            }
+        }
     }
 
     private fun obterSaudacao(): String {

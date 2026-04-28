@@ -103,7 +103,8 @@
     <string name="home_greeting_evening">Que Deus fale com você hoje</string>
     <string name="home_username_default">Elias</string>
     <string name="home_main_card_title">Versículo do dia</string>
-    <string name="home_read_reflection">Ler reflexão</string>
+    <string name="home_read_reflection">Ler reflexão completa</string>
+    <string name="home_hide_reflection">Ocultar reflexão</string>
     <string name="home_daily_sequence_title">Sua sequência com Deus</string>
     <string name="home_daily_sequence_message">Você está há %1$d dias buscando a Palavra 🔥</string>
     <string name="home_daily_sequence_fallback">Comece hoje sua sequência de fé ✨</string>
