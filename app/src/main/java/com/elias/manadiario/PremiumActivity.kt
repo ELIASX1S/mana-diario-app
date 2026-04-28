@@ -3,6 +3,7 @@ package com.elias.manadiario
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -28,34 +29,26 @@ class PremiumActivity : AppCompatActivity() {
         val selectedPlanTextView = findViewById<TextView>(R.id.textPremiumSelectedPlan)
         val premiumStatusTextView = findViewById<TextView>(R.id.textPremiumStatus)
 
+        prepararTelaPremiumEmBreve(
+            monthlyButton = monthlyButton,
+            yearlyButton = yearlyButton,
+            deactivateButton = deactivateButton,
+            selectedPlanTextView = selectedPlanTextView,
+            premiumStatusTextView = premiumStatusTextView,
+            legalTextView = legalTextView
+        )
+
         monthlyButton.setOnClickListener {
-            selecionarPlano(
-                planName = getString(R.string.premium_plan_monthly_name),
-                selectedPlanTextView = selectedPlanTextView
-            )
-            renderPremiumState(selectedPlanTextView, premiumStatusTextView)
+            avisarPremiumEmBreve(getString(R.string.premium_plan_monthly_name))
         }
 
         yearlyButton.setOnClickListener {
-            selecionarPlano(
-                planName = getString(R.string.premium_plan_yearly_name),
-                selectedPlanTextView = selectedPlanTextView
-            )
-            renderPremiumState(selectedPlanTextView, premiumStatusTextView)
+            avisarPremiumEmBreve(getString(R.string.premium_plan_yearly_name))
         }
 
         contactButton.setOnClickListener {
             abrirContatoSuporte()
         }
-
-        deactivateButton.setOnClickListener {
-            premiumManager.deactivatePremium()
-            renderPremiumState(selectedPlanTextView, premiumStatusTextView)
-            Toast.makeText(this, getString(R.string.premium_deactivated_toast), Toast.LENGTH_SHORT).show()
-        }
-
-        legalTextView.text = getString(R.string.premium_legal_text)
-        renderPremiumState(selectedPlanTextView, premiumStatusTextView)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -63,34 +56,37 @@ class PremiumActivity : AppCompatActivity() {
         return true
     }
 
-    private fun selecionarPlano(planName: String, selectedPlanTextView: TextView) {
-        premiumManager.activatePremium(planName)
-        selectedPlanTextView.visibility = TextView.VISIBLE
-        selectedPlanTextView.text = getString(R.string.premium_plan_selected_toast, planName)
+    private fun prepararTelaPremiumEmBreve(
+        monthlyButton: Button,
+        yearlyButton: Button,
+        deactivateButton: Button,
+        selectedPlanTextView: TextView,
+        premiumStatusTextView: TextView,
+        legalTextView: TextView
+    ) {
+        // Garante que nenhum usuário fique marcado como Premium por um teste antigo.
+        // Quando o Google Play Billing for integrado, essa regra deve ser substituída pela validação real da assinatura.
+        if (premiumManager.isPremiumActive()) {
+            premiumManager.deactivatePremium()
+        }
 
-        Toast.makeText(
-            this,
-            getString(R.string.premium_checkout_ready),
-            Toast.LENGTH_SHORT
-        ).show()
+        monthlyButton.text = getString(R.string.premium_plan_monthly_cta)
+        yearlyButton.text = getString(R.string.premium_plan_yearly_cta)
+
+        deactivateButton.visibility = View.GONE
+        selectedPlanTextView.visibility = View.VISIBLE
+        selectedPlanTextView.text = getString(R.string.premium_coming_soon_description)
+
+        premiumStatusTextView.text = getString(R.string.premium_inactive_status)
+        legalTextView.text = getString(R.string.premium_legal_text)
     }
 
-    private fun renderPremiumState(selectedPlanTextView: TextView, premiumStatusTextView: TextView) {
-        val isPremium = premiumManager.isPremiumActive()
-        val activePlanName = premiumManager.getActivePlanName()
-
-        premiumStatusTextView.text = if (isPremium && !activePlanName.isNullOrBlank()) {
-            getString(R.string.premium_active_status, activePlanName)
-        } else {
-            getString(R.string.premium_inactive_status)
-        }
-
-        if (isPremium && !activePlanName.isNullOrBlank()) {
-            selectedPlanTextView.visibility = TextView.VISIBLE
-            selectedPlanTextView.text = getString(R.string.premium_plan_selected_toast, activePlanName)
-        } else {
-            selectedPlanTextView.visibility = TextView.GONE
-        }
+    private fun avisarPremiumEmBreve(planName: String) {
+        Toast.makeText(
+            this,
+            getString(R.string.premium_checkout_placeholder, planName),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun abrirContatoSuporte() {
