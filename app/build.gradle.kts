@@ -11,8 +11,8 @@ android {
         applicationId = "com.elias.manadiario"
         minSdk = 24
         targetSdk = 35
-        versionCode = 14
-        versionName = "1.1"
+        versionCode = 15
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -51,4 +51,5 @@ dependencies {
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.google.android.gms:play-services-ads:23.0.0")
+    implementation("com.android.billingclient:billing-ktx:7.1.1")
 }
