@@ -301,7 +301,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
-        super.onCreateOptionsMenu(menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
