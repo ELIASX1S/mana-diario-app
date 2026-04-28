@@ -27,7 +27,7 @@
                 android:paddingTop="6dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="6dp"
-                android:text="@string/premium_badge"
+                android:text="EM PREPARAÇÃO"
                 android:textColor="@color/cor_primaria"
                 android:textStyle="bold" />
 
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="@string/premium_header"
+                android:text="Maná Premium"
                 android:textColor="@color/cor_texto_principal"
                 android:textSize="26sp"
                 android:textStyle="bold" />
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/premium_subtitle"
+                android:text="Estamos preparando uma experiência premium com menos anúncios, conteúdos especiais e novos recursos para fortalecer sua rotina com Deus."
                 android:textColor="@color/cor_texto_secundario"
                 android:textSize="15sp" />
 
@@ -60,7 +60,7 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="4dp"
-                android:text="@string/premium_available_badge"
+                android:text="EM BREVE"
                 android:textColor="@color/cor_primaria"
                 android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/premium_benefits_title"
+                    android:text="O que está sendo preparado"
                     android:textColor="@color/cor_texto_principal"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:lineSpacingExtra="5dp"
-                    android:text="@string/premium_benefits"
+                    android:text="• Experiência com menos anúncios\n• Devocionais especiais\n• Novos planos de jornada\n• Recursos para estudo e oração\n• Melhorias contínuas no aplicativo"
                     android:textColor="@color/cor_texto_principal"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -129,7 +129,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/premium_future_title"
+                    android:text="Próximos recursos"
                     android:textColor="@color/cor_texto_principal"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -138,7 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/premium_future_ai_chat"
+                    android:text="Assistente bíblico, oração guiada e estudos personalizados estão no plano de evolução do Maná Diário."
                     android:textColor="@color/cor_texto_secundario"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:backgroundTint="@color/cor_primaria"
-            android:text="@string/premium_plan_monthly_cta"
+            android:text="Tenho interesse no Premium"
             android:textAllCaps="false"
             android:textColor="@color/cor_texto_claro" />
         <TextView
@@ -158,7 +158,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="@string/premium_plan_monthly_caption"
+            android:text="O Premium ainda não está disponível para assinatura."
             android:textColor="@color/cor_texto_secundario"
             android:textSize="12sp" />
 
@@ -168,7 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/cor_destaque"
-            android:text="@string/premium_plan_yearly_cta"
+            android:text="Quero apoiar o app"
             android:textAllCaps="false"
             android:textColor="@color/cor_texto_claro" />
         <TextView
@@ -176,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="@string/premium_plan_yearly_caption"
+            android:text="Você será avisado quando a versão Premium estiver pronta."
             android:textColor="@color/cor_texto_secundario"
             android:textSize="12sp" />
 
