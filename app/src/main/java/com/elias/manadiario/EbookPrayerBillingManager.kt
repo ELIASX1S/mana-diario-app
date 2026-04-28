@@ -8,6 +8,7 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
@@ -33,9 +34,13 @@ class EbookPrayerBillingManager(
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
     private var productDetails: ProductDetails? = null
 
+    private val pendingPurchasesParams = PendingPurchasesParams.newBuilder()
+        .enableOneTimeProducts()
+        .build()
+
     private val billingClient: BillingClient = BillingClient.newBuilder(context.applicationContext)
         .setListener(this)
-        .enablePendingPurchases()
+        .enablePendingPurchases(pendingPurchasesParams)
         .build()
 
     fun startConnection() {
