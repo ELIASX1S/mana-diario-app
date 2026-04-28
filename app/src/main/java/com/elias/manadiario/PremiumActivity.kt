@@ -29,7 +29,7 @@ class PremiumActivity : AppCompatActivity() {
         val selectedPlanTextView = findViewById<TextView>(R.id.textPremiumSelectedPlan)
         val premiumStatusTextView = findViewById<TextView>(R.id.textPremiumStatus)
 
-        prepararTelaPremiumEmBreve(
+        prepararTelaEbookOracao(
             monthlyButton = monthlyButton,
             yearlyButton = yearlyButton,
             deactivateButton = deactivateButton,
@@ -39,11 +39,11 @@ class PremiumActivity : AppCompatActivity() {
         )
 
         monthlyButton.setOnClickListener {
-            avisarPremiumEmBreve(getString(R.string.premium_plan_monthly_name))
+            startActivity(Intent(this, EbookOracaoActivity::class.java))
         }
 
         yearlyButton.setOnClickListener {
-            avisarPremiumEmBreve(getString(R.string.premium_plan_yearly_name))
+            startActivity(Intent(this, EbookOracaoActivity::class.java))
         }
 
         contactButton.setOnClickListener {
@@ -56,7 +56,7 @@ class PremiumActivity : AppCompatActivity() {
         return true
     }
 
-    private fun prepararTelaPremiumEmBreve(
+    private fun prepararTelaEbookOracao(
         monthlyButton: Button,
         yearlyButton: Button,
         deactivateButton: Button,
@@ -64,29 +64,19 @@ class PremiumActivity : AppCompatActivity() {
         premiumStatusTextView: TextView,
         legalTextView: TextView
     ) {
-        // Garante que nenhum usuário fique marcado como Premium por um teste antigo.
-        // Quando o Google Play Billing for integrado, essa regra deve ser substituída pela validação real da assinatura.
         if (premiumManager.isPremiumActive()) {
             premiumManager.deactivatePremium()
         }
 
-        monthlyButton.text = getString(R.string.premium_plan_monthly_cta)
-        yearlyButton.text = getString(R.string.premium_plan_yearly_cta)
+        monthlyButton.text = "Ver E-book de Oração"
+        yearlyButton.text = "Liberar acesso pela Google Play"
 
         deactivateButton.visibility = View.GONE
         selectedPlanTextView.visibility = View.VISIBLE
-        selectedPlanTextView.text = getString(R.string.premium_coming_soon_description)
+        selectedPlanTextView.text = "Produto digital premium: E-book de Oração. O acesso é liberado com segurança pela Google Play."
 
-        premiumStatusTextView.text = getString(R.string.premium_inactive_status)
-        legalTextView.text = getString(R.string.premium_legal_text)
-    }
-
-    private fun avisarPremiumEmBreve(planName: String) {
-        Toast.makeText(
-            this,
-            getString(R.string.premium_checkout_placeholder, planName),
-            Toast.LENGTH_LONG
-        ).show()
+        premiumStatusTextView.text = "E-book premium disponível para liberação."
+        legalTextView.text = "A compra é processada pela Google Play. Se você trocar de aparelho, use a opção Restaurar compra dentro da tela do e-book."
     }
 
     private fun abrirContatoSuporte() {

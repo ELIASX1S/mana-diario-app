@@ -26,24 +26,13 @@
         android:theme="@style/Theme.ManaDiario"
         tools:targetApi="31">
 
-        <activity
-            android:name=".PlayerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VersesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ThemesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FavoritesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PremiumActivity"
-            android:exported="false" />
+        <activity android:name=".PlayerActivity" android:exported="false" />
+        <activity android:name=".VersesActivity" android:exported="false" />
+        <activity android:name=".ThemesActivity" android:exported="false" />
+        <activity android:name=".SettingsActivity" android:exported="false" />
+        <activity android:name=".FavoritesActivity" android:exported="false" />
+        <activity android:name=".PremiumActivity" android:exported="false" />
+        <activity android:name=".EbookOracaoActivity" android:exported="false" />
 
         <activity
             android:name=".MainActivity"
@@ -54,60 +43,27 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".NotificationReceiver"
-            android:enabled="true"
-            android:exported="false" />
+        <receiver android:name=".NotificationReceiver" android:enabled="true" android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.elias.manadiario.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths" />
         </provider>
 
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1398532019315738~1964825889" />
+        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-1398532019315738~1964825889" />
 
-        <activity
-            android:name=".DevotionalDayActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ChoosePlanActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".JourneyActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".BibleBooksActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".BibleChaptersActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".BibleVersesActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".BibleSearchActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".BibleFavoritesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BibleNotesActivity"
-            android:exported="false" />
+        <activity android:name=".DevotionalDayActivity" android:exported="false" />
+        <activity android:name=".ChoosePlanActivity" android:exported="false" />
+        <activity android:name=".JourneyActivity" android:exported="false" />
+        <activity android:name=".BibleBooksActivity" android:exported="false" />
+        <activity android:name=".BibleChaptersActivity" android:exported="false" />
+        <activity android:name=".BibleVersesActivity" android:exported="false" />
+        <activity android:name=".BibleSearchActivity" android:exported="false" />
+        <activity android:name=".BibleFavoritesActivity" android:exported="false" />
+        <activity android:name=".BibleNotesActivity" android:exported="false" />
 
     </application>
-
 </manifest>
