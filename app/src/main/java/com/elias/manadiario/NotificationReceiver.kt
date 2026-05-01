@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import kotlin.random.Random
 
 class NotificationReceiver : BroadcastReceiver() {
 
@@ -47,12 +48,23 @@ class NotificationReceiver : BroadcastReceiver() {
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.mipmap.ic_launcher) // Usa o ícone do teu app
             .setContentTitle("Maná Diário 🙏")
-            .setContentText("A sua palavra de hoje já chegou. Venha fortalecer a sua fé!")
+            .setContentText(obterMensagemDiaria())
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
         // 4. Mostrar!
         notificationManager.notify(1, builder.build())
+    }
+
+    private fun obterMensagemDiaria(): String {
+        val mensagens = listOf(
+            "Deus tem uma palavra para você hoje.",
+            "Antes de começar o dia, fortaleça sua fé.",
+            "Não enfrente esse dia sozinho. Ore e siga com Deus.",
+            "Reserve alguns minutos para ouvir o que Deus quer falar com você.",
+            "Sua jornada de fé continua hoje. Abra o Maná Diário 🙏"
+        )
+        return mensagens[Random.nextInt(mensagens.size)]
     }
 }

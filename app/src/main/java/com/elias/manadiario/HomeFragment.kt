@@ -30,6 +30,8 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     companion object {
         private const val KEY_LAST_ACCESS = "home_last_access"
         private const val KEY_STREAK_DAYS = "home_streak_days"
+        private const val KEY_FAITH_PLAN_DAY = "home_faith_plan_day"
+        private const val FAITH_PLAN_TOTAL_DAYS = 7
         private const val MILLIS_IN_DAY = 24 * 60 * 60 * 1000L
     }
 
@@ -45,6 +47,10 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     private lateinit var sequenceTextView: TextView
     private lateinit var lastAccessTextView: TextView
     private lateinit var streakMotivationTextView: TextView
+    private lateinit var faithPlanDayTextView: TextView
+    private lateinit var faithPlanVerseTextView: TextView
+    private lateinit var faithPlanReflectionTextView: TextView
+    private lateinit var faithPlanPrayerTextView: TextView
     private var isReflectionExpanded: Boolean = false
 
     override fun onCreateView(
@@ -71,17 +77,23 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         sequenceTextView = view.findViewById(R.id.sequenceTextView)
         lastAccessTextView = view.findViewById(R.id.lastAccessTextView)
         streakMotivationTextView = view.findViewById(R.id.streakMotivationTextView)
+        faithPlanDayTextView = view.findViewById(R.id.faithPlanDayTextView)
+        faithPlanVerseTextView = view.findViewById(R.id.faithPlanVerseTextView)
+        faithPlanReflectionTextView = view.findViewById(R.id.faithPlanReflectionTextView)
+        faithPlanPrayerTextView = view.findViewById(R.id.faithPlanPrayerTextView)
 
         val favoriteAction: View = view.findViewById(R.id.favoriteAction)
         val shareAction: View = view.findViewById(R.id.shareAction)
         val copyAction: View = view.findViewById(R.id.copyAction)
         listenAction = view.findViewById(R.id.listenAction)
         val readReflectionButton: MaterialButton = view.findViewById(R.id.readReflectionButton)
+        val completeFaithPlanDayButton: MaterialButton = view.findViewById(R.id.completeFaithPlanDayButton)
 
         carregarDevocionalDoDia()
         atualizarHomeEmocional()
         atualizarIconeFavorito()
         configurarBotaoReflexao(readReflectionButton)
+        atualizarPlano7Dias()
 
         listenAction.isEnabled = false
         listenAction.alpha = 0.5f
@@ -101,6 +113,9 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
 
         copyAction.setOnClickListener {
             copiarDevocional()
+        }
+        completeFaithPlanDayButton.setOnClickListener {
+            concluirDiaPlano7Dias()
         }
 
         view.findViewById<View>(R.id.journeyShortcut).setOnClickListener { abrirJornadaDevocional() }
@@ -163,7 +178,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
             .apply()
 
         sequenceTextView.text = if (streakDays > 0) {
-            getString(R.string.home_daily_sequence_message, streakDays)
+            getMensagemConquistaStreak(streakDays)
         } else {
             getString(R.string.home_daily_sequence_fallback)
         }
@@ -177,6 +192,40 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
 
         val dataUltimoAcesso = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR")).format(Date(now))
         lastAccessTextView.text = getString(R.string.home_daily_sequence_last_access, dataUltimoAcesso)
+    }
+
+    private fun getMensagemConquistaStreak(streakDays: Int): String {
+        return when {
+            streakDays >= 30 -> getString(R.string.home_streak_badge_30, streakDays)
+            streakDays >= 7 -> getString(R.string.home_streak_badge_7, streakDays)
+            else -> getString(R.string.home_streak_badge_3, streakDays)
+        }
+    }
+
+    private fun atualizarPlano7Dias() {
+        val preferencias = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val diaAtual = preferencias.getInt(KEY_FAITH_PLAN_DAY, 1).coerceIn(1, FAITH_PLAN_TOTAL_DAYS)
+        val indice = diaAtual - 1
+
+        val temas = resources.getStringArray(R.array.home_faith_plan_themes)
+        val versiculos = resources.getStringArray(R.array.home_faith_plan_verses)
+        val reflexoes = resources.getStringArray(R.array.home_faith_plan_reflections)
+        val oracoes = resources.getStringArray(R.array.home_faith_plan_prayers)
+
+        faithPlanDayTextView.text = getString(R.string.home_faith_plan_day_format, diaAtual, FAITH_PLAN_TOTAL_DAYS, temas[indice])
+        faithPlanVerseTextView.text = versiculos[indice]
+        faithPlanReflectionTextView.text = reflexoes[indice]
+        faithPlanPrayerTextView.text = getString(R.string.home_prayer_of_day_prefix, oracoes[indice])
+    }
+
+    private fun concluirDiaPlano7Dias() {
+        val preferencias = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val diaAtual = preferencias.getInt(KEY_FAITH_PLAN_DAY, 1).coerceIn(1, FAITH_PLAN_TOTAL_DAYS)
+        val proximoDia = if (diaAtual >= FAITH_PLAN_TOTAL_DAYS) 1 else diaAtual + 1
+
+        preferencias.edit().putInt(KEY_FAITH_PLAN_DAY, proximoDia).apply()
+        atualizarPlano7Dias()
+        Toast.makeText(requireContext(), getString(R.string.home_faith_plan_day_completed), Toast.LENGTH_SHORT).show()
     }
 
     private fun configurarBotaoReflexao(button: MaterialButton) {
