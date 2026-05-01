@@ -65,7 +65,7 @@ class EbookOracaoActivity : AppCompatActivity() {
     }
 
     private fun renderLockedState() {
-        statusTextView.text = "Conteúdo premium bloqueado. Libere o e-book pela Google Play para acessar."
+        statusTextView.text = "Conteúdo do e-book bloqueado. Libere o acesso pela Google Play para continuar."
         contentTextView.text = "O E-book de Oração do Maná Diário foi preparado para ajudar você a criar uma rotina de oração mais constante, profunda e guiada."
         buyButton.visibility = View.VISIBLE
         restoreButton.visibility = View.VISIBLE

@@ -23,7 +23,7 @@ O objetivo do projeto é oferecer uma experiência simples, bonita e constante p
 - Configuração de tamanho da fonte
 - Notificações diárias
 - Monetização com anúncios AdMob
-- Área Premium em preparação
+- E-book de oração com compra avulsa (Google Play Billing)
 
 ## 🛠️ Tecnologias utilizadas
 
@@ -53,7 +53,7 @@ O app é organizado em múltiplas telas e recursos, incluindo:
 - `BibleNotesActivity` — notas bíblicas
 - `JourneyActivity` — jornada devocional
 - `ChoosePlanActivity` — escolha de plano devocional
-- `PremiumActivity` — área Premium em preparação
+- `EbookOracaoActivity` — acesso ao e-book de oração com compra pela Google Play
 - `SettingsActivity` — configurações do usuário
 - `NotificationReceiver` — lembretes diários
 
@@ -61,7 +61,7 @@ O app é organizado em múltiplas telas e recursos, incluindo:
 
 O projeto já possui integração com anúncios via Google Mobile Ads / AdMob.
 
-A área Premium está em preparação e deve ser integrada futuramente ao Google Play Billing antes de ser usada para assinaturas reais.
+O projeto possui compra avulsa de conteúdo digital (e-book de oração) via Google Play Billing.
 
 ## 🚧 Status do projeto
 
@@ -69,7 +69,7 @@ Projeto em desenvolvimento ativo.
 
 Próximas melhorias recomendadas:
 
-- Integrar Google Play Billing para o Premium
+- Evoluir catálogo de conteúdos digitais pagos
 - Revisar fluxo de anúncios para melhorar experiência do usuário
 - Criar onboarding para novos usuários
 - Melhorar screenshots e materiais para Play Store
@@ -113,7 +113,7 @@ Para gerar uma build de release:
 
 Este é um projeto de aprendizado e evolução prática em desenvolvimento Android.
 
-Como a área Premium ainda não possui integração real com Google Play Billing, ela não deve ser usada como assinatura paga em produção até que a integração oficial seja implementada.
+Antes de publicar na Play Store, revise política de privacidade, dados coletados e textos de compra para garantir alinhamento com as regras de monetização.
 
 ## 👨‍💻 Autor
 
