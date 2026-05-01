@@ -55,6 +55,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     private lateinit var faithPlanReflectionTextView: TextView
     private lateinit var faithPlanPrayerTextView: TextView
     private lateinit var faithPlanProgressTextView: TextView
+    private lateinit var completeFaithPlanDayButton: MaterialButton
     private var isReflectionExpanded: Boolean = false
     private var prayerAtualPlano: String = ""
 
@@ -93,7 +94,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         val copyAction: View = view.findViewById(R.id.copyAction)
         listenAction = view.findViewById(R.id.listenAction)
         val readReflectionButton: MaterialButton = view.findViewById(R.id.readReflectionButton)
-        val completeFaithPlanDayButton: MaterialButton = view.findViewById(R.id.completeFaithPlanDayButton)
+        completeFaithPlanDayButton = view.findViewById(R.id.completeFaithPlanDayButton)
         val shareFaithPlanPrayerButton: MaterialButton = view.findViewById(R.id.shareFaithPlanPrayerButton)
 
         carregarDevocionalDoDia()
@@ -122,7 +123,14 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
             copiarDevocional()
         }
         completeFaithPlanDayButton.setOnClickListener {
-            concluirDiaPlano7Dias()
+            val preferencias = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            val jornadaConcluida = preferencias.getBoolean(KEY_FAITH_PLAN_COMPLETED, false)
+            if (jornadaConcluida) {
+                recomecarJornada7Dias()
+                Toast.makeText(requireContext(), getString(R.string.home_faith_plan_restarted), Toast.LENGTH_SHORT).show()
+            } else {
+                concluirDiaPlano7Dias()
+            }
         }
         shareFaithPlanPrayerButton.setOnClickListener {
             compartilharOracaoDoPlano()
@@ -228,10 +236,19 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         } else {
             getString(R.string.home_faith_plan_day_format, diaAtual, FAITH_PLAN_TOTAL_DAYS, temas[indice])
         }
-        faithPlanVerseTextView.text = versiculos[indice]
-        faithPlanReflectionTextView.text = reflexoes[indice]
-        prayerAtualPlano = oracoes[indice]
-        faithPlanPrayerTextView.text = getString(R.string.home_prayer_of_day_prefix, prayerAtualPlano)
+        if (jornadaConcluida) {
+            faithPlanVerseTextView.text = getString(R.string.home_faith_plan_completed_final_verse)
+            faithPlanReflectionTextView.text = getString(R.string.home_faith_plan_completed_final_message)
+            prayerAtualPlano = getString(R.string.home_faith_plan_completed_final_prayer)
+            faithPlanPrayerTextView.text = getString(R.string.home_prayer_of_day_prefix, prayerAtualPlano)
+            completeFaithPlanDayButton.text = getString(R.string.home_faith_plan_start_again)
+        } else {
+            faithPlanVerseTextView.text = versiculos[indice]
+            faithPlanReflectionTextView.text = reflexoes[indice]
+            prayerAtualPlano = oracoes[indice]
+            faithPlanPrayerTextView.text = getString(R.string.home_prayer_of_day_prefix, prayerAtualPlano)
+            completeFaithPlanDayButton.text = getString(R.string.home_faith_plan_complete_day)
+        }
         faithPlanProgressTextView.text = if (jornadaConcluida) {
             getString(R.string.home_faith_plan_progress_completed)
         } else {

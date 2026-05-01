@@ -105,6 +105,10 @@
     <string name="home_faith_plan_share_achievement">Compartilhar conquista</string>
     <string name="home_faith_plan_completed_status">Jornada concluída ✅</string>
     <string name="home_faith_plan_progress_completed">Jornada concluída: 7 de 7 dias</string>
+    <string name="home_faith_plan_restarted">Jornada reiniciada. Vamos para o dia 1 🙏</string>
+    <string name="home_faith_plan_completed_final_verse">Aquele que começou a boa obra em vocês vai completá-la. (Filipenses 1:6)</string>
+    <string name="home_faith_plan_completed_final_message">Você concluiu essa jornada. Continue firme: Deus ainda tem muito a fazer em sua vida.</string>
+    <string name="home_faith_plan_completed_final_prayer">Senhor, obrigado por me sustentar nesta jornada. Dá-me constância para seguir firme todos os dias. Amém.</string>
     <string name="home_faith_plan_achievement_share_text">🙏 Concluí minha jornada de 7 dias para fortalecer a fé no app Maná Diário.\n\nContinue caminhando com Deus todos os dias. 📖</string>
     <string name="home_faith_plan_prayer_share_text">🙏 Oração de hoje\n\n%1$s\n\n📖 Maná Diário</string>
     <string name="home_prayer_of_day_prefix">Oração do dia: %1$s</string>
