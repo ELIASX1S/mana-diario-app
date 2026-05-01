@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_bottom_nav_premium"
+        android:background="@drawable/bg_bottom_nav_surface"
         android:elevation="10dp"
         android:paddingTop="8dp"
         android:paddingBottom="10dp"
