@@ -173,6 +173,15 @@
                         android:textStyle="italic"
                         tools:text="Senhor, guia meus passos hoje..." />
 
+                    <TextView
+                        android:id="@+id/faithPlanProgressTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/cor_texto_secundario"
+                        android:textSize="12sp"
+                        tools:text="Progresso: 3 de 7 dias concluídos" />
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/completeFaithPlanDayButton"
                         style="@style/Widget.MaterialComponents.Button"
@@ -181,6 +190,14 @@
                         android:layout_marginTop="12dp"
                         android:text="@string/home_faith_plan_complete_day"
                         app:backgroundTint="@color/cor_primaria" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/shareFaithPlanPrayerButton"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/home_faith_plan_share_prayer" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

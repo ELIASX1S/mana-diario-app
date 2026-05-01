@@ -95,7 +95,16 @@
     <string name="home_faith_plan_title">7 dias para fortalecer sua fé</string>
     <string name="home_faith_plan_day_format">Dia %1$d de %2$d — %3$s</string>
     <string name="home_faith_plan_complete_day">Concluir dia</string>
+    <string name="home_faith_plan_share_prayer">Compartilhar oração de hoje</string>
     <string name="home_faith_plan_day_completed">Dia concluído! Continue firme 🙏</string>
+    <string name="home_faith_plan_already_completed_today">Você já concluiu o devocional de hoje. Volte amanhã para continuar sua jornada.</string>
+    <string name="home_faith_plan_progress_format">Progresso: %1$d de %2$d dias concluídos</string>
+    <string name="home_faith_plan_completed_title">Jornada concluída 🙏</string>
+    <string name="home_faith_plan_completed_message">Você concluiu a jornada de 7 dias para fortalecer sua fé.\n\nContinue caminhando com Deus todos os dias.</string>
+    <string name="home_faith_plan_restart">Recomeçar jornada</string>
+    <string name="home_faith_plan_share_achievement">Compartilhar conquista</string>
+    <string name="home_faith_plan_achievement_share_text">🙏 Concluí minha jornada de 7 dias para fortalecer a fé no app Maná Diário.\n\nContinue caminhando com Deus todos os dias. 📖</string>
+    <string name="home_faith_plan_prayer_share_text">🙏 Oração de hoje\n\n%1$s\n\n📖 Maná Diário</string>
     <string name="home_prayer_of_day_prefix">Oração do dia: %1$s</string>
     <string name="home_favorite_added">Adicionado aos favoritos</string>
     <string name="home_favorite_removed">Removido dos favoritos</string>
