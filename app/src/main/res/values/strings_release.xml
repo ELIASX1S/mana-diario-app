@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="whats_new_title">Novidades do Maná Diário 1.1</string>
-    <string name="whats_new_message">Preparamos melhorias para deixar sua experiência mais clara e constante.\n\n• Jornada devocional em destaque\n• Experiência Premium mais segura\n• Base preparada para futuras assinaturas\n• Organização interna para novas atualizações\n\nContinue sua jornada de fé hoje.</string>
+    <string name="whats_new_message">Preparamos melhorias para deixar sua experiência mais clara e constante.\n\n• Jornada devocional em destaque\n• Fluxo do app simplificado\n• Melhor organização para novas atualizações\n\nContinue sua jornada de fé hoje.</string>
     <string name="whats_new_primary_cta">Ver minha jornada</string>
     <string name="whats_new_secondary_cta">Agora não</string>
 </resources>
