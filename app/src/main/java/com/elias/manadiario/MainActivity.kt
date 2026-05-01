@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        atualizarEstadoPremiumAds()
+        atualizarEstadoAds()
     }
 
     private fun inicializarNotificacoes() {
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         carregarAnuncioIntersticial()
     }
 
-    private fun atualizarEstadoPremiumAds() {
+    private fun atualizarEstadoAds() {
         if (!::adView.isInitialized) return
 
         if (adView.visibility != android.view.View.VISIBLE) {
