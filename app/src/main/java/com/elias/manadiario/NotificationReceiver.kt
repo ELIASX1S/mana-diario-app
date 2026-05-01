@@ -58,6 +58,10 @@ class NotificationReceiver : BroadcastReceiver() {
     }
 
     private fun obterMensagemDiaria(context: Context): String {
+        if (isJornadaConcluida(context)) {
+            return "Você concluiu sua jornada de 7 dias. Que tal começar uma nova hoje?"
+        }
+
         val diaPlanoAtual = obterDiaAtualPlano(context)
         val mensagens = listOf(
             "Dia $diaPlanoAtual da sua jornada de fé está esperando por você.",
@@ -73,5 +77,10 @@ class NotificationReceiver : BroadcastReceiver() {
     private fun obterDiaAtualPlano(context: Context): Int {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         return prefs.getInt("home_faith_plan_day", 1).coerceIn(1, 7)
+    }
+
+    private fun isJornadaConcluida(context: Context): Boolean {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        return prefs.getBoolean("home_faith_plan_completed", false)
     }
 }
