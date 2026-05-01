@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
 
     private val opcoesMais by lazy {
         listOf(
-            MaisOpcao(MaisOpcao.ID_PREMIUM, getString(R.string.option_premium), R.drawable.ic_star_filled),
             MaisOpcao(MaisOpcao.ID_THEMES, getString(R.string.option_themes), R.drawable.ic_temas),
             MaisOpcao(MaisOpcao.ID_SEARCH_BIBLE, getString(R.string.option_search_bible), R.drawable.ic_buscar),
             MaisOpcao(MaisOpcao.ID_FAVORITE_VERSES, getString(R.string.option_favorite_verses), R.drawable.ic_favoritos),
@@ -50,12 +49,10 @@ class MainActivity : AppCompatActivity() {
     private var mInterstitialAd: InterstitialAd? = null
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var adView: AdView
-    private lateinit var premiumManager: PremiumManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        premiumManager = PremiumManager(this)
 
         inicializarNotificacoes()
         inicializarAds()
@@ -69,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        atualizarEstadoPremiumAds()
+        atualizarEstadoAds()
     }
 
     private fun inicializarNotificacoes() {
@@ -78,12 +75,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun inicializarAds() {
         adView = findViewById(R.id.adViewMain)
-
-        if (premiumManager.isPremiumActive()) {
-            adView.visibility = android.view.View.GONE
-            mInterstitialAd = null
-            return
-        }
 
         MobileAds.initialize(this) {}
 
@@ -104,13 +95,10 @@ class MainActivity : AppCompatActivity() {
         carregarAnuncioIntersticial()
     }
 
-    private fun atualizarEstadoPremiumAds() {
+    private fun atualizarEstadoAds() {
         if (!::adView.isInitialized) return
 
-        if (premiumManager.isPremiumActive()) {
-            adView.visibility = android.view.View.GONE
-            mInterstitialAd = null
-        } else if (adView.visibility != android.view.View.VISIBLE) {
+        if (adView.visibility != android.view.View.VISIBLE) {
             adView.loadAd(AdRequest.Builder().build())
             if (mInterstitialAd == null) {
                 carregarAnuncioIntersticial()
@@ -156,10 +144,6 @@ class MainActivity : AppCompatActivity() {
     private fun abrirMenuMais() {
         val bottomSheet = MaisOpcoesBottomSheet(opcoesMais) { opcaoSelecionada ->
             when (opcaoSelecionada.id) {
-                MaisOpcao.ID_PREMIUM -> {
-                    startActivity(Intent(this, PremiumActivity::class.java))
-                }
-
                 MaisOpcao.ID_THEMES -> replaceFragment(LibraryFragment())
 
                 MaisOpcao.ID_SEARCH_BIBLE -> {
@@ -268,11 +252,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun carregarAnuncioIntersticial() {
-        if (premiumManager.isPremiumActive()) {
-            mInterstitialAd = null
-            return
-        }
-
         val adRequest = AdRequest.Builder().build()
 
         InterstitialAd.load(
@@ -292,11 +271,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun mostrarAnuncioEAbrirMensagem() {
-        if (premiumManager.isPremiumActive()) {
-            replaceFragment(MensagemFragment())
-            return
-        }
-
         val interstitialAd = mInterstitialAd
 
         if (interstitialAd != null) {

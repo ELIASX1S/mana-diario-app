@@ -8,7 +8,6 @@ data class MaisOpcao(
     @DrawableRes val iconRes: Int
 ) {
     companion object {
-        const val ID_PREMIUM = "premium"
         const val ID_THEMES = "temas"
         const val ID_SEARCH_BIBLE = "buscar_biblia"
         const val ID_FAVORITE_VERSES = "versiculos_favoritos"
