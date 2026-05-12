@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '21'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -30,3 +30,6 @@ jobs:
 
       - name: Unit tests
         run: ./gradlew testDebugUnitTest --stacktrace
+
+      - name: Android lint
+        run: ./gradlew :app:lintDebug --stacktrace
