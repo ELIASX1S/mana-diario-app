@@ -91,7 +91,9 @@ git clone https://github.com/ELIASX1S/mana-diario-app.git
 
 3. Aguarde o Gradle sincronizar as dependências.
 
-4. Execute o app em um emulador ou dispositivo Android.
+4. Configure Java 21 no ambiente (`JAVA_HOME`) e valide com `java -version`.
+
+5. Execute o app em um emulador ou dispositivo Android.
 
 ## 📦 Build
 
@@ -120,3 +122,9 @@ Antes de publicar na Play Store, revise política de privacidade, dados coletado
 ## 👨‍💻 Autor
 
 Desenvolvido por Elias Moreira.
+
+
+## ☕ Requisito de Java
+
+- Recomendado: **JDK 21** para build local e CI.
+- Em caso de erro de toolchain no Windows, veja `JAVA_SETUP.md`.
