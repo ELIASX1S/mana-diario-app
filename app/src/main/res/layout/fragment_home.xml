@@ -182,6 +182,15 @@
                         android:textSize="12sp"
                         tools:text="Progresso: 3 de 7 dias concluídos" />
 
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/faithPlanProgressIndicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:max="100"
+                        app:indicatorColor="@color/cor_primaria"
+                        app:trackColor="@color/cor_secundaria" />
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/completeFaithPlanDayButton"
                         style="@style/Widget.MaterialComponents.Button"
@@ -312,6 +321,7 @@
 
                 <LinearLayout
                     android:id="@+id/listenAction"
+                        android:contentDescription="@string/home_action_listen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -336,6 +346,7 @@
 
                 <LinearLayout
                     android:id="@+id/favoriteAction"
+                        android:contentDescription="@string/home_action_favorite"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -362,6 +373,7 @@
 
                 <LinearLayout
                     android:id="@+id/shareAction"
+                        android:contentDescription="@string/home_action_share"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -387,6 +399,7 @@
 
                 <LinearLayout
                     android:id="@+id/copyAction"
+                        android:contentDescription="@string/home_action_copy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
