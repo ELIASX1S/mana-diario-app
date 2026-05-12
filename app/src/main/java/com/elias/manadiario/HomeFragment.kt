@@ -21,6 +21,10 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.LinearProgressIndicator
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -36,6 +40,10 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         private const val KEY_FAITH_PLAN_COMPLETED = "home_faith_plan_completed"
         private const val FAITH_PLAN_TOTAL_DAYS = 7
         private const val MILLIS_IN_DAY = 24 * 60 * 60 * 1000L
+        private const val KEY_REVIEW_REQUESTED = "home_review_requested"
+        private const val REVIEW_STREAK_THRESHOLD = 7
+        private const val KEY_USER_NAME = "home_user_name"
+        private const val KEY_NAME_PROMPT_SHOWN = "home_name_prompt_shown"
     }
 
     private lateinit var tts: TextToSpeech
@@ -50,11 +58,14 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     private lateinit var sequenceTextView: TextView
     private lateinit var lastAccessTextView: TextView
     private lateinit var streakMotivationTextView: TextView
+    private lateinit var streakGoalTextView: TextView
+    private lateinit var streakProgressIndicator: LinearProgressIndicator
     private lateinit var faithPlanDayTextView: TextView
     private lateinit var faithPlanVerseTextView: TextView
     private lateinit var faithPlanReflectionTextView: TextView
     private lateinit var faithPlanPrayerTextView: TextView
     private lateinit var faithPlanProgressTextView: TextView
+    private lateinit var faithPlanProgressIndicator: LinearProgressIndicator
     private lateinit var completeFaithPlanDayButton: MaterialButton
     private var isReflectionExpanded: Boolean = false
     private var prayerAtualPlano: String = ""
@@ -83,11 +94,14 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         sequenceTextView = view.findViewById(R.id.sequenceTextView)
         lastAccessTextView = view.findViewById(R.id.lastAccessTextView)
         streakMotivationTextView = view.findViewById(R.id.streakMotivationTextView)
+        streakGoalTextView = view.findViewById(R.id.streakGoalTextView)
+        streakProgressIndicator = view.findViewById(R.id.streakProgressIndicator)
         faithPlanDayTextView = view.findViewById(R.id.faithPlanDayTextView)
         faithPlanVerseTextView = view.findViewById(R.id.faithPlanVerseTextView)
         faithPlanReflectionTextView = view.findViewById(R.id.faithPlanReflectionTextView)
         faithPlanPrayerTextView = view.findViewById(R.id.faithPlanPrayerTextView)
         faithPlanProgressTextView = view.findViewById(R.id.faithPlanProgressTextView)
+        faithPlanProgressIndicator = view.findViewById(R.id.faithPlanProgressIndicator)
 
         val favoriteAction: View = view.findViewById(R.id.favoriteAction)
         val shareAction: View = view.findViewById(R.id.shareAction)
@@ -102,6 +116,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         atualizarIconeFavorito()
         configurarBotaoReflexao(readReflectionButton)
         atualizarPlano7Dias()
+        maybeAskUserName()
 
         listenAction.isEnabled = false
         listenAction.alpha = 0.5f
@@ -174,9 +189,10 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun atualizarHomeEmocional() {
-        greetingTextView.text = obterSaudacao()
-
         val preferencias = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        greetingTextView.text = obterSaudacao(preferencias.getString(KEY_USER_NAME, null))
+
+
         val now = System.currentTimeMillis()
         val todayStart = startOfDay(now)
         val lastAccess = preferencias.getLong(KEY_LAST_ACCESS, 0L)
@@ -207,11 +223,34 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
             streakDays <= 7 -> getString(R.string.home_daily_motivation_medium)
             else -> getString(R.string.home_daily_motivation_long, streakDays)
         }
+        atualizarMetaDeStreak(streakDays)
 
         val dataUltimoAcesso = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR")).format(Date(now))
         lastAccessTextView.text = getString(R.string.home_daily_sequence_last_access, dataUltimoAcesso)
+
+        maybeRequestInAppReview(streakDays)
     }
 
+
+    private fun atualizarMetaDeStreak(streakDays: Int) {
+        val milestone = when {
+            streakDays < 3 -> 3
+            streakDays < 7 -> 7
+            streakDays < 14 -> 14
+            streakDays < 30 -> 30
+            else -> ((streakDays / 30) + 1) * 30
+        }
+
+        val progresso = ((streakDays.toFloat() / milestone) * 100).toInt().coerceIn(0, 100)
+        streakProgressIndicator.setProgressCompat(progresso, true)
+
+        if (streakDays >= milestone) {
+            streakGoalTextView.text = getString(R.string.home_streak_goal_completed, milestone)
+        } else {
+            val diasRestantes = milestone - streakDays
+            streakGoalTextView.text = getString(R.string.home_streak_goal_progress, diasRestantes, milestone)
+        }
+    }
     private fun getMensagemConquistaStreak(streakDays: Int): String {
         return when {
             streakDays >= 30 -> getString(R.string.home_streak_badge_30, streakDays)
@@ -249,10 +288,14 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
             faithPlanPrayerTextView.text = getString(R.string.home_prayer_of_day_prefix, prayerAtualPlano)
             completeFaithPlanDayButton.text = getString(R.string.home_faith_plan_complete_day)
         }
+        val completedDays = if (jornadaConcluida) FAITH_PLAN_TOTAL_DAYS else (diaAtual - 1)
+        val progressPercent = ((completedDays.toFloat() / FAITH_PLAN_TOTAL_DAYS) * 100).toInt().coerceIn(0, 100)
+        faithPlanProgressIndicator.setProgressCompat(progressPercent, true)
+
         faithPlanProgressTextView.text = if (jornadaConcluida) {
             getString(R.string.home_faith_plan_progress_completed)
         } else {
-            getString(R.string.home_faith_plan_progress_format, diaAtual - 1, FAITH_PLAN_TOTAL_DAYS)
+            getString(R.string.home_faith_plan_progress_format, completedDays, FAITH_PLAN_TOTAL_DAYS)
         }
     }
 
@@ -274,6 +317,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
                 .apply()
             mostrarDialogoConclusaoJornada()
             atualizarPlano7Dias()
+            maybeRequestInAppReview(getIntSafe(preferencias, KEY_STREAK_DAYS))
             return
         }
 
@@ -346,12 +390,14 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         }
     }
 
-    private fun obterSaudacao(): String {
-        return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
-            in 5..11 -> "Bom dia"
-            in 12..17 -> "Boa tarde"
-            else -> "Que Deus fale com você hoje"
+    private fun obterSaudacao(nomeUsuario: String?): String {
+        val baseGreeting = when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+            in 5..11 -> getString(R.string.home_greeting_morning)
+            in 12..17 -> getString(R.string.home_greeting_afternoon)
+            else -> getString(R.string.home_greeting_evening)
         }
+
+        return if (nomeUsuario.isNullOrBlank()) baseGreeting else getString(R.string.home_greeting_with_name, baseGreeting, nomeUsuario)
     }
 
     private fun startOfDay(timestamp: Long): Long {
@@ -503,6 +549,65 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         } else {
             favoriteIcon.setImageResource(R.drawable.ic_star_border)
         }
+    }
+
+
+
+    private fun maybeAskUserName() {
+        val preferencias = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val alreadyPrompted = preferencias.getBoolean(KEY_NAME_PROMPT_SHOWN, false)
+        if (alreadyPrompted) return
+
+        val inputLayout = TextInputLayout(requireContext()).apply {
+            hint = getString(R.string.home_name_prompt_hint)
+            setPadding(24, 12, 24, 0)
+        }
+        val input = TextInputEditText(requireContext()).apply {
+            maxLines = 1
+        }
+        inputLayout.addView(input)
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.home_name_prompt_title))
+            .setMessage(getString(R.string.home_name_prompt_message))
+            .setView(inputLayout)
+            .setPositiveButton(getString(R.string.home_name_prompt_save)) { dialog, _ ->
+                val name = input.text?.toString()?.trim().orEmpty()
+                preferencias.edit()
+                    .putString(KEY_USER_NAME, name.take(30))
+                    .putBoolean(KEY_NAME_PROMPT_SHOWN, true)
+                    .apply()
+                atualizarHomeEmocional()
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.home_name_prompt_skip)) { dialog, _ ->
+                preferencias.edit().putBoolean(KEY_NAME_PROMPT_SHOWN, true).apply()
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun maybeRequestInAppReview(streakDays: Int) {
+        val preferencias = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val alreadyRequested = preferencias.getBoolean(KEY_REVIEW_REQUESTED, false)
+
+        if (alreadyRequested || streakDays < REVIEW_STREAK_THRESHOLD) return
+
+        val reviewManager = ReviewManagerFactory.create(requireContext())
+        reviewManager.requestReviewFlow().addOnCompleteListener { requestTask ->
+            if (!isAdded || !requestTask.isSuccessful) return@addOnCompleteListener
+
+            val reviewInfo = requestTask.result
+            reviewManager.launchReviewFlow(requireActivity(), reviewInfo).addOnCompleteListener {
+                if (!isAdded) return@addOnCompleteListener
+                preferencias.edit().putBoolean(KEY_REVIEW_REQUESTED, true).apply()
+            }
+        }
+    }
+
+    private fun getIntSafe(preferencias: android.content.SharedPreferences, key: String): Int {
+        return preferencias.getInt(key, 0)
     }
 
     override fun onDestroyView() {
