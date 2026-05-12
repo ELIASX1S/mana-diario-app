@@ -77,7 +77,7 @@ Próximas melhorias recomendadas:
 - Melhorar screenshots e materiais para Play Store
 - Revisar política de privacidade e dados coletados
 - Adicionar testes básicos
-- Criar changelog de versões
+- Criar changelog de versões (arquivo base: `PLAYSTORE_RELEASE_NOTES_PTBR.md`)
 
 ## 🚀 Como abrir o projeto
 
