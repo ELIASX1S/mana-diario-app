@@ -233,22 +233,17 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
 
 
     private fun atualizarMetaDeStreak(streakDays: Int) {
-        val milestone = when {
-            streakDays < 3 -> 3
-            streakDays < 7 -> 7
-            streakDays < 14 -> 14
-            streakDays < 30 -> 30
-            else -> ((streakDays / 30) + 1) * 30
-        }
+        val milestone = StreakMilestoneCalculator.calculate(streakDays)
+        streakProgressIndicator.setProgressCompat(milestone.progressPercent, true)
 
-        val progresso = ((streakDays.toFloat() / milestone) * 100).toInt().coerceIn(0, 100)
-        streakProgressIndicator.setProgressCompat(progresso, true)
-
-        if (streakDays >= milestone) {
-            streakGoalTextView.text = getString(R.string.home_streak_goal_completed, milestone)
+        if (milestone.completed) {
+            streakGoalTextView.text = getString(R.string.home_streak_goal_completed, milestone.targetDays)
         } else {
-            val diasRestantes = milestone - streakDays
-            streakGoalTextView.text = getString(R.string.home_streak_goal_progress, diasRestantes, milestone)
+            streakGoalTextView.text = getString(
+                R.string.home_streak_goal_progress,
+                milestone.daysRemaining,
+                milestone.targetDays
+            )
         }
     }
     private fun getMensagemConquistaStreak(streakDays: Int): String {
