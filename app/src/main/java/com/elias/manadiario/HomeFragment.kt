@@ -58,6 +58,8 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     private lateinit var sequenceTextView: TextView
     private lateinit var lastAccessTextView: TextView
     private lateinit var streakMotivationTextView: TextView
+    private lateinit var streakGoalTextView: TextView
+    private lateinit var streakProgressIndicator: LinearProgressIndicator
     private lateinit var faithPlanDayTextView: TextView
     private lateinit var faithPlanVerseTextView: TextView
     private lateinit var faithPlanReflectionTextView: TextView
@@ -92,6 +94,8 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         sequenceTextView = view.findViewById(R.id.sequenceTextView)
         lastAccessTextView = view.findViewById(R.id.lastAccessTextView)
         streakMotivationTextView = view.findViewById(R.id.streakMotivationTextView)
+        streakGoalTextView = view.findViewById(R.id.streakGoalTextView)
+        streakProgressIndicator = view.findViewById(R.id.streakProgressIndicator)
         faithPlanDayTextView = view.findViewById(R.id.faithPlanDayTextView)
         faithPlanVerseTextView = view.findViewById(R.id.faithPlanVerseTextView)
         faithPlanReflectionTextView = view.findViewById(R.id.faithPlanReflectionTextView)
@@ -219,6 +223,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
             streakDays <= 7 -> getString(R.string.home_daily_motivation_medium)
             else -> getString(R.string.home_daily_motivation_long, streakDays)
         }
+        atualizarMetaDeStreak(streakDays)
 
         val dataUltimoAcesso = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR")).format(Date(now))
         lastAccessTextView.text = getString(R.string.home_daily_sequence_last_access, dataUltimoAcesso)
@@ -226,6 +231,26 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         maybeRequestInAppReview(streakDays)
     }
 
+
+    private fun atualizarMetaDeStreak(streakDays: Int) {
+        val milestone = when {
+            streakDays < 3 -> 3
+            streakDays < 7 -> 7
+            streakDays < 14 -> 14
+            streakDays < 30 -> 30
+            else -> ((streakDays / 30) + 1) * 30
+        }
+
+        val progresso = ((streakDays.toFloat() / milestone) * 100).toInt().coerceIn(0, 100)
+        streakProgressIndicator.setProgressCompat(progresso, true)
+
+        if (streakDays >= milestone) {
+            streakGoalTextView.text = getString(R.string.home_streak_goal_completed, milestone)
+        } else {
+            val diasRestantes = milestone - streakDays
+            streakGoalTextView.text = getString(R.string.home_streak_goal_progress, diasRestantes, milestone)
+        }
+    }
     private fun getMensagemConquistaStreak(streakDays: Int): String {
         return when {
             streakDays >= 30 -> getString(R.string.home_streak_badge_30, streakDays)

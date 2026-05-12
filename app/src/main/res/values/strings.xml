@@ -977,5 +977,7 @@
     <string name="home_action_share">Compartilhar devocional</string>
     <string name="home_action_copy">Copiar devocional</string>
     <string name="home_action_listen">Ouvir devocional</string>
+    <string name="home_streak_goal_progress">Meta da semana: faltam %1$d dias para alcançar %2$d dias seguidos.</string>
+    <string name="home_streak_goal_completed">Meta alcançada: %1$d dias seguidos! Continue firme 🙌</string>
 
 </resources>

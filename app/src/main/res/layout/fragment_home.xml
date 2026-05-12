@@ -93,6 +93,24 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/streakGoalTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/cor_texto_principal"
+                        android:textSize="12sp"
+                        tools:text="Meta: faltam 2 dias para chegar na marca de 7 dias" />
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/streakProgressIndicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:max="100"
+                        app:indicatorColor="@color/cor_primaria"
+                        app:trackColor="@color/cor_secundaria" />
+
+                    <TextView
                         android:id="@+id/lastAccessTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
