@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.button.MaterialButton
+import com.google.android.play.core.review.ReviewManagerFactory
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -36,6 +37,8 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         private const val KEY_FAITH_PLAN_COMPLETED = "home_faith_plan_completed"
         private const val FAITH_PLAN_TOTAL_DAYS = 7
         private const val MILLIS_IN_DAY = 24 * 60 * 60 * 1000L
+        private const val KEY_REVIEW_REQUESTED = "home_review_requested"
+        private const val REVIEW_STREAK_THRESHOLD = 7
     }
 
     private lateinit var tts: TextToSpeech
@@ -210,6 +213,8 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
 
         val dataUltimoAcesso = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR")).format(Date(now))
         lastAccessTextView.text = getString(R.string.home_daily_sequence_last_access, dataUltimoAcesso)
+
+        maybeRequestInAppReview(streakDays)
     }
 
     private fun getMensagemConquistaStreak(streakDays: Int): String {
@@ -274,6 +279,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
                 .apply()
             mostrarDialogoConclusaoJornada()
             atualizarPlano7Dias()
+            maybeRequestInAppReview(getIntSafe(preferencias, KEY_STREAK_DAYS))
             return
         }
 
@@ -503,6 +509,29 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         } else {
             favoriteIcon.setImageResource(R.drawable.ic_star_border)
         }
+    }
+
+
+    private fun maybeRequestInAppReview(streakDays: Int) {
+        val preferencias = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val alreadyRequested = preferencias.getBoolean(KEY_REVIEW_REQUESTED, false)
+
+        if (alreadyRequested || streakDays < REVIEW_STREAK_THRESHOLD) return
+
+        val reviewManager = ReviewManagerFactory.create(requireContext())
+        reviewManager.requestReviewFlow().addOnCompleteListener { requestTask ->
+            if (!isAdded || !requestTask.isSuccessful) return@addOnCompleteListener
+
+            val reviewInfo = requestTask.result
+            reviewManager.launchReviewFlow(requireActivity(), reviewInfo).addOnCompleteListener {
+                if (!isAdded) return@addOnCompleteListener
+                preferencias.edit().putBoolean(KEY_REVIEW_REQUESTED, true).apply()
+            }
+        }
+    }
+
+    private fun getIntSafe(preferencias: android.content.SharedPreferences, key: String): Int {
+        return preferencias.getInt(key, 0)
     }
 
     override fun onDestroyView() {
