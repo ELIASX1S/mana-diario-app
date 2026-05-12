@@ -65,6 +65,8 @@ O projeto possui compra avulsa de conteúdo digital (e-book de oração) via Goo
 
 ## 🚧 Status do projeto
 
+Plano estratégico para competir com os líderes da Play Store: `PROXIMAS_MELHORIAS_TOP1_PLAYSTORE.md`.
+
 Projeto em desenvolvimento ativo.
 
 Próximas melhorias recomendadas:
