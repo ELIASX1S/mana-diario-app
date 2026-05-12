@@ -1,6 +1,7 @@
 package com.elias.manadiario
 
 import android.app.Application
+import android.content.pm.ApplicationInfo
 import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
@@ -28,7 +29,8 @@ class ManaDiarioApplication : Application() {
     }
 
     private fun enableStrictModeInDebug() {
-        if (!BuildConfig.DEBUG) return
+        val isDebuggable = (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
+        if (!isDebuggable) return
 
         StrictMode.setThreadPolicy(
             StrictMode.ThreadPolicy.Builder()
