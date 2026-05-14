@@ -1,36 +1,60 @@
 package com.elias.manadiario
 
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import android.os.Build
-import android.content.pm.PackageManager
-import androidx.core.content.ContextCompat
-import com.elias.manadiario.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
-        // NOVIDADE: Encontrando a preferência do tema escuro pela sua "key"
         val darkModePreference = findPreference<SwitchPreferenceCompat>("tema_escuro")
-
-        // NOVIDADE: Adicionando um "ouvinte" para quando o valor dela mudar
-        darkModePreference?.setOnPreferenceChangeListener { preference, newValue ->
-            // O 'newValue' é o novo estado do interruptor (true se ligado, false se desligado)
+        darkModePreference?.setOnPreferenceChangeListener { _, newValue ->
             val isDarkModeOn = newValue as Boolean
+            AppCompatDelegate.setDefaultNightMode(
+                if (isDarkModeOn) AppCompatDelegate.MODE_NIGHT_YES
+                else AppCompatDelegate.MODE_NIGHT_NO
+            )
+            true
+        }
 
-            if (isDarkModeOn) {
-                // Aplica o tema escuro
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                // Aplica o tema claro
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        val notificationTimePreference = findPreference<ListPreference>("notificacao_horario")
+        notificationTimePreference?.summary = notificationTimePreference?.value ?: "08:00"
+        notificationTimePreference?.setOnPreferenceChangeListener { preference, newValue ->
+            val selectedTime = newValue as String
+            preference.summary = selectedTime
+
+            val notificationsEnabled =
+                findPreference<SwitchPreferenceCompat>("notificacoes")?.isChecked == true
+            if (notificationsEnabled) {
+                DailyReminderScheduler.schedule(requireContext())
             }
+            true
+        }
 
-            // Retornamos 'true' para dizer ao sistema que a mudança foi aceita e pode ser salva.
+        val notificationsPreference = findPreference<SwitchPreferenceCompat>("notificacoes")
+        notificationsPreference?.setOnPreferenceChangeListener { _, newValue ->
+            val enabled = newValue as Boolean
+            val context = requireContext()
+            if (enabled) {
+                val canPost = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+                    ContextCompat.checkSelfPermission(
+                        context,
+                        android.Manifest.permission.POST_NOTIFICATIONS
+                    ) == PackageManager.PERMISSION_GRANTED
+
+                if (canPost) {
+                    DailyReminderScheduler.schedule(context)
+                }
+            } else {
+                DailyReminderScheduler.cancel(context)
+            }
             true
         }
 
