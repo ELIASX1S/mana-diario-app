@@ -57,6 +57,7 @@ class BibleBooksActivity : AppCompatActivity() {
     private var advancedOptionsVisible = false
     private var hasContinueReading = false
     private var hasRecentBooks = false
+    private var currentDisplayedBooks: List<BibleBook> = emptyList()
 
     private enum class TestamentFilter { ALL, OLD_TESTAMENT, NEW_TESTAMENT }
 
@@ -92,6 +93,7 @@ class BibleBooksActivity : AppCompatActivity() {
         allBooks = getBibleBooks()
         adapter = BibleBookAdapter { book -> saveLastBook(book) }
         booksRecyclerView.adapter = adapter
+        currentDisplayedBooks = allBooks
         adapter.submitList(allBooks)
         updateEmptyState(allBooks)
         updateResultsCount(allBooks.size)
@@ -158,7 +160,22 @@ class BibleBooksActivity : AppCompatActivity() {
 
     private fun setupFilters() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val q = query.orEmpty().trim()
+                if (q.isBlank()) return false
+                val exact = currentDisplayedBooks.firstOrNull { it.nome.equals(q, ignoreCase = true) }
+                val target = exact ?: currentDisplayedBooks.firstOrNull()
+                if (target != null) {
+                    saveLastBook(target)
+                    startActivity(Intent(this@BibleBooksActivity, BibleChaptersActivity::class.java).apply {
+                        putExtra("BOOK_NAME", target.nome)
+                        putExtra("BOOK_KEY", target.chave)
+                        putExtra("BOOK_CHAPTERS", target.capitulos)
+                    })
+                    return true
+                }
+                return false
+            }
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (suppressFilterCallbacks) return true
                 applyFilters(newText.orEmpty())
@@ -222,6 +239,8 @@ class BibleBooksActivity : AppCompatActivity() {
             finalList = finalList.sortedBy { it.nome }
         }
 
+        currentDisplayedBooks = finalList
+        adapter.setQuery(normalizedQuery)
         adapter.submitList(finalList)
         updateEmptyState(finalList)
         updateResultsCount(finalList.size)
