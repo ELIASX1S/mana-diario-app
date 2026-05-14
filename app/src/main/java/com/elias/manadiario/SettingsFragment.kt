@@ -58,25 +58,5 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
-        val notificationsPreference = findPreference<SwitchPreferenceCompat>("notificacoes")
-        notificationsPreference?.setOnPreferenceChangeListener { _, newValue ->
-            val enabled = newValue as Boolean
-            val context = requireContext()
-            if (enabled) {
-                val canPost = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
-                    ContextCompat.checkSelfPermission(
-                        context,
-                        android.Manifest.permission.POST_NOTIFICATIONS
-                    ) == PackageManager.PERMISSION_GRANTED
-
-                if (canPost) {
-                    DailyReminderScheduler.schedule(context)
-                }
-            } else {
-                DailyReminderScheduler.cancel(context)
-            }
-            true
-        }
-
     }
 }

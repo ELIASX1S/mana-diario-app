@@ -13,6 +13,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Spinner
+import androidx.core.content.ContextCompat
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +52,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         private const val REVIEW_STREAK_THRESHOLD = 7
         private const val KEY_USER_NAME = "home_user_name"
         private const val KEY_NAME_PROMPT_SHOWN = "home_name_prompt_shown"
+        private const val KEY_HABIT_ONBOARDING_SHOWN = "home_habit_onboarding_shown"
     }
 
     private lateinit var tts: TextToSpeech
@@ -116,7 +125,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         atualizarIconeFavorito()
         configurarBotaoReflexao(readReflectionButton)
         atualizarPlano7Dias()
-        maybeAskUserName()
+        maybeRunHabitOnboarding()
 
         listenAction.isEnabled = false
         listenAction.alpha = 0.5f
@@ -548,39 +557,74 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
 
 
 
-    private fun maybeAskUserName() {
+    private fun maybeRunHabitOnboarding() {
         val preferencias = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val alreadyPrompted = preferencias.getBoolean(KEY_NAME_PROMPT_SHOWN, false)
-        if (alreadyPrompted) return
+        val onboardingDone = preferencias.getBoolean(KEY_HABIT_ONBOARDING_SHOWN, false)
+        if (onboardingDone) return
 
-        val inputLayout = TextInputLayout(requireContext()).apply {
-            hint = getString(R.string.home_name_prompt_hint)
+        val container = LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.VERTICAL
             setPadding(24, 12, 24, 0)
         }
-        val input = TextInputEditText(requireContext()).apply {
-            maxLines = 1
+
+        val nameInput = EditText(requireContext()).apply {
+            hint = getString(R.string.home_name_prompt_hint)
+            setSingleLine(true)
         }
-        inputLayout.addView(input)
+
+        val timeOptions = arrayOf("06:00", "07:00", "08:00", "09:00", "10:00", "12:00", "18:00", "20:00")
+        val timeSpinner = Spinner(requireContext()).apply {
+            adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, timeOptions)
+            setSelection(2)
+        }
+
+        container.addView(nameInput)
+        container.addView(timeSpinner)
 
         AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.home_name_prompt_title))
-            .setMessage(getString(R.string.home_name_prompt_message))
-            .setView(inputLayout)
+            .setTitle(getString(R.string.home_onboarding_title))
+            .setMessage(getString(R.string.home_onboarding_message))
+            .setView(container)
             .setPositiveButton(getString(R.string.home_name_prompt_save)) { dialog, _ ->
-                val name = input.text?.toString()?.trim().orEmpty()
+                val name = nameInput.text?.toString()?.trim().orEmpty().take(30)
+                val selectedTime = timeOptions[timeSpinner.selectedItemPosition]
+
                 preferencias.edit()
-                    .putString(KEY_USER_NAME, name.take(30))
+                    .putString(KEY_USER_NAME, name)
                     .putBoolean(KEY_NAME_PROMPT_SHOWN, true)
+                    .putBoolean(KEY_HABIT_ONBOARDING_SHOWN, true)
+                    .putBoolean("notificacoes", true)
+                    .putString("notificacao_horario", selectedTime)
                     .apply()
+
                 atualizarHomeEmocional()
+                maybeScheduleReminderAfterOnboarding()
                 dialog.dismiss()
             }
             .setNegativeButton(getString(R.string.home_name_prompt_skip)) { dialog, _ ->
-                preferencias.edit().putBoolean(KEY_NAME_PROMPT_SHOWN, true).apply()
+                preferencias.edit()
+                    .putBoolean(KEY_NAME_PROMPT_SHOWN, true)
+                    .putBoolean(KEY_HABIT_ONBOARDING_SHOWN, true)
+                    .apply()
                 dialog.dismiss()
             }
             .setCancelable(false)
             .show()
+    }
+
+    private fun maybeScheduleReminderAfterOnboarding() {
+        val context = requireContext()
+        val canSchedule = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+
+        if (canSchedule) {
+            DailyReminderScheduler.schedule(context)
+        } else {
+            Toast.makeText(context, getString(R.string.home_onboarding_notification_permission_tip), Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun maybeRequestInAppReview(streakDays: Int) {

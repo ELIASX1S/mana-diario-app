@@ -980,4 +980,9 @@
     <string name="home_streak_goal_progress">Meta da semana: faltam %1$d dias para alcançar %2$d dias seguidos.</string>
     <string name="home_streak_goal_completed">Meta alcançada: %1$d dias seguidos! Continue firme 🙌</string>
 
+
+    <string name="home_onboarding_title">Vamos montar seu hábito diário</string>
+    <string name="home_onboarding_message">Defina como quer ser chamado e o horário do lembrete diário.</string>
+    <string name="home_onboarding_notification_permission_tip">Ative a permissão de notificação para receber seu lembrete diário.</string>
+
 </resources>
