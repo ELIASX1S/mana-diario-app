@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import android.os.Build
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
 import com.elias.manadiario.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -30,5 +33,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
             // Retornamos 'true' para dizer ao sistema que a mudança foi aceita e pode ser salva.
             true
         }
+
+        val notificationsPreference = findPreference<SwitchPreferenceCompat>("notificacoes")
+        notificationsPreference?.setOnPreferenceChangeListener { _, newValue ->
+            val enabled = newValue as Boolean
+            val context = requireContext()
+            if (enabled) {
+                val canPost = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+                    ContextCompat.checkSelfPermission(
+                        context,
+                        android.Manifest.permission.POST_NOTIFICATIONS
+                    ) == PackageManager.PERMISSION_GRANTED
+
+                if (canPost) {
+                    DailyReminderScheduler.schedule(context)
+                }
+            } else {
+                DailyReminderScheduler.cancel(context)
+            }
+            true
+        }
+
     }
 }
