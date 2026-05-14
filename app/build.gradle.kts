@@ -11,8 +11,8 @@ android {
         applicationId = "com.elias.manadiario"
         minSdk = 24
         targetSdk = 35
-        versionCode = 15
-        versionName = "1.2"
+        versionCode = 16
+        versionName = "1.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -52,4 +52,5 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.google.android.gms:play-services-ads:23.0.0")
     implementation("com.android.billingclient:billing-ktx:7.1.1")
+    implementation("com.google.android.play:review-ktx:2.0.2")
 }
