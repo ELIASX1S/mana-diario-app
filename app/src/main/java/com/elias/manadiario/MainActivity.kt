@@ -1,9 +1,6 @@
 package com.elias.manadiario
 
 import android.Manifest
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -24,13 +21,11 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val NOTIFICATION_PERMISSION_REQUEST_CODE = 101
-        private const val DAILY_NOTIFICATION_REQUEST_CODE = 1001
         private const val KEY_LAST_SEEN_UPDATE_VERSION = "last_seen_update_version"
         private const val CURRENT_UPDATE_VERSION = 14
     }
@@ -186,6 +181,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun verificarPermissaoNotificacao() {
+        val preferencias = PreferenceManager.getDefaultSharedPreferences(this)
+        val notificacoesAtivas = preferencias.getBoolean("notificacoes", true)
+
+        if (!notificacoesAtivas) {
+            DailyReminderScheduler.cancel(this)
+            return
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val permissaoConcedida = ContextCompat.checkSelfPermission(
                 this,
@@ -193,7 +196,7 @@ class MainActivity : AppCompatActivity() {
             ) == PackageManager.PERMISSION_GRANTED
 
             if (permissaoConcedida) {
-                agendarLembreteDiario()
+                DailyReminderScheduler.schedule(this)
             } else {
                 ActivityCompat.requestPermissions(
                     this,
@@ -202,39 +205,8 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         } else {
-            agendarLembreteDiario()
+            DailyReminderScheduler.schedule(this)
         }
-    }
-
-    private fun agendarLembreteDiario() {
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, NotificationReceiver::class.java)
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            DAILY_NOTIFICATION_REQUEST_CODE,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        val calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 8)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }
-
-        if (calendar.timeInMillis <= System.currentTimeMillis()) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1)
-        }
-
-        alarmManager.setInexactRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
-        )
     }
 
     override fun onRequestPermissionsResult(
@@ -246,7 +218,7 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                agendarLembreteDiario()
+                DailyReminderScheduler.schedule(this)
             }
         }
     }
