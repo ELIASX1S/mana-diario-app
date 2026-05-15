@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 class BibleChapterAdapter(
     private val bookName: String,
     private val bookKey: String,
-    private val chapters: List<BibleChapter>
+    private val chapters: List<BibleChapter>,
+    private val totalChapters: Int
 ) : RecyclerView.Adapter<BibleChapterAdapter.BibleChapterViewHolder>() {
 
     class BibleChapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,6 +34,7 @@ class BibleChapterAdapter(
                 putExtra("BOOK_NAME", bookName)
                 putExtra("BOOK_KEY", bookKey)
                 putExtra("CHAPTER_NUMBER", chapter.numero)
+                putExtra("BOOK_CHAPTERS", totalChapters)
             }
             context.startActivity(intent)
         }
