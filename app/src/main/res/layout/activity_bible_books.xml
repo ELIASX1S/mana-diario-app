@@ -17,119 +17,128 @@
         android:paddingTop="6dp"
         app:titleTextColor="@color/white" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingTop="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="8dp"
-        android:text="@string/bible_books_title"
-        android:textColor="@color/cor_texto_principal"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="12dp"
-        android:text="@string/bible_books_subtitle"
-        android:textColor="@color/cor_texto_secundario"
-        android:textSize="14sp" />
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/bibleSearchView"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="16dp"
-        android:queryHint="@string/bible_books_search_hint" />
+        app:cardBackgroundColor="@color/cor_superficie"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp"
+        app:strokeColor="@color/cor_divider"
+        app:strokeWidth="1dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/toggleBibleAdvancedButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/bible_show_advanced_options" />
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/bibleFilterChipGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:visibility="gone"
-        app:singleSelection="true"
-        app:selectionRequired="true">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipAllBooks"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/bible_filter_all" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipOldTestament"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bible_filter_old_testament" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bible_books_title"
+                android:textColor="@color/cor_texto_principal"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipNewTestament"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bible_filter_new_testament" />
-    </com.google.android.material.chip.ChipGroup>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/bible_books_subtitle"
+                android:textColor="@color/cor_texto_secundario"
+                android:textSize="13sp" />
 
-    <LinearLayout
-        android:id="@+id/bibleTopControlsRow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="4dp"
-        android:visibility="gone">
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/bibleSearchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:queryHint="@string/bible_books_search_hint"
+                android:iconifiedByDefault="false" />
 
-        <TextView
-            android:id="@+id/bibleResultsCountText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/cor_texto_secundario"
-            android:textSize="12sp"
-            tools:text="66 resultados" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/toggleBibleAdvancedButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/bible_show_advanced_options" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/toggleSortBibleButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/bible_sort_button_cd"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minWidth="40dp"
-            android:minHeight="40dp"
-            app:icon="@drawable/ic_sort"
-            app:iconTint="@color/cor_primaria_escura" />
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/bibleFilterChipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:singleSelection="true"
+                app:selectionRequired="true">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/clearBibleFiltersButton"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bible_clear_filters" />
-    </LinearLayout>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAllBooks"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/bible_filter_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipOldTestament"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bible_filter_old_testament" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipNewTestament"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bible_filter_new_testament" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <LinearLayout
+                android:id="@+id/bibleTopControlsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/bibleResultsCountText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/cor_texto_secundario"
+                    android:textSize="12sp"
+                    tools:text="66 resultados" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/toggleSortBibleButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/bible_sort_button_cd"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="40dp"
+                    android:minHeight="40dp"
+                    app:icon="@drawable/ic_sort"
+                    app:iconTint="@color/cor_primaria_escura" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/clearBibleFiltersButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bible_clear_filters" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/continueReadingCard"
@@ -236,7 +245,7 @@
         android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingStart="12dp"
-        android:paddingTop="6dp"
+        android:paddingTop="8dp"
         android:paddingEnd="12dp"
         android:paddingBottom="12dp"
         tools:listitem="@layout/item_bible_book" />

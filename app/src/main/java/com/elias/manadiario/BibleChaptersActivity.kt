@@ -32,7 +32,7 @@ class BibleChaptersActivity : AppCompatActivity() {
         chaptersRecyclerView.layoutManager = LinearLayoutManager(this)
 
         val chapters = getChapters(totalChapters)
-        adapter = BibleChapterAdapter(bookName, bookKey, chapters)
+        adapter = BibleChapterAdapter(bookName, bookKey, chapters, totalChapters)
         chaptersRecyclerView.adapter = adapter
     }
 

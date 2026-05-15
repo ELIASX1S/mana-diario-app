@@ -26,4 +26,27 @@
         <item>Amor</item>
         <item>O amor é paciente, o amor é bondoso. (1 Coríntios 13:4)</item>
     </string-array>
+
+    <string-array name="notification_time_entries">
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>12:00</item>
+        <item>18:00</item>
+        <item>20:00</item>
+    </string-array>
+
+    <string-array name="notification_time_values">
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>12:00</item>
+        <item>18:00</item>
+        <item>20:00</item>
+    </string-array>
+
 </resources>
