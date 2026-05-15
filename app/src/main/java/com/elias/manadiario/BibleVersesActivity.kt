@@ -1,6 +1,7 @@
 package com.elias.manadiario
 
 import android.os.Bundle
+import android.content.Intent
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -22,14 +23,19 @@ class BibleVersesActivity : AppCompatActivity() {
     private lateinit var readingModeChipGroup: ChipGroup
     private lateinit var focusReadingSwitch: SwitchMaterial
     private lateinit var verseAdapter: BibleVerseAdapter
+    private var totalChapters: Int = 1
+    private var chapterNumber: Int = 1
+    private var bookName: String = "Livro"
+    private var bookKey: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bible_verses)
 
-        val bookName = intent.getStringExtra("BOOK_NAME") ?: "Livro"
-        val bookKey = intent.getStringExtra("BOOK_KEY") ?: ""
-        val chapterNumber = intent.getIntExtra("CHAPTER_NUMBER", 1)
+        bookName = intent.getStringExtra("BOOK_NAME") ?: "Livro"
+        bookKey = intent.getStringExtra("BOOK_KEY") ?: ""
+        chapterNumber = intent.getIntExtra("CHAPTER_NUMBER", 1)
+        totalChapters = intent.getIntExtra("BOOK_CHAPTERS", 1)
         val highlightVerseNumber = intent.getIntExtra("HIGHLIGHT_VERSE_NUMBER", -1)
 
         val toolbar: Toolbar = findViewById(R.id.bibleVersesToolbar)
@@ -38,12 +44,30 @@ class BibleVersesActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         subtitleTextView = findViewById(R.id.chapterSubtitleTextView)
+        val prevChapterButton = findViewById<com.google.android.material.button.MaterialButton>(R.id.prevChapterButton)
+        val nextChapterButton = findViewById<com.google.android.material.button.MaterialButton>(R.id.nextChapterButton)
         readingModeChipGroup = findViewById(R.id.readingModeChipGroup)
         focusReadingSwitch = findViewById(R.id.focusReadingSwitch)
         subtitleTextView.text = "Carregando versículos..."
 
         versesRecyclerView = findViewById(R.id.bibleVersesRecyclerView)
         versesRecyclerView.layoutManager = LinearLayoutManager(this)
+
+
+        prevChapterButton.isEnabled = chapterNumber > 1
+        nextChapterButton.isEnabled = chapterNumber < totalChapters
+
+        prevChapterButton.setOnClickListener {
+            if (chapterNumber > 1) {
+                openChapter(chapterNumber - 1)
+            }
+        }
+
+        nextChapterButton.setOnClickListener {
+            if (chapterNumber < totalChapters) {
+                openChapter(chapterNumber + 1)
+            }
+        }
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val savedTextSize = prefs.getFloat(KEY_BIBLE_READ_TEXT_SIZE, 16f)
@@ -104,6 +128,16 @@ class BibleVersesActivity : AppCompatActivity() {
             persistReadingStyle(currentSize, isChecked)
             verseAdapter.updateReadingStyle(currentSize, isChecked)
         }
+    }
+
+    private fun openChapter(targetChapter: Int) {
+        startActivity(Intent(this, BibleVersesActivity::class.java).apply {
+            putExtra("BOOK_NAME", bookName)
+            putExtra("BOOK_KEY", bookKey)
+            putExtra("CHAPTER_NUMBER", targetChapter)
+            putExtra("BOOK_CHAPTERS", totalChapters)
+        })
+        finish()
     }
 
     private fun persistReadingStyle(size: Float, focusMode: Boolean) {
