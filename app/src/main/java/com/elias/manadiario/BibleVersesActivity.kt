@@ -17,6 +17,8 @@ class BibleVersesActivity : AppCompatActivity() {
     companion object {
         private const val KEY_BIBLE_READ_TEXT_SIZE = "bible_read_text_size"
         private const val KEY_BIBLE_READ_FOCUS_MODE = "bible_read_focus_mode"
+        private const val PREFS_BIBLE = "bible_prefs"
+        private const val KEY_LAST_VERSE_PREFIX = "last_verse_"
     }
 
     private lateinit var versesRecyclerView: RecyclerView
@@ -56,6 +58,27 @@ class BibleVersesActivity : AppCompatActivity() {
 
         versesRecyclerView = findViewById(R.id.bibleVersesRecyclerView)
         versesRecyclerView.layoutManager = LinearLayoutManager(this)
+        setupProgressTracker()
+
+
+        prevChapterButton.isEnabled = chapterNumber > 1
+        nextChapterButton.isEnabled = chapterNumber < totalChapters
+
+        prevChapterButton.setOnClickListener {
+            if (chapterNumber > 1) {
+                openChapter(chapterNumber - 1)
+            }
+        }
+
+        nextChapterButton.setOnClickListener {
+            if (chapterNumber < totalChapters) {
+                openChapter(chapterNumber + 1)
+            }
+        }
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val savedTextSize = prefs.getFloat(KEY_BIBLE_READ_TEXT_SIZE, 16f)
+        val savedFocusMode = prefs.getBoolean(KEY_BIBLE_READ_FOCUS_MODE, false)
 
 
         prevChapterButton.isEnabled = chapterNumber > 1
@@ -100,6 +123,17 @@ class BibleVersesActivity : AppCompatActivity() {
                     val index = verses.indexOfFirst { it.numero == highlightVerseNumber }
                     if (index >= 0) {
                         versesRecyclerView.post { versesRecyclerView.smoothScrollToPosition(index) }
+                    }
+                }
+
+                if (highlightVerseNumber <= 0) {
+                    val savedVerse = getSavedVerseForCurrentChapter()
+                    if (savedVerse > 0) {
+                        val index = verses.indexOfFirst { it.numero == savedVerse }
+                        if (index >= 0) {
+                            versesRecyclerView.post { versesRecyclerView.scrollToPosition(index) }
+                            subtitleTextView.text = "Retomando da leitura anterior (versículo $savedVerse)"
+                        }
                     }
                 }
             }
@@ -163,6 +197,31 @@ class BibleVersesActivity : AppCompatActivity() {
                 return true
             }
         })
+    }
+
+    private fun setupProgressTracker() {
+        versesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as? LinearLayoutManager ?: return
+                val pos = layoutManager.findFirstVisibleItemPosition()
+                if (pos == RecyclerView.NO_POSITION || pos >= allVerses.size) return
+                val verseNumber = allVerses[pos].numero
+                saveCurrentVerseProgress(verseNumber)
+            }
+        })
+    }
+
+    private fun saveCurrentVerseProgress(verseNumber: Int) {
+        getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
+            .edit()
+            .putInt(KEY_LAST_VERSE_PREFIX + "$bookKey:$chapterNumber", verseNumber)
+            .apply()
+    }
+
+    private fun getSavedVerseForCurrentChapter(): Int {
+        return getSharedPreferences(PREFS_BIBLE, MODE_PRIVATE)
+            .getInt(KEY_LAST_VERSE_PREFIX + "$bookKey:$chapterNumber", -1)
     }
 
     private fun openChapter(targetChapter: Int) {
