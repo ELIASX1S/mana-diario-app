@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -18,16 +19,25 @@ class BibleVerseAdapter(
     private val bookName: String,
     private val chapterNumber: Int,
     private val verses: List<BibleVerse>,
-    private val highlightVerseNumber: Int = -1
+    private val highlightVerseNumber: Int = -1,
+    private var textSizeSp: Float = 16f,
+    private var focusModeEnabled: Boolean = false
 ) : RecyclerView.Adapter<BibleVerseAdapter.BibleVerseViewHolder>() {
 
     class BibleVerseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cardView: CardView = itemView as CardView
         val verseNumberTextView: TextView = itemView.findViewById(R.id.verseNumberTextView)
         val verseTextTextView: TextView = itemView.findViewById(R.id.verseTextTextView)
+        val actionsRow: LinearLayout = itemView.findViewById(R.id.verseActionsRow)
         val favoriteButton: ImageButton = itemView.findViewById(R.id.favoriteVerseButton)
         val shareButton: ImageButton = itemView.findViewById(R.id.shareVerseButton)
         val copyButton: ImageButton = itemView.findViewById(R.id.copyVerseButton)
+    }
+
+    fun updateReadingStyle(newTextSizeSp: Float, focusEnabled: Boolean) {
+        textSizeSp = newTextSizeSp
+        focusModeEnabled = focusEnabled
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BibleVerseViewHolder {
@@ -42,6 +52,9 @@ class BibleVerseAdapter(
 
         holder.verseNumberTextView.text = verse.numero.toString()
         holder.verseTextTextView.text = verse.texto
+        holder.verseTextTextView.textSize = textSizeSp
+        holder.verseNumberTextView.textSize = (textSizeSp - 1f).coerceAtLeast(14f)
+        holder.actionsRow.visibility = if (focusModeEnabled) View.GONE else View.VISIBLE
 
         updateFavoriteIcon(context, holder.favoriteButton, verse.numero)
 
@@ -94,13 +107,8 @@ class BibleVerseAdapter(
             updateFavoriteIcon(context, holder.favoriteButton, verse.numero)
         }
 
-        holder.copyButton.setOnClickListener {
-            copiarVersiculo(context, verse)
-        }
-
-        holder.shareButton.setOnClickListener {
-            compartilharVersiculo(context, verse)
-        }
+        holder.copyButton.setOnClickListener { copiarVersiculo(context, verse) }
+        holder.shareButton.setOnClickListener { compartilharVersiculo(context, verse) }
 
         holder.itemView.setOnLongClickListener {
             copiarVersiculo(context, verse)
@@ -110,23 +118,10 @@ class BibleVerseAdapter(
 
     override fun getItemCount(): Int = verses.size
 
-    private fun updateFavoriteIcon(
-        context: Context,
-        button: ImageButton,
-        verseNumber: Int
-    ) {
-        val isFavorite = BibleFavoritesManager.isFavorite(
-            context,
-            bookName,
-            chapterNumber,
-            verseNumber
-        )
-
-        if (isFavorite) {
-            button.setImageResource(android.R.drawable.btn_star_big_on)
-        } else {
-            button.setImageResource(android.R.drawable.btn_star_big_off)
-        }
+    private fun updateFavoriteIcon(context: Context, button: ImageButton, verseNumber: Int) {
+        val isFavorite = BibleFavoritesManager.isFavorite(context, bookName, chapterNumber, verseNumber)
+        if (isFavorite) button.setImageResource(android.R.drawable.btn_star_big_on)
+        else button.setImageResource(android.R.drawable.btn_star_big_off)
     }
 
     private fun copiarVersiculo(context: Context, verse: BibleVerse) {
