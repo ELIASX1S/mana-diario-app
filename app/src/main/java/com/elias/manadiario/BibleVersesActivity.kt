@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.switchmaterial.SwitchMaterial
+import androidx.appcompat.widget.SearchView
 
 class BibleVersesActivity : AppCompatActivity() {
 
@@ -23,6 +24,8 @@ class BibleVersesActivity : AppCompatActivity() {
     private lateinit var readingModeChipGroup: ChipGroup
     private lateinit var focusReadingSwitch: SwitchMaterial
     private lateinit var verseAdapter: BibleVerseAdapter
+    private lateinit var chapterVerseSearchView: SearchView
+    private var allVerses: List<BibleVerse> = emptyList()
     private var totalChapters: Int = 1
     private var chapterNumber: Int = 1
     private var bookName: String = "Livro"
@@ -47,6 +50,7 @@ class BibleVersesActivity : AppCompatActivity() {
         val prevChapterButton = findViewById<com.google.android.material.button.MaterialButton>(R.id.prevChapterButton)
         val nextChapterButton = findViewById<com.google.android.material.button.MaterialButton>(R.id.nextChapterButton)
         readingModeChipGroup = findViewById(R.id.readingModeChipGroup)
+        chapterVerseSearchView = findViewById(R.id.chapterVerseSearchView)
         focusReadingSwitch = findViewById(R.id.focusReadingSwitch)
         subtitleTextView.text = "Carregando versículos..."
 
@@ -77,6 +81,7 @@ class BibleVersesActivity : AppCompatActivity() {
             val verses = BibleRepository.getVerses(applicationContext, bookKey, chapterNumber)
 
             runOnUiThread {
+                allVerses = verses
                 verseAdapter = BibleVerseAdapter(
                     bookName = bookName,
                     chapterNumber = chapterNumber,
@@ -89,6 +94,7 @@ class BibleVersesActivity : AppCompatActivity() {
 
                 subtitleTextView.text = "Segure um versículo para copiar ou compartilhar"
                 setupReadingModeControls(savedTextSize, savedFocusMode)
+                setupVerseSearch()
 
                 if (highlightVerseNumber > 0) {
                     val index = verses.indexOfFirst { it.numero == highlightVerseNumber }
@@ -128,6 +134,35 @@ class BibleVersesActivity : AppCompatActivity() {
             persistReadingStyle(currentSize, isChecked)
             verseAdapter.updateReadingStyle(currentSize, isChecked)
         }
+    }
+
+    private fun setupVerseSearch() {
+        chapterVerseSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val q = newText.orEmpty().trim()
+                val filtered = if (q.isBlank()) {
+                    allVerses
+                } else {
+                    allVerses.filter { verse ->
+                        verse.texto.contains(q, ignoreCase = true) || verse.numero.toString() == q
+                    }
+                }
+                verseAdapter = BibleVerseAdapter(
+                    bookName = bookName,
+                    chapterNumber = chapterNumber,
+                    verses = filtered,
+                    highlightVerseNumber = highlightVerseNumber,
+                    textSizeSp = PreferenceManager.getDefaultSharedPreferences(this@BibleVersesActivity)
+                        .getFloat(KEY_BIBLE_READ_TEXT_SIZE, 16f),
+                    focusModeEnabled = focusReadingSwitch.isChecked,
+                    searchQuery = q
+                )
+                versesRecyclerView.adapter = verseAdapter
+                return true
+            }
+        })
     }
 
     private fun openChapter(targetChapter: Int) {
