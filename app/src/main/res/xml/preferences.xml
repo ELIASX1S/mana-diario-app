@@ -23,8 +23,17 @@
         <SwitchPreferenceCompat
             app:key="notificacoes"
             app:title="Receber notificação diária"
-            app:summary="Mostra a frase do dia às 8h da manhã"
+            app:summary="Mostra a frase do dia no horário escolhido"
             app:defaultValue="true" />
+
+        <ListPreference
+            app:key="notificacao_horario"
+            app:title="Horário da notificação"
+            app:summary="Escolha o horário do lembrete diário"
+            app:entries="@array/notification_time_entries"
+            app:entryValues="@array/notification_time_values"
+            app:defaultValue="08:00"
+            app:dependency="notificacoes" />
 
     </PreferenceCategory>
 
