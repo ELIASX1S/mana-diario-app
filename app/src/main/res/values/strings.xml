@@ -66,9 +66,10 @@
     <string name="nav_more_title">Mais</string>
     <string name="toast_unknown_option">Opção %1$s</string>
     <string name="home_badge_daily_word">PALAVRA DO DIA</string>
-    <string name="home_greeting_morning">Bom dia, %1$s</string>
-    <string name="home_greeting_afternoon">Boa tarde, %1$s</string>
+    <string name="home_greeting_morning">Bom dia</string>
+    <string name="home_greeting_afternoon">Boa tarde</string>
     <string name="home_greeting_evening">Que Deus fale com você hoje</string>
+    <string name="home_greeting_with_name">%1$s, %2$s</string>
     <string name="home_username_default">Elias</string>
     <string name="home_main_card_title">Versículo do dia</string>
     <string name="home_read_reflection">Ler reflexão completa</string>
@@ -87,6 +88,11 @@
     <string name="home_daily_motivation_long">Sua disciplina inspira: já são %1$d dias com a Palavra 🔥</string>
     <string name="home_quick_actions_title">Ações rápidas</string>
     <string name="home_shortcut_title">Continue sua jornada</string>
+    <string name="home_name_prompt_title">Como podemos te chamar?</string>
+    <string name="home_name_prompt_message">Personalize sua experiência diária com seu nome.</string>
+    <string name="home_name_prompt_hint">Seu nome</string>
+    <string name="home_name_prompt_save">Salvar</string>
+    <string name="home_name_prompt_skip">Agora não</string>
     <string name="home_shortcut_journey">Jornada devocional</string>
     <string name="home_shortcut_bible">Bíblia</string>
     <string name="home_shortcut_worship">Louvor do dia</string>
@@ -965,5 +971,18 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="home_action_favorite">Adicionar aos favoritos</string>
+    <string name="home_action_share">Compartilhar devocional</string>
+    <string name="home_action_copy">Copiar devocional</string>
+    <string name="home_action_listen">Ouvir devocional</string>
+    <string name="home_streak_goal_progress">Meta da semana: faltam %1$d dias para alcançar %2$d dias seguidos.</string>
+    <string name="home_streak_goal_completed">Meta alcançada: %1$d dias seguidos! Continue firme 🙌</string>
+
+
+    <string name="home_onboarding_title">Vamos montar seu hábito diário</string>
+    <string name="home_onboarding_message">Defina como quer ser chamado e o horário do lembrete diário.</string>
+    <string name="home_onboarding_notification_permission_tip">Ative a permissão de notificação para receber seu lembrete diário.</string>
 
 </resources>
