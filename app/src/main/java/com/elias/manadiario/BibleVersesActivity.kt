@@ -80,26 +80,6 @@ class BibleVersesActivity : AppCompatActivity() {
         val savedTextSize = prefs.getFloat(KEY_BIBLE_READ_TEXT_SIZE, 16f)
         val savedFocusMode = prefs.getBoolean(KEY_BIBLE_READ_FOCUS_MODE, false)
 
-
-        prevChapterButton.isEnabled = chapterNumber > 1
-        nextChapterButton.isEnabled = chapterNumber < totalChapters
-
-        prevChapterButton.setOnClickListener {
-            if (chapterNumber > 1) {
-                openChapter(chapterNumber - 1)
-            }
-        }
-
-        nextChapterButton.setOnClickListener {
-            if (chapterNumber < totalChapters) {
-                openChapter(chapterNumber + 1)
-            }
-        }
-
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val savedTextSize = prefs.getFloat(KEY_BIBLE_READ_TEXT_SIZE, 16f)
-        val savedFocusMode = prefs.getBoolean(KEY_BIBLE_READ_FOCUS_MODE, false)
-
         Thread {
             val verses = BibleRepository.getVerses(applicationContext, bookKey, chapterNumber)
 
