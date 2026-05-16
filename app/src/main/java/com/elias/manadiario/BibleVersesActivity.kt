@@ -35,6 +35,7 @@ class BibleVersesActivity : AppCompatActivity() {
     private var chapterNumber: Int = 1
     private var bookName: String = "Livro"
     private var bookKey: String = ""
+    private var highlightVerseNumber: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,7 @@ class BibleVersesActivity : AppCompatActivity() {
         bookKey = intent.getStringExtra("BOOK_KEY") ?: ""
         chapterNumber = intent.getIntExtra("CHAPTER_NUMBER", 1)
         totalChapters = intent.getIntExtra("BOOK_CHAPTERS", 1)
-        val highlightVerseNumber = intent.getIntExtra("HIGHLIGHT_VERSE_NUMBER", -1)
+        highlightVerseNumber = intent.getIntExtra("HIGHLIGHT_VERSE_NUMBER", -1)
 
         val toolbar: Toolbar = findViewById(R.id.bibleVersesToolbar)
         setSupportActionBar(toolbar)
