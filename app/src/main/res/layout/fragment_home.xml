@@ -50,7 +50,83 @@
                 android:textStyle="bold"
                 tools:text="Bom dia, Elias" />
 
-            <androidx.cardview.widget.CardView
+<androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/cor_card"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="22dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_home_quick_action"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_star_filled"
+                            app:tint="@color/cor_destaque" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="@string/home_main_card_title"
+                            android:textColor="@color/cor_texto_secundario"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/versiculoPrincipalTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:fontFamily="serif"
+                        android:gravity="center"
+                        android:lineSpacingExtra="10dp"
+                        android:textColor="@color/cor_texto_principal"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        tools:text="O Senhor é o meu pastor; de nada terei falta." />
+
+                    <TextView
+                        android:id="@+id/versiculoComplementarTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:lineSpacingExtra="4dp"
+                        android:textColor="@color/cor_texto_secundario"
+                        android:textSize="15sp"
+                        tools:text="Ele me faz repousar em pastos verdejantes e me conduz a águas tranquilas." />
+
+                    <TextView
+                        android:id="@+id/reflexaoTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:lineSpacingExtra="7dp"
+                        android:textColor="@color/cor_texto_secundario"
+                        android:textSize="15sp"
+                        tools:text="Reflexão: Mesmo nos dias difíceis, a presença de Deus continua guiando, sustentando e trazendo paz ao coração." />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+<androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -93,6 +169,24 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/streakGoalTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/cor_texto_principal"
+                        android:textSize="12sp"
+                        tools:text="Meta: faltam 2 dias para chegar na marca de 7 dias" />
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/streakProgressIndicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:max="100"
+                        app:indicatorColor="@color/cor_primaria"
+                        app:trackColor="@color/cor_secundaria" />
+
+                    <TextView
                         android:id="@+id/lastAccessTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -112,7 +206,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
+<androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -182,6 +276,15 @@
                         android:textSize="12sp"
                         tools:text="Progresso: 3 de 7 dias concluídos" />
 
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/faithPlanProgressIndicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:max="100"
+                        app:indicatorColor="@color/cor_primaria"
+                        app:trackColor="@color/cor_secundaria" />
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/completeFaithPlanDayButton"
                         style="@style/Widget.MaterialComponents.Button"
@@ -201,97 +304,11 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/cor_card"
-                app:cardCornerRadius="28dp"
-                app:cardElevation="8dp">
+            
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="22dp">
+            
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_home_quick_action"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="5dp">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_star_filled"
-                            app:tint="@color/cor_destaque" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:text="@string/home_main_card_title"
-                            android:textColor="@color/cor_texto_secundario"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/versiculoPrincipalTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:fontFamily="serif"
-                        android:gravity="center"
-                        android:lineSpacingExtra="10dp"
-                        android:textColor="@color/cor_texto_principal"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        tools:text="O Senhor é o meu pastor; de nada terei falta." />
-
-                    <TextView
-                        android:id="@+id/versiculoComplementarTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/cor_texto_secundario"
-                        android:textSize="15sp"
-                        tools:text="Ele me faz repousar em pastos verdejantes e me conduz a águas tranquilas." />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/readReflectionButton"
-                        style="@style/Widget.MaterialComponents.Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/home_read_reflection"
-                        app:backgroundTint="@color/cor_primaria"
-                        app:icon="@drawable/ic_chevron_right"
-                        app:iconGravity="textEnd"
-                        app:iconPadding="6dp"
-                        app:iconTint="@color/white" />
-
-                    <TextView
-                        android:id="@+id/reflexaoTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
-                        android:ellipsize="end"
-                        android:lineSpacingExtra="7dp"
-                        android:maxLines="3"
-                        android:textColor="@color/cor_texto_secundario"
-                        android:textSize="15sp"
-                        tools:text="Reflexão: Mesmo nos dias difíceis, a presença de Deus continua guiando, sustentando e trazendo paz ao coração." />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            
 
             <TextView
                 android:layout_width="wrap_content"
@@ -312,6 +329,7 @@
 
                 <LinearLayout
                     android:id="@+id/listenAction"
+                        android:contentDescription="@string/home_action_listen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -336,6 +354,7 @@
 
                 <LinearLayout
                     android:id="@+id/favoriteAction"
+                        android:contentDescription="@string/home_action_favorite"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -362,6 +381,7 @@
 
                 <LinearLayout
                     android:id="@+id/shareAction"
+                        android:contentDescription="@string/home_action_share"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -387,6 +407,7 @@
 
                 <LinearLayout
                     android:id="@+id/copyAction"
+                        android:contentDescription="@string/home_action_copy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
