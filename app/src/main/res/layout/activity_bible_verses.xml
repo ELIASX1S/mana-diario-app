@@ -78,6 +78,25 @@
                     android:text="Próximo capítulo" />
             </LinearLayout>
 
+            
+            <TextView
+                android:id="@+id/chapterProgressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/cor_texto_secundario"
+                android:textSize="12sp"
+                android:text="Progresso: 0%" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/chapterProgressIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:max="100"
+                app:indicatorColor="@color/cor_primaria"
+                app:trackColor="@color/cor_secundaria" />
+
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/readingModeChipGroup"
                 android:layout_width="match_parent"

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import androidx.appcompat.widget.SearchView
 
 class BibleVersesActivity : AppCompatActivity() {
@@ -27,6 +28,8 @@ class BibleVersesActivity : AppCompatActivity() {
     private lateinit var focusReadingSwitch: SwitchMaterial
     private lateinit var verseAdapter: BibleVerseAdapter
     private lateinit var chapterVerseSearchView: SearchView
+    private lateinit var chapterProgressTextView: TextView
+    private lateinit var chapterProgressIndicator: LinearProgressIndicator
     private var allVerses: List<BibleVerse> = emptyList()
     private var totalChapters: Int = 1
     private var chapterNumber: Int = 1
@@ -53,6 +56,8 @@ class BibleVersesActivity : AppCompatActivity() {
         val nextChapterButton = findViewById<com.google.android.material.button.MaterialButton>(R.id.nextChapterButton)
         readingModeChipGroup = findViewById(R.id.readingModeChipGroup)
         chapterVerseSearchView = findViewById(R.id.chapterVerseSearchView)
+        chapterProgressTextView = findViewById(R.id.chapterProgressTextView)
+        chapterProgressIndicator = findViewById(R.id.chapterProgressIndicator)
         focusReadingSwitch = findViewById(R.id.focusReadingSwitch)
         subtitleTextView.text = "Carregando versículos..."
 
@@ -94,6 +99,7 @@ class BibleVersesActivity : AppCompatActivity() {
                     focusModeEnabled = savedFocusMode
                 )
                 versesRecyclerView.adapter = verseAdapter
+                updateChapterProgressUi(0)
 
                 subtitleTextView.text = "Segure um versículo para copiar ou compartilhar"
                 setupReadingModeControls(savedTextSize, savedFocusMode)
@@ -113,6 +119,7 @@ class BibleVersesActivity : AppCompatActivity() {
                         if (index >= 0) {
                             versesRecyclerView.post { versesRecyclerView.scrollToPosition(index) }
                             subtitleTextView.text = "Retomando da leitura anterior (versículo $savedVerse)"
+                            updateChapterProgressUi(savedVerse)
                         }
                     }
                 }
@@ -188,8 +195,18 @@ class BibleVersesActivity : AppCompatActivity() {
                 if (pos == RecyclerView.NO_POSITION || pos >= allVerses.size) return
                 val verseNumber = allVerses[pos].numero
                 saveCurrentVerseProgress(verseNumber)
+                updateChapterProgressUi(verseNumber)
             }
         })
+    }
+
+    private fun updateChapterProgressUi(currentVerse: Int) {
+        if (allVerses.isEmpty()) return
+        val total = allVerses.size
+        val index = allVerses.indexOfFirst { it.numero == currentVerse }.let { if (it < 0) 0 else it + 1 }
+        val percent = ((index.toFloat() / total) * 100).toInt().coerceIn(0, 100)
+        chapterProgressIndicator.setProgressCompat(percent, true)
+        chapterProgressTextView.text = "Progresso: $percent% ($index/$total versículos)"
     }
 
     private fun saveCurrentVerseProgress(verseNumber: Int) {
