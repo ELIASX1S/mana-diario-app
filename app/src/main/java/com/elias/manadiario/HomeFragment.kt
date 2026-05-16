@@ -76,7 +76,6 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     private lateinit var faithPlanProgressTextView: TextView
     private lateinit var faithPlanProgressIndicator: LinearProgressIndicator
     private lateinit var completeFaithPlanDayButton: MaterialButton
-    private var isReflectionExpanded: Boolean = false
     private var prayerAtualPlano: String = ""
 
     override fun onCreateView(
@@ -116,14 +115,12 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         val shareAction: View = view.findViewById(R.id.shareAction)
         val copyAction: View = view.findViewById(R.id.copyAction)
         listenAction = view.findViewById(R.id.listenAction)
-        val readReflectionButton: MaterialButton = view.findViewById(R.id.readReflectionButton)
         completeFaithPlanDayButton = view.findViewById(R.id.completeFaithPlanDayButton)
         val shareFaithPlanPrayerButton: MaterialButton = view.findViewById(R.id.shareFaithPlanPrayerButton)
 
         carregarDevocionalDoDia()
         atualizarHomeEmocional()
         atualizarIconeFavorito()
-        configurarBotaoReflexao(readReflectionButton)
         atualizarPlano7Dias()
         maybeRunHabitOnboarding()
 
@@ -189,6 +186,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         }
 
         reflexaoTextView.text = reflexao
+        reflexaoTextView.maxLines = Int.MAX_VALUE
 
         fraseAtual = if (vComplementar.equals(vPrincipal, ignoreCase = true)) {
             "$vPrincipal\n\n$reflexao"
@@ -376,22 +374,6 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
             putExtra(Intent.EXTRA_TEXT, mensagem)
         }
         startActivity(Intent.createChooser(intent, getString(R.string.share_devotional_chooser)))
-    }
-
-    private fun configurarBotaoReflexao(button: MaterialButton) {
-        isReflectionExpanded = false
-        reflexaoTextView.maxLines = 3
-        button.text = getString(R.string.home_read_reflection)
-
-        button.setOnClickListener {
-            isReflectionExpanded = !isReflectionExpanded
-            reflexaoTextView.maxLines = if (isReflectionExpanded) Int.MAX_VALUE else 3
-            button.text = if (isReflectionExpanded) {
-                getString(R.string.home_hide_reflection)
-            } else {
-                getString(R.string.home_read_reflection)
-            }
-        }
     }
 
     private fun obterSaudacao(nomeUsuario: String?): String {
