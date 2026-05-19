@@ -53,6 +53,11 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         private const val KEY_USER_NAME = "home_user_name"
         private const val KEY_NAME_PROMPT_SHOWN = "home_name_prompt_shown"
         private const val KEY_HABIT_ONBOARDING_SHOWN = "home_habit_onboarding_shown"
+        private const val PREFS_BIBLE = "bible_prefs"
+        private const val KEY_LAST_BOOK_NAME = "last_book_name"
+        private const val KEY_LAST_BOOK_KEY = "last_book_key"
+        private const val KEY_LAST_BOOK_CHAPTERS = "last_book_chapters"
+        private const val KEY_LAST_VERSE_PREFIX = "last_verse_"
     }
 
     private lateinit var tts: TextToSpeech
@@ -76,6 +81,9 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
     private lateinit var faithPlanProgressTextView: TextView
     private lateinit var faithPlanProgressIndicator: LinearProgressIndicator
     private lateinit var completeFaithPlanDayButton: MaterialButton
+    private lateinit var homeContinueBibleCard: View
+    private lateinit var homeContinueBibleSubtitle: TextView
+    private lateinit var homeContinueBibleButton: MaterialButton
     private var prayerAtualPlano: String = ""
 
     override fun onCreateView(
@@ -110,6 +118,9 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         faithPlanPrayerTextView = view.findViewById(R.id.faithPlanPrayerTextView)
         faithPlanProgressTextView = view.findViewById(R.id.faithPlanProgressTextView)
         faithPlanProgressIndicator = view.findViewById(R.id.faithPlanProgressIndicator)
+        homeContinueBibleCard = view.findViewById(R.id.homeContinueBibleCard)
+        homeContinueBibleSubtitle = view.findViewById(R.id.homeContinueBibleSubtitle)
+        homeContinueBibleButton = view.findViewById(R.id.homeContinueBibleButton)
 
         val favoriteAction: View = view.findViewById(R.id.favoriteAction)
         val shareAction: View = view.findViewById(R.id.shareAction)
@@ -123,6 +134,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         atualizarIconeFavorito()
         atualizarPlano7Dias()
         maybeRunHabitOnboarding()
+        setupContinueBibleReading()
 
         listenAction.isEnabled = false
         listenAction.alpha = 0.5f
@@ -162,6 +174,47 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         view.findViewById<View>(R.id.worshipShortcut).setOnClickListener { abrirLouvor() }
         view.findViewById<View>(R.id.notesShortcut).setOnClickListener { startActivity(Intent(requireContext(), BibleNotesActivity::class.java)) }
         view.findViewById<View>(R.id.favoritesShortcut).setOnClickListener { startActivity(Intent(requireContext(), FavoritesActivity::class.java)) }
+    }
+
+    private fun setupContinueBibleReading() {
+        val prefs = requireContext().getSharedPreferences(PREFS_BIBLE, Context.MODE_PRIVATE)
+        val bookName = prefs.getString(KEY_LAST_BOOK_NAME, null)
+        val bookKey = prefs.getString(KEY_LAST_BOOK_KEY, null)
+        val totalChapters = prefs.getInt(KEY_LAST_BOOK_CHAPTERS, -1)
+
+        if (bookName.isNullOrBlank() || bookKey.isNullOrBlank() || totalChapters <= 0) {
+            homeContinueBibleCard.visibility = View.GONE
+            return
+        }
+
+        var lastChapter = 1
+        var lastVerse = 1
+        for (chapter in totalChapters downTo 1) {
+            val key = KEY_LAST_VERSE_PREFIX + "$bookKey:$chapter"
+            val verse = prefs.getInt(key, -1)
+            if (verse > 0) {
+                lastChapter = chapter
+                lastVerse = verse
+                break
+            }
+        }
+
+        homeContinueBibleSubtitle.text = getString(
+            R.string.home_continue_bible_subtitle,
+            bookName,
+            lastChapter,
+            lastVerse
+        )
+        homeContinueBibleCard.visibility = View.VISIBLE
+        homeContinueBibleButton.setOnClickListener {
+            startActivity(Intent(requireContext(), BibleVersesActivity::class.java).apply {
+                putExtra("BOOK_NAME", bookName)
+                putExtra("BOOK_KEY", bookKey)
+                putExtra("CHAPTER_NUMBER", lastChapter)
+                putExtra("BOOK_CHAPTERS", totalChapters)
+                putExtra("HIGHLIGHT_VERSE_NUMBER", lastVerse)
+            })
+        }
     }
 
     private fun carregarDevocionalDoDia() {

@@ -985,4 +985,9 @@
     <string name="home_onboarding_message">Defina como quer ser chamado e o horário do lembrete diário.</string>
     <string name="home_onboarding_notification_permission_tip">Ative a permissão de notificação para receber seu lembrete diário.</string>
 
+
+    <string name="home_continue_bible_title">Continue sua leitura bíblica</string>
+    <string name="home_continue_bible_subtitle">Você parou em %1$s %2$d:%3$d</string>
+    <string name="home_continue_bible_button">Retomar leitura</string>
+
 </resources>

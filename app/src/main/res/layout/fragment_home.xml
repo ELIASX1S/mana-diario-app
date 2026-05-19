@@ -50,6 +50,52 @@
                 android:textStyle="bold"
                 tools:text="Bom dia, Elias" />
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/homeContinueBibleCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/cor_superficie"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:strokeColor="@color/cor_divider"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:id="@+id/homeContinueBibleTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_continue_bible_title"
+                        android:textColor="@color/cor_texto_principal"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/homeContinueBibleSubtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/cor_texto_secundario"
+                        android:textSize="13sp"
+                        tools:text="Você parou em Salmos 23:4" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/homeContinueBibleButton"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/home_continue_bible_button" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
 <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
