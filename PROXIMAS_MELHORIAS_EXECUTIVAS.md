@@ -1,42 +1,59 @@
-# Próximas melhorias (plano executivo)
+# Próximas melhorias (plano executivo v2)
 
 ## Objetivo
-Aumentar retenção e preparar monetização com entregas curtas e mensuráveis.
+Aumentar retenção, avaliação da loja e conversão premium com entregas quinzenais pequenas, rastreáveis e com dono definido.
 
-## Top 5 próximas melhorias
+## Prioridades (próximos 45 dias)
 
-### 1) Melhorias da aba Bíblia (curto prazo)
-- Histórico de capítulos recentes (últimos 5 acessos).
-- Atalho "Favoritos" e "Notas" no topo da aba.
-- Busca por texto de versículos (full-text local).
+### P0 — Retenção e valor percebido (semana 1-2)
+1. **Histórico recente da Bíblia (últimos 5 capítulos)**
+   - Mostrar card de “Recentes” na entrada da Bíblia.
+   - Abrir direto no capítulo/versículo salvo.
+2. **Busca bíblica por texto (local)**
+   - Campo único para buscar por palavra/frase em versículos.
+   - Resultado com livro/capítulo/versículo + highlight.
+3. **Atalhos rápidos na Bíblia**
+   - Botões “Favoritos” e “Notas” no topo da tela de livros.
 
-### 2) Premium evoluindo de placeholder para produto
-- Tela premium com comparação de planos (mensal/anual).
-- Integração com Google Play Billing.
-- Tela de benefícios desbloqueados pós-assinatura.
+### P1 — Engajamento e hábito (semana 3-4)
+1. **Lembretes com qualidade**
+   - Ajustar janela de envio (evitar horário de silêncio do usuário).
+   - Mensagem dinâmica por contexto (manhã/noite).
+2. **Pedido de avaliação contextual**
+   - Solicitar review somente após momento de valor (7 dias streak, plano finalizado).
+3. **Metas semanais visuais**
+   - Mini painel com progresso semanal (dias lidos, meta e recuperação de streak).
 
-### 3) Qualidade e observabilidade
-- Crashlytics + eventos de analytics.
-- Log de erros de anúncios e fallback visual por tela.
-- Dashboard simples de retenção e uso da Bíblia.
+### P2 — Base para crescimento (semana 5-6)
+1. **Crashlytics + eventos essenciais**
+   - Eventos: abertura home, início leitura, conclusão plano, clique premium.
+2. **Hardening de performance**
+   - Melhorar tempo de abertura das telas da Bíblia.
+   - Reduzir jank em listas e rolagem de versículos.
+3. **Premium com proposta clara**
+   - Comparativo mensal/anual e benefícios concretos.
 
-### 4) Performance e robustez
-- Cache local otimizado da Bíblia.
-- Pré-busca e indexação em background.
-- Testes automatizados para filtros/busca/retomada.
+## Entregáveis por feature (Definition of Done)
+Cada melhoria só é “concluída” quando atender:
+1. **Código + UX** entregues.
+2. **Métrica instrumentada** (evento/contador).
+3. **Teste mínimo** (unitário ou instrumentado no fluxo principal).
+4. **Validação manual** documentada no PR.
 
-### 5) UX e design system
-- Componentes padrão (botão, card, empty state, toolbar).
-- Revisão de acessibilidade (labels, contraste, tamanhos de toque).
-- Microinterações (loading states, feedback de ação).
+## KPIs e metas de curto prazo
+- Retenção D7: **+10%** em 45 dias.
+- Avaliação média: **+0.2** pontos.
+- Sessões > 5 min: **+15%**.
+- Crash-free users: **99.5%+**.
 
-## Roadmap sugerido (30 dias)
-- Semana 1: recentes + favoritos/notas na Bíblia.
-- Semana 2: busca full-text + métricas de uso.
-- Semana 3: Billing premium + paywall real.
-- Semana 4: polimento visual + testes de regressão.
+## Backlog imediato (ordem sugerida)
+1. Histórico recente da Bíblia.
+2. Busca por texto local.
+3. Atalhos Favoritos/Notas.
+4. Painel de metas semanais.
+5. Instrumentação de eventos críticos.
+6. Paywall premium revisado.
 
-## Métricas de sucesso
-- Retenção D7: +15%.
-- Sessões com duração > 5 min: +20%.
-- Conversão premium: +2% no primeiro ciclo.
+## Risco principal e mitigação
+- **Risco:** excesso de escopo em uma única release.
+- **Mitigação:** manter PRs pequenos (1 feature por PR) e release semanal incremental.

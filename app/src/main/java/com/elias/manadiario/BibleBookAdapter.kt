@@ -1,6 +1,10 @@
 package com.elias.manadiario
 
 import android.content.Intent
+import android.graphics.Typeface
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +16,13 @@ import androidx.recyclerview.widget.RecyclerView
 class BibleBookAdapter(
     private val onBookClick: ((BibleBook) -> Unit)? = null
 ) : ListAdapter<BibleBook, BibleBookAdapter.BibleBookViewHolder>(DIFF_CALLBACK) {
+
+    private var currentQuery: String = ""
+
+    fun setQuery(query: String) {
+        currentQuery = query.trim()
+        notifyDataSetChanged()
+    }
 
     class BibleBookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nomeTextView: TextView = itemView.findViewById(R.id.bookNameTextView)
@@ -28,7 +39,7 @@ class BibleBookAdapter(
         val book = getItem(position)
         val context = holder.itemView.context
 
-        holder.nomeTextView.text = book.nome
+        holder.nomeTextView.text = highlightQuery(book.nome, currentQuery)
         holder.capitulosTextView.text = context.getString(R.string.book_chapters_count, book.capitulos)
 
         holder.itemView.setOnClickListener {
@@ -39,6 +50,16 @@ class BibleBookAdapter(
                 putExtra("BOOK_CHAPTERS", book.capitulos)
             }
             context.startActivity(intent)
+        }
+    }
+
+    private fun highlightQuery(text: String, query: String): CharSequence {
+        if (query.isBlank()) return text
+        val start = text.indexOf(query, ignoreCase = true)
+        if (start < 0) return text
+        val end = start + query.length
+        return SpannableString(text).apply {
+            setSpan(StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
     }
 
