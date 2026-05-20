@@ -20,7 +20,7 @@
     <string name="cd_share_verse">Compartilhar %1$s</string>
     <string name="cd_copy_verse">Copiar %1$s</string>
     <string name="message_load_error">Erro ao carregar mensagens.</string>
-    <string name="share_message_of_faith">Mensagem de Fé do Maná Diário:\n\n%1$s</string>
+    <string name="share_message_of_faith">✨ Mensagem de fé — Maná Diário\n\n%1$s\n\nQue Deus fortaleça seu dia 🙏</string>
     <string name="share_via">Compartilhar via</string>
     <string name="clip_label_message">mensagem</string>
     <string name="message_copied">Mensagem copiada!</string>
@@ -128,9 +128,22 @@
     <string name="favorites_title">Frases Favoritas</string>
     <string name="favorites_empty_title">Nenhum favorito ainda</string>
     <string name="favorites_empty_subtitle">Toque na estrela dos versículos e suas mensagens favoritas aparecerão aqui.</string>
-    <string name="message_placeholder">A esperança que Deus coloca no seu coração é a certeza de que dias melhores estão por vir.</string>
-    <string name="button_new_message">Nova Mensagem</string>
-    <string name="button_share_blessing">Compartilhar Bênção</string>
+    <string name="message_placeholder">A esperança em Deus sustenta o coração e renova nossas forças para um novo dia.</string>
+    <string name="button_new_message">Gerar nova mensagem</string>
+    <string name="button_share_blessing">Compartilhar mensagem</string>
+
+    <string name="promise_box_title">Caixinha de Promessas</string>
+    <string name="promise_box_subtitle">Toque na caixa e receba uma palavra para hoje.</string>
+    <string name="promise_box_image_cd">Abrir caixinha de promessas</string>
+    <string name="promise_box_share">Compartilhar promessa</string>
+    <string name="promise_box_pick_first">Toque na caixinha para receber uma promessa primeiro.</string>
+    <string name="promise_box_share_text">%1$s
+
+%2$s
+
+— Palavra compartilhada pelo app Maná Diário 🙏</string>
+    <string name="promise_box_share_chooser">Compartilhar promessa via</string>
+
     <string name="bible_books_title">Livros da Bíblia</string>
     <string name="bible_books_subtitle">Escolha um livro para ver os capítulos.</string>
     <string name="bible_books_search_hint">Buscar livro</string>

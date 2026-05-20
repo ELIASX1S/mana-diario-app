@@ -9,8 +9,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
 
 class LibraryFragment : Fragment() {
+
+    private lateinit var adViewLibrary: AdView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,6 +24,8 @@ class LibraryFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_library, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerTemas)
+        adViewLibrary = view.findViewById(R.id.adViewLibrary)
+        configurarBanner()
 
         // 1. A TUA LISTA DE BOTÕES
         val listaTemas = listOf(
@@ -59,5 +67,19 @@ class LibraryFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun configurarBanner() {
+        adViewLibrary.visibility = View.GONE
+        adViewLibrary.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                adViewLibrary.visibility = View.VISIBLE
+            }
+
+            override fun onAdFailedToLoad(error: LoadAdError) {
+                adViewLibrary.visibility = View.GONE
+            }
+        }
+        adViewLibrary.loadAd(AdRequest.Builder().build())
     }
 }

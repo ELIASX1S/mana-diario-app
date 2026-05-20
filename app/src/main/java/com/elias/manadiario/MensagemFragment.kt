@@ -10,11 +10,16 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
 
 class MensagemFragment : Fragment() {
 
     private lateinit var mensagemTextView: TextView
     private lateinit var mensagens: List<String>
+    private lateinit var adViewMensagem: AdView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +35,9 @@ class MensagemFragment : Fragment() {
         mensagemTextView = view.findViewById(R.id.textViewMensagem)
         val botaoNova = view.findViewById<Button>(R.id.buttonNovaMensagem)
         val botaoCompartilhar = view.findViewById<Button>(R.id.buttonCompartilhar)
+
+        adViewMensagem = view.findViewById(R.id.adViewMensagem)
+        configurarBanner()
 
         // 2. Carrega as mensagens
         mensagens = carregarMensagensDoArquivo()
@@ -54,6 +62,21 @@ class MensagemFragment : Fragment() {
             copiarMensagem()
             true
         }
+    }
+
+
+    private fun configurarBanner() {
+        adViewMensagem.visibility = View.GONE
+        adViewMensagem.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                adViewMensagem.visibility = View.VISIBLE
+            }
+
+            override fun onAdFailedToLoad(error: LoadAdError) {
+                adViewMensagem.visibility = View.GONE
+            }
+        }
+        adViewMensagem.loadAd(AdRequest.Builder().build())
     }
 
     private fun mostrarMensagemAleatoria() {

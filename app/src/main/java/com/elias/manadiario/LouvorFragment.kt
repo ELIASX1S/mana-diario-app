@@ -11,11 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
 
 class LouvorFragment : Fragment() {
 
     private lateinit var shimmerLayout: ShimmerFrameLayout
     private lateinit var recyclerView: RecyclerView
+    private lateinit var adViewLouvor: AdView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +31,8 @@ class LouvorFragment : Fragment() {
 
         shimmerLayout = view.findViewById(R.id.shimmer_view_container)
         recyclerView = view.findViewById(R.id.videosRecyclerView)
+        adViewLouvor = view.findViewById(R.id.adViewLouvor)
+        configurarBanner()
 
         // 1. Configura o RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -66,6 +73,20 @@ class LouvorFragment : Fragment() {
             recyclerView.visibility = View.VISIBLE
 
         }, 2000) // 2000 milissegundos = 2 segundos
+    }
+
+    private fun configurarBanner() {
+        adViewLouvor.visibility = View.GONE
+        adViewLouvor.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                adViewLouvor.visibility = View.VISIBLE
+            }
+
+            override fun onAdFailedToLoad(error: LoadAdError) {
+                adViewLouvor.visibility = View.GONE
+            }
+        }
+        adViewLouvor.loadAd(AdRequest.Builder().build())
     }
 
     override fun onPause() {
