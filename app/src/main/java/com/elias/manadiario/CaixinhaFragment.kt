@@ -1,5 +1,7 @@
 package com.elias.manadiario
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -84,6 +86,7 @@ class CaixinhaFragment : Fragment() {
         val tvTexto = view.findViewById<TextView>(R.id.tvVersiculoTexto)
         val tvRef = view.findViewById<TextView>(R.id.tvVersiculoRef)
         val btnPartilhar = view.findViewById<Button>(R.id.btnPartilharPromessa)
+        val btnCopiar = view.findViewById<Button>(R.id.btnCopiarPromessa)
         val btnCompartilharImagem = view.findViewById<Button>(R.id.btnCompartilharImagemPromessa)
         val cardHistorico = view.findViewById<CardView>(R.id.cardHistoricoPromessas)
         val tvHistorico = view.findViewById<TextView>(R.id.tvHistoricoPromessas)
@@ -114,12 +117,17 @@ class CaixinhaFragment : Fragment() {
 
         btnPartilhar.setOnClickListener {
             val promessa = obterPromessaSelecionada(tvTexto, tvRef) ?: return@setOnClickListener
-            val textoParaEnviar = getString(R.string.promise_box_share_text, "\"${promessa.first}\"", promessa.second)
+            val textoParaEnviar = formatarPromessaParaCompartilhar(promessa)
 
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
             intent.putExtra(Intent.EXTRA_TEXT, textoParaEnviar)
             startActivity(Intent.createChooser(intent, getString(R.string.promise_box_share_chooser)))
+        }
+
+        btnCopiar.setOnClickListener {
+            val promessa = obterPromessaSelecionada(tvTexto, tvRef) ?: return@setOnClickListener
+            copiarPromessa(promessa)
         }
 
         btnCompartilharImagem.setOnClickListener {
@@ -152,6 +160,18 @@ class CaixinhaFragment : Fragment() {
         }
 
         return Pair(tvTexto.text.toString().trim().trim('"'), tvRef.text.toString().trim())
+    }
+
+    private fun formatarPromessaParaCompartilhar(promessa: Pair<String, String>): String {
+        return getString(R.string.promise_box_share_text, "\"${promessa.first}\"", promessa.second)
+    }
+
+    private fun copiarPromessa(promessa: Pair<String, String>) {
+        val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val texto = formatarPromessaParaCompartilhar(promessa)
+        val clip = ClipData.newPlainText(getString(R.string.promise_box_clip_label), texto)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(requireContext(), getString(R.string.promise_box_copied), Toast.LENGTH_SHORT).show()
     }
 
     private fun salvarNoHistorico(promessa: Pair<String, String>) {
