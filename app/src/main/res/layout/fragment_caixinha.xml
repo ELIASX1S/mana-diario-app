@@ -101,6 +101,15 @@
                     app:cornerRadius="14dp" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCopiarPromessa"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/promise_box_copy"
+                    app:cornerRadius="14dp" />
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCompartilharImagemPromessa"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
