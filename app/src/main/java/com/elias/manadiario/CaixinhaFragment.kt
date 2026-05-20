@@ -5,15 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.Toast
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
 import kotlin.random.Random
 
 class CaixinhaFragment : Fragment() {
+
+    private lateinit var adViewCaixinha: AdView
 
     // Lista de Promessas (Texto e Referência)
     private val promessas = listOf(
@@ -44,6 +50,8 @@ class CaixinhaFragment : Fragment() {
         val tvTexto = view.findViewById<TextView>(R.id.tvVersiculoTexto)
         val tvRef = view.findViewById<TextView>(R.id.tvVersiculoRef)
         val btnPartilhar = view.findViewById<Button>(R.id.btnPartilharPromessa)
+        adViewCaixinha = view.findViewById(R.id.adViewCaixinha)
+        configurarBanner()
 
         // Ao clicar na caixa
         imgCaixa.setOnClickListener {
@@ -71,12 +79,16 @@ class CaixinhaFragment : Fragment() {
 
         // Botão de Partilhar Texto
         btnPartilhar.setOnClickListener {
-            val textoParaEnviar = "${tvTexto.text}\n\n${tvRef.text}\n\n— Via App Maná Diário 🙏"
+            if (tvTexto.text.isNullOrBlank() || tvRef.text.isNullOrBlank()) {
+                Toast.makeText(requireContext(), getString(R.string.promise_box_pick_first), Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val textoParaEnviar = getString(R.string.promise_box_share_text, tvTexto.text.toString(), tvRef.text.toString())
 
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
             intent.putExtra(Intent.EXTRA_TEXT, textoParaEnviar)
-            startActivity(Intent.createChooser(intent, "Partilhar Promessa"))
+            startActivity(Intent.createChooser(intent, getString(R.string.promise_box_share_chooser)))
         }
     }
 }
