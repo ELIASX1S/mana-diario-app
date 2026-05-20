@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="promise_box_tap_hint">Toque na caixinha para receber uma palavra</string>
+    <string name="promise_box_share_image">Compartilhar como imagem</string>
+    <string name="promise_box_history_title">Últimas promessas recebidas</string>
+    <string name="promise_box_image_share_title">Minha promessa de hoje</string>
+    <string name="promise_box_image_share_error">Não foi possível gerar a imagem da promessa.</string>
+    <string name="promise_box_history_item">• %1$s — %2$s</string>
+</resources>
