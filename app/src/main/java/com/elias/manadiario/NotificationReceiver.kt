@@ -9,9 +9,15 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
+import java.util.Calendar
 import kotlin.random.Random
 
 class NotificationReceiver : BroadcastReceiver() {
+
+    companion object {
+        private const val CHANNEL_ID = "lembrete_diario_id"
+        private const val NOTIFICATION_ID = 1
+    }
 
     override fun onReceive(context: Context, intent: Intent) {
         mostrarNotificacao(context)
@@ -19,58 +25,117 @@ class NotificationReceiver : BroadcastReceiver() {
 
     private fun mostrarNotificacao(context: Context) {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val channelId = "lembrete_diario_id"
+        criarCanalSeNecessario(notificationManager)
 
-        // 1. Criar o Canal de Notificação (Obrigatório no Android 8+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "Lembrete Diário",
-                NotificationManager.IMPORTANCE_DEFAULT
-            ).apply {
-                description = "Notificação diária para ler a palavra"
-            }
-            notificationManager.createNotificationChannel(channel)
-        }
+        val pendingIntent = criarIntentDeAbertura(context)
+        val conteudo = obterConteudoDaNotificacao(context)
 
-        // 2. O que acontece quando clica na notificação (Abre o App)
-        val intent = Intent(context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val pendingIntent = PendingIntent.getActivity(
-            context,
-            0,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
-
-        // 3. Montar a Notificação
-        val builder = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher) // Usa o ícone do teu app
-            .setContentTitle("Maná Diário 🙏")
-            .setContentText(obterMensagemDiaria(context))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle(conteudo.titulo)
+            .setContentText(conteudo.mensagemCurta)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(conteudo.mensagemCompleta))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
-        // 4. Mostrar!
-        notificationManager.notify(1, builder.build())
+        notificationManager.notify(NOTIFICATION_ID, builder.build())
     }
 
-    private fun obterMensagemDiaria(context: Context): String {
+    private fun criarCanalSeNecessario(notificationManager: NotificationManager) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
+
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            "Lembrete Diário",
+            NotificationManager.IMPORTANCE_DEFAULT
+        ).apply {
+            description = "Notificação diária para ler a Palavra e continuar sua jornada com Deus."
+        }
+        notificationManager.createNotificationChannel(channel)
+    }
+
+    private fun criarIntentDeAbertura(context: Context): PendingIntent {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        return PendingIntent.getActivity(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+
+    private fun obterConteudoDaNotificacao(context: Context): ConteudoNotificacao {
         if (isJornadaConcluida(context)) {
-            return "Você concluiu sua jornada de 7 dias. Que tal começar uma nova hoje?"
+            return ConteudoNotificacao(
+                titulo = "Sua jornada foi concluída 🙏",
+                mensagemCurta = "Que tal começar uma nova caminhada com Deus hoje?",
+                mensagemCompleta = "Você concluiu sua jornada de 7 dias. Abra o Maná Diário e continue alimentando sua fé com a Palavra de Deus."
+            )
         }
 
         val diaPlanoAtual = obterDiaAtualPlano(context)
-        val mensagens = listOf(
-            "Dia $diaPlanoAtual da sua jornada de fé está esperando por você.",
-            "Continue sua jornada: hoje é dia de fortalecer sua confiança em Deus.",
-            "Antes de começar o dia, fortaleça sua fé.",
-            "Não enfrente esse dia sozinho. Ore e siga com Deus.",
-            "Reserve alguns minutos para ouvir o que Deus quer falar com você.",
-            "Sua jornada de fé continua hoje. Abra o Maná Diário 🙏"
-        )
+        val hora = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+
+        val mensagens = when (hora) {
+            in 5..11 -> listOf(
+                ConteudoNotificacao(
+                    "Bom dia com Deus 🙏",
+                    "Comece o dia com uma palavra de fé.",
+                    "Antes da correria começar, reserve alguns minutos para ouvir o que Deus quer falar com você hoje."
+                ),
+                ConteudoNotificacao(
+                    "Sua palavra da manhã chegou ✨",
+                    "Dia $diaPlanoAtual da sua jornada está esperando.",
+                    "Abra o Maná Diário e fortaleça sua fé antes de começar mais um dia. Deus caminha com você."
+                ),
+                ConteudoNotificacao(
+                    "Entregue este dia a Deus 🌅",
+                    "Ore, respire e siga com fé.",
+                    "Não comece este dia sozinho. Abra sua palavra diária e entregue seus planos nas mãos de Deus."
+                )
+            )
+
+            in 12..17 -> listOf(
+                ConteudoNotificacao(
+                    "Uma pausa para Deus 🙏",
+                    "Sua fé também precisa respirar.",
+                    "Pare por alguns minutos, leia a Palavra e renove sua força para continuar o dia com paz."
+                ),
+                ConteudoNotificacao(
+                    "Deus ainda está cuidando de você ✨",
+                    "Abra sua mensagem de fé de hoje.",
+                    "Mesmo no meio do dia, Deus pode renovar seu coração com uma palavra simples e poderosa."
+                ),
+                ConteudoNotificacao(
+                    "Continue sua jornada 📖",
+                    "O dia $diaPlanoAtual está pronto para você.",
+                    "Sua caminhada com Deus continua hoje. Abra o Maná Diário e fortaleça sua confiança no Senhor."
+                )
+            )
+
+            else -> listOf(
+                ConteudoNotificacao(
+                    "Termine o dia em paz 🌙",
+                    "Entregue suas preocupações a Deus.",
+                    "Antes de dormir, leia uma palavra, ore com calma e descanse sabendo que Deus cuida de você."
+                ),
+                ConteudoNotificacao(
+                    "Deus guardou você até aqui 🙏",
+                    "Receba uma palavra antes de descansar.",
+                    "Feche o dia com gratidão. Abra o Maná Diário e entregue sua noite nas mãos de Deus."
+                ),
+                ConteudoNotificacao(
+                    "Noite de oração ✨",
+                    "Sua jornada de fé continua hoje.",
+                    "Ainda dá tempo de buscar a presença de Deus hoje. Abra o app e fortaleça sua fé antes de dormir."
+                )
+            )
+        }
+
         return mensagens[Random.nextInt(mensagens.size)]
     }
 
@@ -83,4 +148,10 @@ class NotificationReceiver : BroadcastReceiver() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         return prefs.getBoolean("home_faith_plan_completed", false)
     }
+
+    private data class ConteudoNotificacao(
+        val titulo: String,
+        val mensagemCurta: String,
+        val mensagemCompleta: String
+    )
 }
