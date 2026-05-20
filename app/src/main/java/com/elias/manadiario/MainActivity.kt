@@ -37,7 +37,8 @@ class MainActivity : AppCompatActivity() {
             MaisOpcao(MaisOpcao.ID_FAVORITE_VERSES, getString(R.string.option_favorite_verses), R.drawable.ic_favoritos),
             MaisOpcao(MaisOpcao.ID_PROMISE_BOX, getString(R.string.option_promise_box), R.drawable.ic_promessas),
             MaisOpcao(MaisOpcao.ID_FAVORITES, getString(R.string.option_favorites), R.drawable.ic_favoritos),
-            MaisOpcao(MaisOpcao.ID_FAITH_MESSAGE, getString(R.string.option_faith_message), R.drawable.ic_mensagem)
+            MaisOpcao(MaisOpcao.ID_FAITH_MESSAGE, getString(R.string.option_faith_message), R.drawable.ic_mensagem),
+            MaisOpcao(MaisOpcao.ID_SETTINGS, getString(R.string.option_settings), R.drawable.ic_configuracoes)
         )
     }
 
@@ -156,6 +157,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 MaisOpcao.ID_FAITH_MESSAGE -> mostrarAnuncioEAbrirMensagem()
+
+                MaisOpcao.ID_SETTINGS -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
+                }
 
                 else -> Toast.makeText(
                     this,
