@@ -14,5 +14,6 @@ data class MaisOpcao(
         const val ID_PROMISE_BOX = "caixinha"
         const val ID_FAVORITES = "favoritos"
         const val ID_FAITH_MESSAGE = "mensagem_fe"
+        const val ID_SETTINGS = "configuracoes"
     }
 }
