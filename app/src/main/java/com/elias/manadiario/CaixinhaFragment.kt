@@ -29,13 +29,13 @@ class CaixinhaFragment : Fragment() {
     companion object {
         private const val PREFS_NAME = "promise_box_prefs"
         private const val KEY_HISTORY = "promise_history"
+        private const val KEY_LAST_PROMISE = "last_promise"
         private const val HISTORY_SEPARATOR = "||"
         private const val MAX_HISTORY_ITEMS = 5
     }
 
     private var promessaAtual: Pair<String, String>? = null
 
-    // Lista de Promessas (Texto e Referência)
     private val promessas = listOf(
         Pair("O Senhor é o meu pastor, nada me faltará.", "Salmos 23:1"),
         Pair("Tudo posso naquele que me fortalece.", "Filipenses 4:13"),
@@ -46,7 +46,27 @@ class CaixinhaFragment : Fragment() {
         Pair("Venham a mim, todos os que estão cansados e sobrecarregados, e eu darei descanso a vocês.", "Mateus 11:28"),
         Pair("Mas os que esperam no Senhor renovarão as forças, subirão com asas como águias; correrão, e não se cansarão; caminharão, e não se fatigarão.", "Isaías 40:31"),
         Pair("Deem graças ao Senhor, porque ele é bom. O seu amor dura para sempre!", "Salmos 136:1"),
-        Pair("Busquem, pois, em primeiro lugar o Reino de Deus e a sua justiça, e todas essas coisas lhes serão acrescentadas.", "Mateus 6:33")
+        Pair("Busquem, pois, em primeiro lugar o Reino de Deus e a sua justiça, e todas essas coisas lhes serão acrescentadas.", "Mateus 6:33"),
+        Pair("Lancem sobre ele toda a sua ansiedade, porque ele tem cuidado de vocês.", "1 Pedro 5:7"),
+        Pair("O Senhor lutará por vocês; tão somente acalmem-se.", "Êxodo 14:14"),
+        Pair("A minha paz lhes dou; não a dou como o mundo a dá.", "João 14:27"),
+        Pair("Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia.", "Salmos 46:1"),
+        Pair("Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus.", "Isaías 41:10"),
+        Pair("Clama a mim, e responder-te-ei coisas grandes e firmes que não sabes.", "Jeremias 33:3"),
+        Pair("O Senhor é a minha luz e a minha salvação; de quem terei medo?", "Salmos 27:1"),
+        Pair("Em paz me deito e logo pego no sono, porque só tu, Senhor, me fazes repousar seguro.", "Salmos 4:8"),
+        Pair("O choro pode durar uma noite, mas a alegria vem pela manhã.", "Salmos 30:5"),
+        Pair("Consagre ao Senhor tudo o que você faz, e os seus planos serão bem-sucedidos.", "Provérbios 16:3"),
+        Pair("Aquele que começou boa obra em vocês vai completá-la até o dia de Cristo Jesus.", "Filipenses 1:6"),
+        Pair("O meu Deus suprirá todas as necessidades de vocês, de acordo com as suas gloriosas riquezas.", "Filipenses 4:19"),
+        Pair("Se Deus é por nós, quem será contra nós?", "Romanos 8:31"),
+        Pair("Alegrem-se na esperança, sejam pacientes na tribulação, perseverem na oração.", "Romanos 12:12"),
+        Pair("Lâmpada para os meus pés é a tua palavra e luz para o meu caminho.", "Salmos 119:105"),
+        Pair("O nome do Senhor é uma torre forte; os justos correm para ela e estão seguros.", "Provérbios 18:10"),
+        Pair("Peçam, e será dado; busquem, e encontrarão; batam, e a porta será aberta.", "Mateus 7:7"),
+        Pair("Venham a mim, todos os que estão cansados e sobrecarregados, e eu lhes darei descanso.", "Mateus 11:28"),
+        Pair("O Senhor te abençoe e te guarde.", "Números 6:24"),
+        Pair("Resistam ao diabo, e ele fugirá de vocês.", "Tiago 4:7")
     )
 
     override fun onCreateView(
@@ -77,7 +97,7 @@ class CaixinhaFragment : Fragment() {
                 }
             }.start()
 
-            val sorteio = promessas[Random.nextInt(promessas.size)]
+            val sorteio = sortearPromessaSemRepetir()
             promessaAtual = sorteio
             salvarNoHistorico(sorteio)
             atualizarHistoricoNaTela(cardHistorico, tvHistorico)
@@ -106,6 +126,19 @@ class CaixinhaFragment : Fragment() {
             val promessa = obterPromessaSelecionada(tvTexto, tvRef) ?: return@setOnClickListener
             compartilharImagemDaPromessa(promessa)
         }
+    }
+
+    private fun sortearPromessaSemRepetir(): Pair<String, String> {
+        val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val ultimaPromessa = prefs.getString(KEY_LAST_PROMISE, null)
+        val opcoes = promessas.filter { "${it.first} — ${it.second}" != ultimaPromessa }
+        val sorteio = (if (opcoes.isNotEmpty()) opcoes else promessas)[Random.nextInt(if (opcoes.isNotEmpty()) opcoes.size else promessas.size)]
+
+        prefs.edit()
+            .putString(KEY_LAST_PROMISE, "${sorteio.first} — ${sorteio.second}")
+            .apply()
+
+        return sorteio
     }
 
     private fun obterPromessaSelecionada(tvTexto: TextView, tvRef: TextView): Pair<String, String>? {
@@ -205,15 +238,17 @@ class CaixinhaFragment : Fragment() {
         val quotePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.WHITE
             textAlign = Paint.Align.CENTER
-            textSize = 58f
+            textSize = calcularTamanhoFonte(texto)
             typeface = android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.BOLD_ITALIC)
         }
         val quoteLines = quebrarTexto(texto, quotePaint, width - 180)
-        val quoteStartY = 430f
-        var currentY = quoteStartY
+        val lineHeight = quotePaint.textSize + 18f
+        val quoteBlockHeight = quoteLines.size * lineHeight
+        var currentY = ((height - quoteBlockHeight) / 2f).coerceAtLeast(390f)
+
         quoteLines.forEach { line ->
             canvas.drawText(line, width / 2f, currentY, quotePaint)
-            currentY += 76f
+            currentY += lineHeight
         }
 
         val refPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -222,7 +257,7 @@ class CaixinhaFragment : Fragment() {
             textSize = 44f
             typeface = android.graphics.Typeface.create(android.graphics.Typeface.SANS_SERIF, android.graphics.Typeface.BOLD)
         }
-        canvas.drawText(referencia, width / 2f, currentY + 70f, refPaint)
+        canvas.drawText(referencia, width / 2f, currentY + 55f, refPaint)
 
         val footerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.argb(220, 255, 255, 255)
@@ -239,6 +274,15 @@ class CaixinhaFragment : Fragment() {
         canvas.drawLine(260f, height - 205f, width - 260f, height - 205f, linePaint)
 
         return bitmap
+    }
+
+    private fun calcularTamanhoFonte(texto: String): Float {
+        return when {
+            texto.length > 150 -> 42f
+            texto.length > 110 -> 46f
+            texto.length > 80 -> 50f
+            else -> 58f
+        }
     }
 
     private fun quebrarTexto(texto: String, paint: Paint, maxWidth: Int): List<String> {
