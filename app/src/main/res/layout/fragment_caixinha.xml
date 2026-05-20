@@ -50,6 +50,16 @@
                 android:focusable="true"
                 android:src="@drawable/ic_presente" />
 
+            <TextView
+                android:id="@+id/tvTapHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/promise_box_tap_hint"
+                android:textColor="@color/cor_primaria"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardPromessa"
                 android:layout_width="match_parent"
@@ -95,6 +105,52 @@
                         android:layout_marginTop="18dp"
                         android:text="@string/promise_box_share"
                         app:cornerRadius="14dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCompartilharImagemPromessa"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/promise_box_share_image"
+                        app:cornerRadius="14dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardHistoricoPromessas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/cor_superficie"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:strokeColor="@color/cor_divider"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/promise_box_history_title"
+                        android:textColor="@color/cor_texto_principal"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvHistoricoPromessas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:lineSpacingExtra="4dp"
+                        android:textColor="@color/cor_texto_secundario"
+                        android:textSize="14sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
