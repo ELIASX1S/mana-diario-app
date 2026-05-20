@@ -11,10 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.LoadAdError
 import kotlin.random.Random
 
 class CaixinhaFragment : Fragment() {
@@ -90,5 +88,10 @@ class CaixinhaFragment : Fragment() {
             intent.putExtra(Intent.EXTRA_TEXT, textoParaEnviar)
             startActivity(Intent.createChooser(intent, getString(R.string.promise_box_share_chooser)))
         }
+    }
+
+    private fun configurarBanner() {
+        val adRequest = AdRequest.Builder().build()
+        adViewCaixinha.loadAd(adRequest)
     }
 }
