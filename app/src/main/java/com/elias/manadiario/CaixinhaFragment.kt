@@ -7,7 +7,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.LinearGradient
 import android.graphics.Paint
-import android.graphics.Rect
 import android.graphics.Shader
 import android.net.Uri
 import android.os.Bundle
@@ -21,10 +20,6 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.LoadAdError
 import java.io.File
 import java.io.FileOutputStream
 import kotlin.random.Random
@@ -38,7 +33,6 @@ class CaixinhaFragment : Fragment() {
         private const val MAX_HISTORY_ITEMS = 5
     }
 
-    private lateinit var adViewCaixinha: AdView
     private var promessaAtual: Pair<String, String>? = null
 
     // Lista de Promessas (Texto e Referência)
@@ -74,30 +68,23 @@ class CaixinhaFragment : Fragment() {
         val cardHistorico = view.findViewById<CardView>(R.id.cardHistoricoPromessas)
         val tvHistorico = view.findViewById<TextView>(R.id.tvHistoricoPromessas)
 
-        adViewCaixinha = view.findViewById(R.id.adViewCaixinha)
-        configurarBanner()
         atualizarHistoricoNaTela(cardHistorico, tvHistorico)
 
-        // Ao clicar na caixa
         imgCaixa.setOnClickListener {
-            // 1. Efeito visual simples (opcional, treme a caixa)
             imgCaixa.animate().rotation(15f).setDuration(100).withEndAction {
                 imgCaixa.animate().rotation(-15f).setDuration(100).withEndAction {
                     imgCaixa.animate().rotation(0f).setDuration(100).start()
                 }
             }.start()
 
-            // 2. Sorteia uma promessa
             val sorteio = promessas[Random.nextInt(promessas.size)]
             promessaAtual = sorteio
             salvarNoHistorico(sorteio)
             atualizarHistoricoNaTela(cardHistorico, tvHistorico)
 
-            // 3. Preenche o texto
             tvTexto.text = "\"${sorteio.first}\""
             tvRef.text = sorteio.second
 
-            // 4. Mostra o cartão (se estiver escondido)
             if (cardPromessa.visibility == View.GONE) {
                 cardPromessa.alpha = 0f
                 cardPromessa.visibility = View.VISIBLE
@@ -105,7 +92,6 @@ class CaixinhaFragment : Fragment() {
             }
         }
 
-        // Botão de Partilhar Texto
         btnPartilhar.setOnClickListener {
             val promessa = obterPromessaSelecionada(tvTexto, tvRef) ?: return@setOnClickListener
             val textoParaEnviar = getString(R.string.promise_box_share_text, "\"${promessa.first}\"", promessa.second)
@@ -288,28 +274,5 @@ class CaixinhaFragment : Fragment() {
             "${requireContext().packageName}.fileprovider",
             imageFile
         )
-    }
-
-    private fun configurarBanner() {
-        adViewCaixinha.visibility = View.GONE
-        adViewCaixinha.adListener = object : AdListener() {
-            override fun onAdLoaded() {
-                adViewCaixinha.visibility = View.VISIBLE
-            }
-
-            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                adViewCaixinha.visibility = View.GONE
-            }
-        }
-
-        val adRequest = AdRequest.Builder().build()
-        adViewCaixinha.loadAd(adRequest)
-    }
-
-    override fun onDestroyView() {
-        if (::adViewCaixinha.isInitialized) {
-            adViewCaixinha.destroy()
-        }
-        super.onDestroyView()
     }
 }
