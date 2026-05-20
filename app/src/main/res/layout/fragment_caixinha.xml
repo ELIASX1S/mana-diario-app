@@ -1,169 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cor_fundo_app"
-    android:orientation="vertical"
+    android:fillViewport="true"
     android:padding="16dp">
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="8dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvTituloCaixa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/promise_box_title"
+            android:textColor="@color/cor_texto_principal"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvSubtitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/promise_box_subtitle"
+            android:textColor="@color/cor_texto_secundario"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/imgCaixa"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="24dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/promise_box_image_cd"
+            android:focusable="true"
+            android:src="@drawable/ic_presente" />
+
+        <TextView
+            android:id="@+id/tvTapHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/promise_box_tap_hint"
+            android:textColor="@color/cor_primaria"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardPromessa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/cor_superficie"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeColor="@color/cor_divider"
+            app:strokeWidth="1dp">
 
-            <TextView
-                android:id="@+id/tvTituloCaixa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/promise_box_title"
-                android:textColor="@color/cor_texto_principal"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvSubtitulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="@string/promise_box_subtitle"
-                android:textColor="@color/cor_texto_secundario"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:id="@+id/imgCaixa"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="24dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="@string/promise_box_image_cd"
-                android:focusable="true"
-                android:src="@drawable/ic_presente" />
-
-            <TextView
-                android:id="@+id/tvTapHint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/promise_box_tap_hint"
-                android:textColor="@color/cor_primaria"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardPromessa"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:visibility="gone"
-                app:cardBackgroundColor="@color/cor_superficie"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:strokeColor="@color/cor_divider"
-                app:strokeWidth="1dp">
+                android:orientation="vertical"
+                android:padding="20dp">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tvVersiculoTexto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/cor_texto_principal"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
 
-                    <TextView
-                        android:id="@+id/tvVersiculoTexto"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/cor_texto_principal"
-                        android:textSize="18sp"
-                        android:textStyle="italic" />
+                <TextView
+                    android:id="@+id/tvVersiculoRef"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:textColor="@color/cor_primaria"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvVersiculoRef"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:gravity="center"
-                        android:textColor="@color/cor_primaria"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPartilharPromessa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/promise_box_share"
+                    app:cornerRadius="14dp" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnPartilharPromessa"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
-                        android:text="@string/promise_box_share"
-                        app:cornerRadius="14dp" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCompartilharImagemPromessa"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/promise_box_share_image"
+                    app:cornerRadius="14dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnCompartilharImagemPromessa"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/promise_box_share_image"
-                        app:cornerRadius="14dp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHistoricoPromessas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/cor_superficie"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:strokeColor="@color/cor_divider"
+            app:strokeWidth="1dp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardHistoricoPromessas"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:visibility="gone"
-                app:cardBackgroundColor="@color/cor_superficie"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="1dp"
-                app:strokeColor="@color/cor_divider"
-                app:strokeWidth="1dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:text="@string/promise_box_history_title"
+                    android:textColor="@color/cor_texto_principal"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/promise_box_history_title"
-                        android:textColor="@color/cor_texto_principal"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvHistoricoPromessas"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:lineSpacingExtra="4dp"
-                        android:textColor="@color/cor_texto_secundario"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adViewCaixinha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"
-        app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-1398532019315738/9917538337" />
-
-</LinearLayout>
+                <TextView
+                    android:id="@+id/tvHistoricoPromessas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/cor_texto_secundario"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
