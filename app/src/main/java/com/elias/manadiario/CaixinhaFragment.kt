@@ -132,7 +132,8 @@ class CaixinhaFragment : Fragment() {
         val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val ultimaPromessa = prefs.getString(KEY_LAST_PROMISE, null)
         val opcoes = promessas.filter { "${it.first} — ${it.second}" != ultimaPromessa }
-        val sorteio = (if (opcoes.isNotEmpty()) opcoes else promessas)[Random.nextInt(if (opcoes.isNotEmpty()) opcoes.size else promessas.size)]
+        val listaSorteio = if (opcoes.isNotEmpty()) opcoes else promessas
+        val sorteio = listaSorteio[Random.nextInt(listaSorteio.size)]
 
         prefs.edit()
             .putString(KEY_LAST_PROMISE, "${sorteio.first} — ${sorteio.second}")
@@ -205,7 +206,7 @@ class CaixinhaFragment : Fragment() {
 
     private fun criarImagemDaPromessa(texto: String, referencia: String): Bitmap {
         val width = 1080
-        val height = 1350
+        val height = 1920
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
@@ -215,25 +216,27 @@ class CaixinhaFragment : Fragment() {
                 0f,
                 width.toFloat(),
                 height.toFloat(),
-                intArrayOf(Color.rgb(32, 24, 16), Color.rgb(101, 73, 35), Color.rgb(18, 18, 18)),
-                floatArrayOf(0f, 0.48f, 1f),
+                intArrayOf(Color.rgb(26, 20, 14), Color.rgb(108, 78, 35), Color.rgb(12, 12, 12)),
+                floatArrayOf(0f, 0.45f, 1f),
                 Shader.TileMode.CLAMP
             )
         }
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), backgroundPaint)
 
         val glowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.argb(48, 255, 214, 128)
+            color = Color.argb(42, 255, 218, 140)
         }
-        canvas.drawCircle(width / 2f, 270f, 360f, glowPaint)
+        canvas.drawCircle(width / 2f, 410f, 420f, glowPaint)
+        canvas.drawCircle(width / 2f, 980f, 620f, glowPaint)
 
         val titlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.rgb(255, 236, 190)
             textAlign = Paint.Align.CENTER
-            textSize = 54f
+            textSize = 58f
+            letterSpacing = 0.04f
             typeface = android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.BOLD)
         }
-        canvas.drawText("PROMESSA DE HOJE", width / 2f, 210f, titlePaint)
+        canvas.drawText("PROMESSA DE HOJE", width / 2f, 330f, titlePaint)
 
         val quotePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.WHITE
@@ -241,10 +244,10 @@ class CaixinhaFragment : Fragment() {
             textSize = calcularTamanhoFonte(texto)
             typeface = android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.BOLD_ITALIC)
         }
-        val quoteLines = quebrarTexto(texto, quotePaint, width - 180)
-        val lineHeight = quotePaint.textSize + 18f
+        val quoteLines = quebrarTexto(texto, quotePaint, width - 170)
+        val lineHeight = quotePaint.textSize + 22f
         val quoteBlockHeight = quoteLines.size * lineHeight
-        var currentY = ((height - quoteBlockHeight) / 2f).coerceAtLeast(390f)
+        var currentY = ((height - quoteBlockHeight) / 2f).coerceIn(660f, 920f)
 
         quoteLines.forEach { line ->
             canvas.drawText(line, width / 2f, currentY, quotePaint)
@@ -254,34 +257,34 @@ class CaixinhaFragment : Fragment() {
         val refPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.rgb(255, 222, 156)
             textAlign = Paint.Align.CENTER
-            textSize = 44f
+            textSize = 48f
             typeface = android.graphics.Typeface.create(android.graphics.Typeface.SANS_SERIF, android.graphics.Typeface.BOLD)
         }
-        canvas.drawText(referencia, width / 2f, currentY + 55f, refPaint)
-
-        val footerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.argb(220, 255, 255, 255)
-            textAlign = Paint.Align.CENTER
-            textSize = 34f
-            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SANS_SERIF, android.graphics.Typeface.NORMAL)
-        }
-        canvas.drawText("Maná Diário • Uma palavra para sua fé", width / 2f, height - 130f, footerPaint)
+        canvas.drawText(referencia, width / 2f, currentY + 75f, refPaint)
 
         val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.argb(140, 255, 222, 156)
-            strokeWidth = 3f
+            color = Color.argb(150, 255, 222, 156)
+            strokeWidth = 4f
         }
-        canvas.drawLine(260f, height - 205f, width - 260f, height - 205f, linePaint)
+        canvas.drawLine(230f, height - 265f, width - 230f, height - 265f, linePaint)
+
+        val footerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.argb(230, 255, 255, 255)
+            textAlign = Paint.Align.CENTER
+            textSize = 38f
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SANS_SERIF, android.graphics.Typeface.NORMAL)
+        }
+        canvas.drawText("Maná Diário • Uma palavra para sua fé", width / 2f, height - 185f, footerPaint)
 
         return bitmap
     }
 
     private fun calcularTamanhoFonte(texto: String): Float {
         return when {
-            texto.length > 150 -> 42f
-            texto.length > 110 -> 46f
-            texto.length > 80 -> 50f
-            else -> 58f
+            texto.length > 170 -> 46f
+            texto.length > 130 -> 50f
+            texto.length > 90 -> 56f
+            else -> 66f
         }
     }
 
