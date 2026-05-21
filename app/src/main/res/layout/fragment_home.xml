@@ -96,7 +96,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-<androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,7 +172,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-<androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -252,7 +252,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-<androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -350,12 +350,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            
-
-            
-
-            
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -375,7 +369,7 @@
 
                 <LinearLayout
                     android:id="@+id/listenAction"
-                        android:contentDescription="@string/home_action_listen"
+                    android:contentDescription="@string/home_action_listen"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -384,11 +378,13 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingVertical="10dp">
+
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@drawable/ic_play_circle"
                         app:tint="@color/cor_primaria" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -400,7 +396,7 @@
 
                 <LinearLayout
                     android:id="@+id/favoriteAction"
-                        android:contentDescription="@string/home_action_favorite"
+                    android:contentDescription="@string/home_action_favorite"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -410,12 +406,14 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingVertical="10dp">
+
                     <ImageView
                         android:id="@+id/favoriteIcon"
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@drawable/ic_star_border"
                         app:tint="@color/cor_primaria" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -427,7 +425,7 @@
 
                 <LinearLayout
                     android:id="@+id/shareAction"
-                        android:contentDescription="@string/home_action_share"
+                    android:contentDescription="@string/home_action_share"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -437,11 +435,13 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingVertical="10dp">
+
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@drawable/ic_share"
                         app:tint="@color/cor_primaria" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -453,7 +453,7 @@
 
                 <LinearLayout
                     android:id="@+id/copyAction"
-                        android:contentDescription="@string/home_action_copy"
+                    android:contentDescription="@string/home_action_copy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -463,11 +463,13 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingVertical="10dp">
+
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@drawable/ic_copy"
                         app:tint="@color/cor_primaria" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -505,11 +507,13 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="12dp">
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_journey_nav"
-                        app:tint="@color/cor_primaria"/>
+                        app:tint="@color/cor_primaria" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -517,7 +521,7 @@
                         android:gravity="center"
                         android:text="@string/home_shortcut_journey"
                         android:textColor="@color/cor_texto_principal"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -530,18 +534,20 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="12dp">
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_bible_nav"
-                        app:tint="@color/cor_primaria"/>
+                        app:tint="@color/cor_primaria" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/home_shortcut_bible"
                         android:textColor="@color/cor_texto_principal"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -554,18 +560,20 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="12dp">
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_music"
-                        app:tint="@color/cor_primaria"/>
+                        app:tint="@color/cor_primaria" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/home_shortcut_worship"
                         android:textColor="@color/cor_texto_principal"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -578,18 +586,20 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="12dp">
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_notes"
-                        app:tint="@color/cor_primaria"/>
+                        app:tint="@color/cor_primaria" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/home_shortcut_notes"
                         android:textColor="@color/cor_texto_principal"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -602,18 +612,47 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="12dp">
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_favorites_list"
-                        app:tint="@color/cor_primaria"/>
+                        app:tint="@color/cor_primaria" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/home_shortcut_favorites"
                         android:textColor="@color/cor_texto_principal"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/godMomentShortcut"
+                    android:layout_width="0dp"
+                    android:layout_height="96dp"
+                    android:layout_columnWeight="1"
+                    android:background="@drawable/bg_home_feature_tile"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_momento_deus"
+                        app:tint="@color/cor_primaria" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="@string/option_god_moment"
+                        android:textColor="@color/cor_texto_principal"
+                        android:textSize="13sp" />
                 </LinearLayout>
             </GridLayout>
 
