@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="option_devotional_image">Devocional em Imagem</string>
+    <string name="devotional_image_title">Devocional em Imagem</string>
+    <string name="devotional_image_subtitle">Transforme a palavra de hoje em uma imagem bonita para compartilhar.</string>
+    <string name="devotional_image_card_label">PALAVRA DE HOJE</string>
+    <string name="devotional_image_share">Compartilhar imagem do devocional</string>
+    <string name="devotional_image_copy">Copiar texto do devocional</string>
+    <string name="devotional_image_copied">Devocional copiado!</string>
+    <string name="devotional_image_clip_label">devocional_mana_diario</string>
+    <string name="devotional_image_share_title">Compartilhar devocional em imagem</string>
+    <string name="devotional_image_error">Não foi possível gerar a imagem do devocional.</string>
+</resources>
