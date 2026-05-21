@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             MaisOpcao(MaisOpcao.ID_SEARCH_BIBLE, getString(R.string.option_search_bible), R.drawable.ic_buscar),
             MaisOpcao(MaisOpcao.ID_FAVORITE_VERSES, getString(R.string.option_favorite_verses), R.drawable.ic_favoritos),
             MaisOpcao(MaisOpcao.ID_PROMISE_BOX, getString(R.string.option_promise_box), R.drawable.ic_promessas),
+            MaisOpcao(MaisOpcao.ID_PRAYERS, getString(R.string.option_prayers), R.drawable.ic_oracoes),
             MaisOpcao(MaisOpcao.ID_FAVORITES, getString(R.string.option_favorites), R.drawable.ic_favoritos),
             MaisOpcao(MaisOpcao.ID_FAITH_MESSAGE, getString(R.string.option_faith_message), R.drawable.ic_mensagem),
             MaisOpcao(MaisOpcao.ID_SETTINGS, getString(R.string.option_settings), R.drawable.ic_configuracoes)
@@ -155,6 +156,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 MaisOpcao.ID_PROMISE_BOX -> replaceFragment(CaixinhaFragment())
+
+                MaisOpcao.ID_PRAYERS -> replaceFragment(OracoesFragment())
 
                 MaisOpcao.ID_FAVORITES -> {
                     startActivity(Intent(this, FavoritesActivity::class.java))
