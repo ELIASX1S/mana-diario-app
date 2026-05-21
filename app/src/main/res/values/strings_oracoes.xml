@@ -7,9 +7,12 @@
     <string name="prayer_room_new_prayer">Gerar nova oração</string>
     <string name="prayer_room_copy">Copiar oração</string>
     <string name="prayer_room_share">Compartilhar oração</string>
+    <string name="prayer_room_share_image">Compartilhar como imagem</string>
     <string name="prayer_room_copied">Oração copiada!</string>
     <string name="prayer_room_clip_label">oracao_mana_diario</string>
     <string name="prayer_room_share_chooser">Compartilhar oração via</string>
+    <string name="prayer_room_image_share_title">Compartilhar imagem da oração</string>
+    <string name="prayer_room_image_error">Não foi possível gerar a imagem da oração.</string>
     <string name="prayer_room_tip_title">Como usar</string>
     <string name="prayer_room_tip_text">Leia com calma, adapte com suas próprias palavras e transforme esta oração em um momento real com Deus.</string>
 </resources>
