@@ -3,6 +3,7 @@ package com.elias.manadiario
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.preference.ListPreference
@@ -14,6 +15,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
+        configurarTemaEscuro()
+        configurarTamanhoFonte()
+        configurarHorarioNotificacao()
+        configurarNotificacoes()
+    }
+
+    private fun configurarTemaEscuro() {
         val darkModePreference = findPreference<SwitchPreferenceCompat>("tema_escuro")
         darkModePreference?.setOnPreferenceChangeListener { _, newValue ->
             val isDarkModeOn = newValue as Boolean
@@ -23,9 +31,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
             )
             true
         }
+    }
 
+    private fun configurarTamanhoFonte() {
+        val fontSizePreference = findPreference<ListPreference>("tamanho_fonte")
+        fontSizePreference?.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
+        fontSizePreference?.setOnPreferenceChangeListener { preference, newValue ->
+            val selectedValue = newValue as String
+            val listPreference = preference as? ListPreference
+            val index = listPreference?.findIndexOfValue(selectedValue) ?: -1
+            preference.summary = if (index >= 0) listPreference?.entries?.get(index) else selectedValue
+            Toast.makeText(requireContext(), "Tamanho da fonte atualizado.", Toast.LENGTH_SHORT).show()
+            true
+        }
+    }
+
+    private fun configurarHorarioNotificacao() {
         val notificationTimePreference = findPreference<ListPreference>("notificacao_horario")
-        notificationTimePreference?.summary = notificationTimePreference?.value ?: "08:00"
+        notificationTimePreference?.summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
         notificationTimePreference?.setOnPreferenceChangeListener { preference, newValue ->
             val selectedTime = newValue as String
             preference.summary = selectedTime
@@ -34,14 +57,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 findPreference<SwitchPreferenceCompat>("notificacoes")?.isChecked == true
             if (notificationsEnabled) {
                 DailyReminderScheduler.schedule(requireContext())
+                Toast.makeText(
+                    requireContext(),
+                    "Lembrete diário ajustado para $selectedTime.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             true
         }
+    }
 
+    private fun configurarNotificacoes() {
         val notificationsPreference = findPreference<SwitchPreferenceCompat>("notificacoes")
-        notificationsPreference?.setOnPreferenceChangeListener { _, newValue ->
+        notificationsPreference?.setOnPreferenceChangeListener { preference, newValue ->
             val enabled = newValue as Boolean
             val context = requireContext()
+
             if (enabled) {
                 val canPost = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
                     ContextCompat.checkSelfPermission(
@@ -51,12 +82,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
                 if (canPost) {
                     DailyReminderScheduler.schedule(context)
+                    Toast.makeText(context, "Notificação diária ativada.", Toast.LENGTH_SHORT).show()
+                    true
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Permita notificações nas configurações do Android para receber o lembrete diário.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    (preference as? SwitchPreferenceCompat)?.isChecked = false
+                    false
                 }
             } else {
                 DailyReminderScheduler.cancel(context)
+                Toast.makeText(context, "Notificação diária desativada.", Toast.LENGTH_SHORT).show()
+                true
             }
-            true
         }
-
     }
 }
