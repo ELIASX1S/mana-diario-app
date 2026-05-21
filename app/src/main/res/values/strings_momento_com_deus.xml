@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="option_god_moment">Momento com Deus</string>
+    <string name="god_moment_title">Momento com Deus</string>
+    <string name="god_moment_subtitle">Escolha o que está vivendo agora e receba uma palavra, uma oração e um passo prático.</string>
+    <string name="god_moment_choose">Como você está se sentindo?</string>
+    <string name="god_moment_new">Gerar outra palavra</string>
+    <string name="god_moment_copy">Copiar momento</string>
+    <string name="god_moment_share">Compartilhar momento</string>
+    <string name="god_moment_copied">Momento copiado!</string>
+    <string name="god_moment_clip_label">momento_com_deus</string>
+    <string name="god_moment_share_chooser">Compartilhar momento via</string>
+</resources>
