@@ -31,8 +31,6 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -174,6 +172,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         view.findViewById<View>(R.id.worshipShortcut).setOnClickListener { abrirLouvor() }
         view.findViewById<View>(R.id.notesShortcut).setOnClickListener { startActivity(Intent(requireContext(), BibleNotesActivity::class.java)) }
         view.findViewById<View>(R.id.favoritesShortcut).setOnClickListener { startActivity(Intent(requireContext(), FavoritesActivity::class.java)) }
+        view.findViewById<View>(R.id.godMomentShortcut).setOnClickListener { abrirMomentoComDeus() }
     }
 
     private fun setupContinueBibleReading() {
@@ -252,7 +251,6 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         val preferencias = PreferenceManager.getDefaultSharedPreferences(requireContext())
         greetingTextView.text = obterSaudacao(preferencias.getString(KEY_USER_NAME, null))
 
-
         val now = System.currentTimeMillis()
         val todayStart = startOfDay(now)
         val lastAccess = preferencias.getLong(KEY_LAST_ACCESS, 0L)
@@ -291,7 +289,6 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         maybeRequestInAppReview(streakDays)
     }
 
-
     private fun atualizarMetaDeStreak(streakDays: Int) {
         val milestone = StreakMilestoneCalculator.calculate(streakDays)
         streakProgressIndicator.setProgressCompat(milestone.progressPercent, true)
@@ -306,6 +303,7 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
             )
         }
     }
+
     private fun getMensagemConquistaStreak(streakDays: Int): String {
         return when {
             streakDays >= 30 -> getString(R.string.home_streak_badge_30, streakDays)
@@ -494,6 +492,13 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
         startActivity(intent)
     }
 
+    private fun abrirMomentoComDeus() {
+        (activity as? AppCompatActivity)?.supportFragmentManager
+            ?.beginTransaction()
+            ?.replace(R.id.fragment_container, MomentoComDeusFragment())
+            ?.commit()
+    }
+
     private fun abrirLouvor() {
         (activity as? AppCompatActivity)?.supportFragmentManager
             ?.beginTransaction()
@@ -589,8 +594,6 @@ class HomeFragment : Fragment(), TextToSpeech.OnInitListener {
             favoriteIcon.setImageResource(R.drawable.ic_star_border)
         }
     }
-
-
 
     private fun maybeRunHabitOnboarding() {
         val preferencias = PreferenceManager.getDefaultSharedPreferences(requireContext())
