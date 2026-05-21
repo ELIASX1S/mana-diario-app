@@ -7,7 +7,10 @@
     <string name="god_moment_new">Gerar outra palavra</string>
     <string name="god_moment_copy">Copiar momento</string>
     <string name="god_moment_share">Compartilhar momento</string>
+    <string name="god_moment_share_image">Compartilhar como imagem</string>
     <string name="god_moment_copied">Momento copiado!</string>
     <string name="god_moment_clip_label">momento_com_deus</string>
     <string name="god_moment_share_chooser">Compartilhar momento via</string>
+    <string name="god_moment_image_share_title">Compartilhar imagem do momento</string>
+    <string name="god_moment_image_error">Não foi possível gerar a imagem do momento.</string>
 </resources>
