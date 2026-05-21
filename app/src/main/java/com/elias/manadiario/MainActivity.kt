@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
         private const val NOTIFICATION_PERMISSION_REQUEST_CODE = 101
         private const val KEY_LAST_SEEN_UPDATE_VERSION = "last_seen_update_version"
         private const val CURRENT_UPDATE_VERSION = 14
+        private const val KEY_LAST_INTERSTITIAL_TIME = "last_interstitial_time"
+        private const val KEY_FAITH_MESSAGE_OPEN_COUNT = "faith_message_open_count"
+        private const val INTERSTITIAL_COOLDOWN_MS = 3 * 60 * 1000L
     }
 
     private val opcoesMais by lazy {
@@ -96,9 +99,10 @@ class MainActivity : AppCompatActivity() {
 
         if (adView.visibility != android.view.View.VISIBLE) {
             adView.loadAd(AdRequest.Builder().build())
-            if (mInterstitialAd == null) {
-                carregarAnuncioIntersticial()
-            }
+        }
+
+        if (mInterstitialAd == null) {
+            carregarAnuncioIntersticial()
         }
     }
 
@@ -229,6 +233,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun carregarAnuncioIntersticial() {
+        if (mInterstitialAd != null) return
+
         val adRequest = AdRequest.Builder().build()
 
         InterstitialAd.load(
@@ -250,9 +256,10 @@ class MainActivity : AppCompatActivity() {
     private fun mostrarAnuncioEAbrirMensagem() {
         val interstitialAd = mInterstitialAd
 
-        if (interstitialAd != null) {
+        if (interstitialAd != null && deveMostrarIntersticialAgora()) {
             interstitialAd.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
+                    registrarIntersticialExibido()
                     mInterstitialAd = null
                     carregarAnuncioIntersticial()
                     replaceFragment(MensagemFragment())
@@ -267,9 +274,36 @@ class MainActivity : AppCompatActivity() {
 
             interstitialAd.show(this)
         } else {
+            registrarAberturaMensagemSemAnuncio()
             replaceFragment(MensagemFragment())
             carregarAnuncioIntersticial()
         }
+    }
+
+    private fun deveMostrarIntersticialAgora(): Boolean {
+        val preferencias = PreferenceManager.getDefaultSharedPreferences(this)
+        val agora = System.currentTimeMillis()
+        val ultimoAnuncio = preferencias.getLong(KEY_LAST_INTERSTITIAL_TIME, 0L)
+        val aberturasMensagem = preferencias.getInt(KEY_FAITH_MESSAGE_OPEN_COUNT, 0)
+        val cooldownOk = agora - ultimoAnuncio >= INTERSTITIAL_COOLDOWN_MS
+        val aberturaAlternadaOk = aberturasMensagem >= 1
+        return cooldownOk && aberturaAlternadaOk
+    }
+
+    private fun registrarAberturaMensagemSemAnuncio() {
+        val preferencias = PreferenceManager.getDefaultSharedPreferences(this)
+        val aberturasMensagem = preferencias.getInt(KEY_FAITH_MESSAGE_OPEN_COUNT, 0)
+        preferencias.edit()
+            .putInt(KEY_FAITH_MESSAGE_OPEN_COUNT, aberturasMensagem + 1)
+            .apply()
+    }
+
+    private fun registrarIntersticialExibido() {
+        PreferenceManager.getDefaultSharedPreferences(this)
+            .edit()
+            .putLong(KEY_LAST_INTERSTITIAL_TIME, System.currentTimeMillis())
+            .putInt(KEY_FAITH_MESSAGE_OPEN_COUNT, 0)
+            .apply()
     }
 
     private fun mostrarNovidadesDaVersaoSeNecessario() {
