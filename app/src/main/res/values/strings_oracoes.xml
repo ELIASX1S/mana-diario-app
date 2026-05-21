@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="option_prayers">Orações</string>
+    <string name="prayer_room_title">Orações</string>
+    <string name="prayer_room_subtitle">Escolha uma área da sua vida e faça uma oração simples diante de Deus.</string>
+    <string name="prayer_room_choose_category">Escolha uma categoria</string>
+    <string name="prayer_room_new_prayer">Gerar nova oração</string>
+    <string name="prayer_room_copy">Copiar oração</string>
+    <string name="prayer_room_share">Compartilhar oração</string>
+    <string name="prayer_room_copied">Oração copiada!</string>
+    <string name="prayer_room_clip_label">oracao_mana_diario</string>
+    <string name="prayer_room_share_chooser">Compartilhar oração via</string>
+    <string name="prayer_room_tip_title">Como usar</string>
+    <string name="prayer_room_tip_text">Leia com calma, adapte com suas próprias palavras e transforme esta oração em um momento real com Deus.</string>
+</resources>
