@@ -4,16 +4,26 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.LinearGradient
+import android.graphics.Paint
+import android.graphics.Shader
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import java.io.File
+import java.io.FileOutputStream
 import kotlin.random.Random
 
 class MomentoComDeusFragment : Fragment() {
@@ -152,6 +162,7 @@ class MomentoComDeusFragment : Fragment() {
         }
         view.findViewById<MaterialButton>(R.id.btnGodMomentCopy).setOnClickListener { copiarMomento() }
         view.findViewById<MaterialButton>(R.id.btnGodMomentShare).setOnClickListener { compartilharMomento() }
+        view.findViewById<MaterialButton>(R.id.btnGodMomentShareImage).setOnClickListener { compartilharImagemDoMomento() }
 
         montarChips()
         selecionarMomento(momentos.first())
@@ -195,6 +206,162 @@ class MomentoComDeusFragment : Fragment() {
             putExtra(Intent.EXTRA_TEXT, formatarMomento())
         }
         startActivity(Intent.createChooser(intent, getString(R.string.god_moment_share_chooser)))
+    }
+
+    private fun compartilharImagemDoMomento() {
+        val momento = momentoAtual ?: return
+        val palavra = palavraAtual ?: return
+
+        try {
+            val bitmap = criarImagemDoMomento(momento.nome, palavra)
+            val imageUri = salvarImagemTemporaria(bitmap)
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                type = "image/png"
+                putExtra(Intent.EXTRA_STREAM, imageUri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            startActivity(Intent.createChooser(intent, getString(R.string.god_moment_image_share_title)))
+        } catch (exception: Exception) {
+            Toast.makeText(requireContext(), getString(R.string.god_moment_image_error), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun criarImagemDoMomento(momento: String, palavra: PalavraDoMomento): Bitmap {
+        val width = 1080
+        val height = 1920
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        val backgroundPaint = Paint().apply {
+            shader = LinearGradient(
+                0f,
+                0f,
+                width.toFloat(),
+                height.toFloat(),
+                intArrayOf(Color.rgb(20, 24, 34), Color.rgb(74, 54, 28), Color.rgb(12, 12, 18)),
+                floatArrayOf(0f, 0.5f, 1f),
+                Shader.TileMode.CLAMP
+            )
+        }
+        canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), backgroundPaint)
+
+        val glowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.argb(44, 255, 221, 150)
+        }
+        canvas.drawCircle(width / 2f, 430f, 430f, glowPaint)
+        canvas.drawCircle(width / 2f, 1050f, 640f, glowPaint)
+
+        val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.rgb(255, 224, 166)
+            textAlign = Paint.Align.CENTER
+            textSize = 42f
+            letterSpacing = 0.06f
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SANS_SERIF, android.graphics.Typeface.BOLD)
+        }
+        canvas.drawText("MOMENTO COM DEUS", width / 2f, 250f, labelPaint)
+
+        val momentPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.WHITE
+            textAlign = Paint.Align.CENTER
+            textSize = 72f
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.BOLD)
+        }
+        canvas.drawText(momento.uppercase(), width / 2f, 350f, momentPaint)
+
+        val messagePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.WHITE
+            textAlign = Paint.Align.CENTER
+            textSize = calcularFonteImagem(palavra.mensagem)
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.BOLD_ITALIC)
+        }
+        var currentY = 610f
+        quebrarTexto(palavra.mensagem, messagePaint, width - 160).forEach { line ->
+            canvas.drawText(line, width / 2f, currentY, messagePaint)
+            currentY += messagePaint.textSize + 20f
+        }
+
+        val versePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.rgb(255, 231, 190)
+            textAlign = Paint.Align.CENTER
+            textSize = 40f
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SANS_SERIF, android.graphics.Typeface.BOLD)
+        }
+        currentY += 80f
+        quebrarTexto(palavra.versiculo, versePaint, width - 180).forEach { line ->
+            canvas.drawText(line, width / 2f, currentY, versePaint)
+            currentY += 52f
+        }
+
+        val actionPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.argb(235, 255, 255, 255)
+            textAlign = Paint.Align.CENTER
+            textSize = 34f
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SANS_SERIF, android.graphics.Typeface.NORMAL)
+        }
+        currentY += 90f
+        quebrarTexto(palavra.acao, actionPaint, width - 180).take(4).forEach { line ->
+            canvas.drawText(line, width / 2f, currentY, actionPaint)
+            currentY += 46f
+        }
+
+        val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.argb(150, 255, 222, 156)
+            strokeWidth = 4f
+        }
+        canvas.drawLine(230f, height - 265f, width - 230f, height - 265f, linePaint)
+
+        val footerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.argb(230, 255, 255, 255)
+            textAlign = Paint.Align.CENTER
+            textSize = 38f
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SANS_SERIF, android.graphics.Typeface.NORMAL)
+        }
+        canvas.drawText("Maná Diário • Palavra, oração e fé", width / 2f, height - 185f, footerPaint)
+
+        return bitmap
+    }
+
+    private fun calcularFonteImagem(texto: String): Float {
+        return when {
+            texto.length > 95 -> 48f
+            texto.length > 70 -> 54f
+            else -> 62f
+        }
+    }
+
+    private fun quebrarTexto(texto: String, paint: Paint, maxWidth: Int): List<String> {
+        val palavras = texto.split(" ")
+        val linhas = mutableListOf<String>()
+        var linhaAtual = ""
+
+        palavras.forEach { palavra ->
+            val tentativa = if (linhaAtual.isBlank()) palavra else "$linhaAtual $palavra"
+            if (paint.measureText(tentativa) <= maxWidth) {
+                linhaAtual = tentativa
+            } else {
+                if (linhaAtual.isNotBlank()) linhas.add(linhaAtual)
+                linhaAtual = palavra
+            }
+        }
+
+        if (linhaAtual.isNotBlank()) linhas.add(linhaAtual)
+        return linhas
+    }
+
+    private fun salvarImagemTemporaria(bitmap: Bitmap): Uri {
+        val imagesDir = File(requireContext().cacheDir, "images")
+        if (!imagesDir.exists()) imagesDir.mkdirs()
+
+        val imageFile = File(imagesDir, "momento_com_deus.png")
+        FileOutputStream(imageFile).use { outputStream ->
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        }
+
+        return FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.fileprovider",
+            imageFile
+        )
     }
 
     private fun formatarMomento(): String {
