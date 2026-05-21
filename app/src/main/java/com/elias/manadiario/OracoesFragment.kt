@@ -4,16 +4,26 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.LinearGradient
+import android.graphics.Paint
+import android.graphics.Shader
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import java.io.File
+import java.io.FileOutputStream
 import kotlin.random.Random
 
 class OracoesFragment : Fragment() {
@@ -76,11 +86,7 @@ class OracoesFragment : Fragment() {
         )
     )
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_oracoes, container, false)
     }
 
@@ -93,6 +99,7 @@ class OracoesFragment : Fragment() {
         val btnNovaOracao = view.findViewById<MaterialButton>(R.id.btnNovaOracao)
         val btnCopiarOracao = view.findViewById<MaterialButton>(R.id.btnCopiarOracao)
         val btnCompartilharOracao = view.findViewById<MaterialButton>(R.id.btnCompartilharOracao)
+        val btnCompartilharImagemOracao = view.findViewById<MaterialButton>(R.id.btnCompartilharImagemOracao)
 
         montarChipsDeCategorias()
         selecionarCategoria(categorias.first())
@@ -103,6 +110,7 @@ class OracoesFragment : Fragment() {
 
         btnCopiarOracao.setOnClickListener { copiarOracao() }
         btnCompartilharOracao.setOnClickListener { compartilharOracao() }
+        btnCompartilharImagemOracao.setOnClickListener { compartilharImagemDaOracao() }
     }
 
     private fun montarChipsDeCategorias() {
@@ -139,6 +147,135 @@ class OracoesFragment : Fragment() {
             putExtra(Intent.EXTRA_TEXT, formatarOracaoParaCompartilhar())
         }
         startActivity(Intent.createChooser(intent, getString(R.string.prayer_room_share_chooser)))
+    }
+
+    private fun compartilharImagemDaOracao() {
+        val categoria = categoriaAtual?.nome ?: getString(R.string.prayer_room_title)
+
+        try {
+            val bitmap = criarImagemDaOracao(categoria, oracaoAtual)
+            val imageUri = salvarImagemTemporaria(bitmap)
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                type = "image/png"
+                putExtra(Intent.EXTRA_STREAM, imageUri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            startActivity(Intent.createChooser(intent, getString(R.string.prayer_room_image_share_title)))
+        } catch (exception: Exception) {
+            Toast.makeText(requireContext(), getString(R.string.prayer_room_image_error), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun criarImagemDaOracao(categoria: String, oracao: String): Bitmap {
+        val width = 1080
+        val height = 1920
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        val backgroundPaint = Paint().apply {
+            shader = LinearGradient(
+                0f,
+                0f,
+                width.toFloat(),
+                height.toFloat(),
+                intArrayOf(Color.rgb(18, 22, 32), Color.rgb(82, 58, 30), Color.rgb(10, 10, 14)),
+                floatArrayOf(0f, 0.48f, 1f),
+                Shader.TileMode.CLAMP
+            )
+        }
+        canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), backgroundPaint)
+
+        val glowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.argb(44, 255, 220, 150)
+        }
+        canvas.drawCircle(width / 2f, 430f, 440f, glowPaint)
+        canvas.drawCircle(width / 2f, 1100f, 620f, glowPaint)
+
+        val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.rgb(255, 224, 166)
+            textAlign = Paint.Align.CENTER
+            textSize = 44f
+            letterSpacing = 0.06f
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SANS_SERIF, android.graphics.Typeface.BOLD)
+        }
+        canvas.drawText("ORAÇÃO DE $categoria".uppercase(), width / 2f, 300f, labelPaint)
+
+        val prayerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.WHITE
+            textAlign = Paint.Align.CENTER
+            textSize = calcularFonteOracao(oracao)
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SERIF, android.graphics.Typeface.BOLD_ITALIC)
+        }
+
+        val linhas = quebrarTexto(oracao, prayerPaint, width - 170)
+        val lineHeight = prayerPaint.textSize + 22f
+        val blockHeight = linhas.size * lineHeight
+        var currentY = ((height - blockHeight) / 2f).coerceIn(520f, 780f)
+
+        linhas.forEach { line ->
+            canvas.drawText(line, width / 2f, currentY, prayerPaint)
+            currentY += lineHeight
+        }
+
+        val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.argb(150, 255, 222, 156)
+            strokeWidth = 4f
+        }
+        canvas.drawLine(230f, height - 265f, width - 230f, height - 265f, linePaint)
+
+        val footerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.argb(230, 255, 255, 255)
+            textAlign = Paint.Align.CENTER
+            textSize = 38f
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.SANS_SERIF, android.graphics.Typeface.NORMAL)
+        }
+        canvas.drawText("Maná Diário • Ore com fé", width / 2f, height - 185f, footerPaint)
+
+        return bitmap
+    }
+
+    private fun calcularFonteOracao(texto: String): Float {
+        return when {
+            texto.length > 180 -> 42f
+            texto.length > 140 -> 46f
+            texto.length > 100 -> 52f
+            else -> 58f
+        }
+    }
+
+    private fun quebrarTexto(texto: String, paint: Paint, maxWidth: Int): List<String> {
+        val palavras = texto.split(" ")
+        val linhas = mutableListOf<String>()
+        var linhaAtual = ""
+
+        palavras.forEach { palavra ->
+            val tentativa = if (linhaAtual.isBlank()) palavra else "$linhaAtual $palavra"
+            if (paint.measureText(tentativa) <= maxWidth) {
+                linhaAtual = tentativa
+            } else {
+                if (linhaAtual.isNotBlank()) linhas.add(linhaAtual)
+                linhaAtual = palavra
+            }
+        }
+
+        if (linhaAtual.isNotBlank()) linhas.add(linhaAtual)
+        return linhas
+    }
+
+    private fun salvarImagemTemporaria(bitmap: Bitmap): Uri {
+        val imagesDir = File(requireContext().cacheDir, "images")
+        if (!imagesDir.exists()) imagesDir.mkdirs()
+
+        val imageFile = File(imagesDir, "oracao_mana_diario.png")
+        FileOutputStream(imageFile).use { outputStream ->
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        }
+
+        return FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.fileprovider",
+            imageFile
+        )
     }
 
     private fun formatarOracaoParaCompartilhar(): String {
