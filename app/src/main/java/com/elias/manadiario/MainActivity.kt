@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun abrirMenuMais() {
-        val bottomSheet = MaisOpcoesBottomSheet(opcoesMais) { opcaoSelecionada ->
+        val drawerDialog = MaisOpcoesDrawerDialog(opcoesMais) { opcaoSelecionada ->
             when (opcaoSelecionada.id) {
                 MaisOpcao.ID_THEMES -> replaceFragment(LibraryFragment())
 
@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        bottomSheet.show(supportFragmentManager, "mais_opcoes")
+        drawerDialog.show(supportFragmentManager, "mais_drawer")
     }
 
     private fun abrirJornadaDevocional() {
