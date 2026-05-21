@@ -9,9 +9,20 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class MaisOpcoesAdapter(
-    private val opcoes: List<MaisOpcao>,
+    opcoes: List<MaisOpcao>,
     private val onClick: (MaisOpcao) -> Unit
-) : RecyclerView.Adapter<MaisOpcoesAdapter.MaisOpcaoViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    companion object {
+        private const val VIEW_TYPE_SECTION = 0
+        private const val VIEW_TYPE_OPTION = 1
+    }
+
+    private val itens: List<MaisMenuItem> = montarItensAgrupados(opcoes)
+
+    inner class SecaoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tituloSecao: TextView = itemView.findViewById(R.id.textViewSecaoMais)
+    }
 
     inner class MaisOpcaoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textoOpcao: TextView = itemView.findViewById(R.id.textViewOpcao)
@@ -19,14 +30,35 @@ class MaisOpcoesAdapter(
         val imgIcon: ImageView = itemView.findViewById(R.id.imgIcon)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaisOpcaoViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_mais_opcao, parent, false)
-        return MaisOpcaoViewHolder(view)
+    override fun getItemViewType(position: Int): Int {
+        return when (itens[position]) {
+            is MaisMenuItem.Secao -> VIEW_TYPE_SECTION
+            is MaisMenuItem.Opcao -> VIEW_TYPE_OPTION
+        }
     }
 
-    override fun onBindViewHolder(holder: MaisOpcaoViewHolder, position: Int) {
-        val opcao = opcoes[position]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return if (viewType == VIEW_TYPE_SECTION) {
+            SecaoViewHolder(inflater.inflate(R.layout.item_mais_secao, parent, false))
+        } else {
+            MaisOpcaoViewHolder(inflater.inflate(R.layout.item_mais_opcao, parent, false))
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (val item = itens[position]) {
+            is MaisMenuItem.Secao -> {
+                (holder as SecaoViewHolder).tituloSecao.text = item.titulo
+            }
+
+            is MaisMenuItem.Opcao -> {
+                bindOpcao(holder as MaisOpcaoViewHolder, item.opcao)
+            }
+        }
+    }
+
+    private fun bindOpcao(holder: MaisOpcaoViewHolder, opcao: MaisOpcao) {
         val context = holder.itemView.context
 
         holder.textoOpcao.text = opcao.titulo
@@ -42,7 +74,55 @@ class MaisOpcoesAdapter(
         }
     }
 
-    override fun getItemCount() = opcoes.size
+    override fun getItemCount() = itens.size
+
+    private fun montarItensAgrupados(opcoes: List<MaisOpcao>): List<MaisMenuItem> {
+        val porId = opcoes.associateBy { it.id }
+        val itens = mutableListOf<MaisMenuItem>()
+
+        fun adicionarSecao(titulo: String, ids: List<String>) {
+            val opcoesDaSecao = ids.mapNotNull { porId[it] }
+            if (opcoesDaSecao.isEmpty()) return
+
+            itens.add(MaisMenuItem.Secao(titulo))
+            opcoesDaSecao.forEach { itens.add(MaisMenuItem.Opcao(it)) }
+        }
+
+        adicionarSecao(
+            "DEVOCIONAL",
+            listOf(
+                MaisOpcao.ID_DEVOTIONAL_IMAGE,
+                MaisOpcao.ID_GOD_MOMENT,
+                MaisOpcao.ID_PRAYERS,
+                MaisOpcao.ID_PROMISE_BOX,
+                MaisOpcao.ID_FAITH_MESSAGE
+            )
+        )
+        adicionarSecao(
+            "BÍBLIA",
+            listOf(
+                MaisOpcao.ID_SEARCH_BIBLE,
+                MaisOpcao.ID_FAVORITE_VERSES,
+                MaisOpcao.ID_FAVORITES
+            )
+        )
+        adicionarSecao(
+            "APP",
+            listOf(
+                MaisOpcao.ID_THEMES,
+                MaisOpcao.ID_SETTINGS
+            )
+        )
+
+        val idsUsados = itens.filterIsInstance<MaisMenuItem.Opcao>().map { it.opcao.id }.toSet()
+        val extras = opcoes.filterNot { it.id in idsUsados }
+        if (extras.isNotEmpty()) {
+            itens.add(MaisMenuItem.Secao("OUTROS"))
+            extras.forEach { itens.add(MaisMenuItem.Opcao(it)) }
+        }
+
+        return itens
+    }
 
     private fun getDescricaoOpcao(id: String): String {
         return when (id) {
