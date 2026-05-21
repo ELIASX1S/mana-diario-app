@@ -16,6 +16,7 @@ data class MaisOpcao(
         const val ID_FAITH_MESSAGE = "mensagem_fe"
         const val ID_PRAYERS = "oracoes"
         const val ID_GOD_MOMENT = "momento_com_deus"
+        const val ID_DEVOTIONAL_IMAGE = "devocional_imagem"
         const val ID_SETTINGS = "configuracoes"
     }
 }
