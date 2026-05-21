@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textViewSecaoMais"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="14dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_menu_section_label"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="6dp"
+    android:textColor="@color/cor_primaria"
+    android:textSize="12sp"
+    android:textStyle="bold" />
