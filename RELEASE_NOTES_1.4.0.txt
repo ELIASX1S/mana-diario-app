@@ -1,0 +1,11 @@
+Maná Diário 1.4.0
+
+Novidades desta versão:
+- Nova área Orações com categorias por momento.
+- Nova área Momento com Deus com palavra, oração, versículo e ação prática.
+- Nova área Devocional em Imagem.
+- Compartilhamento em imagem para promessas, orações, devocional e Momento com Deus.
+- Menu Mais reorganizado com seções, ícones e descrições.
+- Melhor controle de anúncios intersticiais.
+- Melhorias na Caixinha de Promessas.
+- Ajustes em configurações, notificações e experiência geral.
